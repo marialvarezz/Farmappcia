@@ -1,4 +1,4 @@
-package maqueta.grupo4.version1.controller;
+package farmappceuticos.farmappcia.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

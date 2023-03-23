@@ -10,4 +10,12 @@ public class FeelingCareApplication {
 		SpringApplication.run(FeelingCareApplication.class, args);
 	}
 
+	@SpringBootApplication
+	public static class Version1Application {
+
+		public static void main(String[] args) {
+			SpringApplication.run(Version1Application.class, args);
+		}
+
+	}
 }
