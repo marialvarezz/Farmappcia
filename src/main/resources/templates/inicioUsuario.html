@@ -57,10 +57,10 @@
 
               <li class="dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
-                <li><a href="#">Tus medicamentos</a></li>
-                <li><a href="#">Catálogo</a></li>
-                <li><a href="#">Incompatibilidades</a></li>
-                <li><a href="#">Favoritos</a></li>
+                <li><a th:href="@{/usuario/tusmedicamentos}">Tus medicamentos</a></li>
+                <li><a th:href="@{/usuario/catalogomedicamentos}">Catálogo</a></li>
+                <li><a th:href="@{/usuario/incompatibilidadesmedicamentos}">Incompatibilidades</a></li>
+                <li><a th:href="@{/usuario/medicamentosfavoritos}">Favoritos</a></li>
               </ul> </li>
           <li><a th:href="@{/usuario/agenda}">Agenda</a></li>
           <li class="dropdown"><a href="#"><span>Cuestionario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
