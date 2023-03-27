@@ -46,46 +46,35 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a th:href="@{/usuario/}" class="logo d-flex align-items-center">
+      <a th:href="@{/}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="/img/logo.png" alt="FeelingCare Logo">
+
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-
-
               <li class="dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
-                <li><a href="#">Tus medicamentos</a></li>
                 <li><a href="#">Catálogo</a></li>
                 <li><a href="#">Incompatibilidades</a></li>
-                <li><a href="#">Favoritos</a></li>
-              </ul> </li>
-          <li><a th:href="@{/usuario/agenda}">Agenda</a></li>
-          <li class="dropdown"><a href="#"><span>Cuestionario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Cuestionarios</a></li>
-              <li><a href="#">Tus Respuestas</a></li>
-              <li><a href="#">Estadísticas</a></li>
-            </ul>
-          </li>
+              </ul>
+            </li>
           <li class="dropdown"><a href="#"><span>Información de interés</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contacto</a></li>
               <li><a href="#">Noticias del día</a></li>
               <li><a href="#">Hospitales cercanos</a></li>
               <li><a href="#">Consejos para dejar de fumar</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Usuarios</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li><a href="single-post.html">About Us</a></li>
+          <li><a href="single-post.html">Contacto</a></li>
+          <li class="dropdown"><a href="#"><span>Usuario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a th:href="@{/usuario/historialmedico}">Historial Médico</a></li>
-              <li><a th:href="@{/usuario/datosusuario}">Datos del Usuario</a></li>
-              <li><a th:href="@{/usuario/configuracion}">Configuración</a></li>
-              <li><a th:href="@{/}">Log Out<!--Se cerraría sesión--></a></li>
+              <li><a th:href="@{/login}">Inicio Sesión</a></li>
+              <li><a href="#">Registro</a></li>
             </ul>
+          </li>
           </li>
         </ul>
       </nav><!-- .navbar -->
@@ -114,7 +103,7 @@
   </header><!-- End Header -->
 
   <main id="main">
-    <H3>Aquí se verá el historial médico del usuario</H3>
+    <H1> Esto va a ser la página de inicio</H1>
 
   </main><!-- End #main -->
 
