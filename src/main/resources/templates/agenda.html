@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html th:lang="en" xmlns:th="thymeleaf.org"
+
+      xmlns:layout="ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>FeelingCare</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+
+    <!-- Template Main CSS Files -->
+    <link th:href="@{/css/variables.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: ZenBlog
+    * Updated: Mar 10 2023 with Bootstrap v5.2.3
+    * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
+    * Author: BootstrapMade.com
+    * License: https:///bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+        <a th:href="@{/}" class="logo d-flex align-items-center">
+            <!-- Uncomment the line below if you also wish to use an image logo -->
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <img src="/img/fclogo.png" alt="FeelingCare logo">
+        </a>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a th:href="@{/}">Inicio</a></li>
+                <li class="dropdown"><a href="#"><span>Usuarios</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a th:href="@{/login}">Log In</a></li>
+                        <li><a th:href="@{/usuarios/logout}">Log Out</a></li>
+                        <li><a href="#">Historial Médico</a></li>
+                        <li><a href="#">Datos del Usuario</a></li>
+                    </ul>
+                </li>
+                <li><a th:href="@{/agenda}">Agenda</a></li>
+                <li class="dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                    <ul>
+                        <li><a href="#">Tomando Actualmente</a></li>
+                        <li><a href="#">Catálogo</a></li>
+                        <li><a href="#">Incompatibilidades</a></li>
+                        <li><a href="#">Favoritos</a></li>
+                    </ul>
+                </li>
+                </li>
+            </ul>
+        </nav><!-- .navbar -->
+
+        <div class="position-relative">
+            <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
+            <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
+            <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
+
+            <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+
+            <!-- ======= Search Form ======= -->
+            <div class="search-form-wrap js-search-form-wrap">
+                <form action="search-result.html" class="search-form">
+                    <span class="icon bi-search"></span>
+                    <input type="text" placeholder="Search" class="form-control">
+                    <button class="btn js-search-close"><span class="bi-x"></span></button>
+                </form>
+            </div><!-- End Search Form -->
+
+        </div>
+
+    </div>
+
+</header><!-- End Header -->
+
+<main id="main">
+    <H1>Agenda</H1>
+    <div>
+        Fecha-Hora(C): <input type="datetime-local" name="c"><br><br>
+    </div>
+    <!-- <aside>
+       <ul class="barra">
+         <li><a th:href="@{/agenda/citas}">Citas</a></li>
+         <li><a th:href="@{/agenda/notificaciones}">Notificaciones</a></li>
+       </ul>
+     </aside>-->
+
+    <table id="calendar">
+        <style>
+
+    aside{
+      position: absolute;
+      border: 2px;
+      background: #f2f2f2;
+      height: 540px;
+      width: 205px;
+      }
+    ul.barra{
+      list-style-type: none;
+      margin: 10px;
+      padding: 0;
+      font-size: 140%;
+      }
+    #main{
+      margin-top: 95px;
+      margin-left: 15px;
+      margin-bottom: 40px;
+      }
+      #calendar{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin-top: -20px;
+      }
+      #calendar tr, #calendar tbody{
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        width: 100%;
+        }
+      #calendar td, #calendar th{
+        padding: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        }
+      .other-month{
+        background: #f5f5f5;
+        color: #666;
+        }
+      .date{
+        font-weight: bold;
+        }
+      .event{
+        flex: 0 0 auto;
+        font-size: 13px;
+        border-radius: 4px;
+        padding: 5px;
+        line-height: 14px;
+        background: #e4f2f2;
+        border: 1px solid #b5dbdc;
+        color: black;
+        text-decoration: none;
+        }
+      caption{
+        text-align: center;
+        grid-column: 1 / -1;
+        font-size: 130%;
+        font-weight: bold;
+        padding: 10px 0;
+        }
+        /* ============================
+				Mobile Responsiveness
+          ============================*/
+
+
+  @media(max-width: 412px) {
+
+      #calendar .weekdays, #calendar .other-month {
+          display: none;
+      }
+
+      #calendar li {
+          height: auto !important;
+          border: 1px solid #ededed;
+          width: 100%;
+          padding: 10px;
+          margin-bottom: -1px;
+          margin-right: -5px;
+      }
+
+    #calendar, #calendar tr, #calendar tbody {
+      grid-template-columns: 1fr;
+    }
+
+    #calendar  tr {
+      grid-column: 1 / 2;
+    }
+
+      #calendar .date {
+          align-self: flex-start;
+      }
+}
+
+    </style>
+        <caption>Marzo 2023</caption>
+        </tr>
+        <tr class="weekdays">
+            <th scope="col">Lunes</th>
+            <th scope="col">Martes</th>
+            <th scope="col">Miercoles</th>
+            <th scope="col">Jueves</th>
+            <th scope="col">Viernes</th>
+            <th scope="col">Sábado</th>
+            <th scope="col">Domingo</th>
+        </tr>
+        <tr class="days">
+            <td class="day other-month">
+                <div class="date">27</div>
+            </td>
+            <td class="day other-month">
+                <div class="date">28</div>
+                <div class="event">
+                    <div class="event-desc">
+                        Tomar 1 dosis<br>
+                        de Paracetamol
+                    </div>
+                    <div class="event-time">
+                        9:00am
+                    </div>
+                </div>
+            </td>
+
+
+            <td class="day">
+                <div class="date">1</div>
+            </td>
+            <td class="day">
+                <div class="date">2</div>
+            </td>
+            <td class="day">
+                <div class="date">3</div>
+            </td>
+            <td class="day">
+                <div class="date">4</div>
+            </td>
+            <td class="day">
+                <div class="date">5</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <div class="date">6</div>
+            </td>
+            <td class="day">
+                <div class="date">7</div>
+            </td>
+            <td class="day">
+                <div class="date">8</div>
+            </td>
+            <td class="day">
+                <div class="date">9</div>
+            </td>
+
+
+            <td class="day">
+                <div class="date">10</div>
+                <div class="event">
+                    <div class="event-desc">
+                        Cita Médico <br>
+                        Centro de Salud X <br>
+                        Dra. Rodriguez
+                    </div>
+                    <div class="event-time">
+                        11:00am - 1:00pm
+                    </div>
+                </div>
+            </td>
+            <td class="day">
+                <div class="date">11</div>
+            </td>
+            <td class="day">
+                <div class="date">12</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <div class="date">13</div>
+            </td>
+            <td class="day">
+                <div class="date">14</div>
+                <div class="event">
+                    <div class="event-desc">
+                        Tomar 1 dosis<br>
+                        de Paracetamol
+                    </div>
+                    <div class="event-time">
+                        9:00am
+                    </div>
+                </div>
+            </td>
+            <td class="day">
+                <div class="date">15</div>
+            </td>
+            <td class="day">
+                <div class="date">16</div>
+            </td>
+
+            <td class="day">
+                <div class="date">17</div>
+            </td>
+            <td class="day">
+                <div class="date">18</div>
+            </td>
+            <td class="day">
+                <div class="date">19</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <div class="date">20</div>
+            </td>
+            <td class="day">
+                <div class="date">21</div>
+            </td>
+            <td class="day">
+                <div class="date">22</div>
+                <div class="event">
+                    <div class="event-desc">
+                        Cita Fisioterapeuta<br>
+                        Centro de Salud X <br>
+                        Dr. Gonzales
+                    </div>
+                    <div class="event-time">
+                        9:00am to 12:00pm
+                    </div>
+                </div>
+            </td>
+            <td class="day">
+                <div class="date">23</div>
+            </td>
+            <td class="day">
+                <div class="date">24</div>
+            </td>
+            <td class="day">
+                <div class="date">25</div>
+                <div class="event">
+                    <div class="event-desc">
+                        Tomar 1 dosis<br>
+                        de Amoxicilina
+                    </div>
+                    <div class="event-time">
+                        1:00pm
+                    </div>
+                </div>
+            </td>
+            <td class="day">
+                <div class="date">26</div>
+            </td>
+        </tr>
+        <tr>
+            <td class="day">
+                <div class="date">27</div>
+            </td>
+            <td class="day">
+                <div class="date">28</div>
+                <div class="event">
+                    <div class="event-desc">
+                        Tomar 1 dosis<br>
+                        de Paracetamol
+                    </div>
+                    <div class="event-time">
+                        9:00am
+                    </div>
+                </div>
+            </td>
+            <td class="day">
+                <div class="date">29</div>
+            </td>
+            <td class="day">
+                <div class="date">30</div>
+            </td>
+
+            <td class="day">
+                <div class="date">31</div>
+            </td>
+            <!-- Next Month -->
+            <td class="day other-month">
+                <div class="date">1</div>
+
+            </td>
+            <td class="day other-month">
+                <div class="date">2</div>
+            </td>
+        </tr>
+    </table>
+
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+
+    <div class="footer-content">
+        <div class="container">
+
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h3 class="footer-heading">About ZenBlog</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
+                    <p><a href="about.html" class="footer-link-more">Learn More</a></p>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h3 class="footer-heading">Navigation</h3>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Home</a></li>
+                        <li><a href="index.html"><i class="bi bi-chevron-right"></i> Blog</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Categories</a></li>
+                        <li><a href="single-post.html"><i class="bi bi-chevron-right"></i> Single Post</a></li>
+                        <li><a href="about.html"><i class="bi bi-chevron-right"></i> About us</a></li>
+                        <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h3 class="footer-heading">Categories</h3>
+                    <ul class="footer-links list-unstyled">
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Politics</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Startups</a></li>
+                        <li><a href="category.html"><i class="bi bi-chevron-right"></i> Travel</a></li>
+
+                    </ul>
+                </div>
+
+                <div class="col-lg-4">
+                    <h3 class="footer-heading">Recent Posts</h3>
+
+                    <ul class="footer-links footer-blog-entry list-unstyled">
+                        <li>
+                            <a href="single-post.html" class="d-flex align-items-center">
+                                <img src="assets/img/post-sq-1.jpg" alt="" class="img-fluid me-3">
+                                <div>
+                                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                    <span>5 Great Startup Tips for Female Founders</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="single-post.html" class="d-flex align-items-center">
+                                <img src="assets/img/post-sq-2.jpg" alt="" class="img-fluid me-3">
+                                <div>
+                                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                    <span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="single-post.html" class="d-flex align-items-center">
+                                <img src="assets/img/post-sq-3.jpg" alt="" class="img-fluid me-3">
+                                <div>
+                                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                    <span>Life Insurance And Pregnancy: A Working Mom’s Guide</span>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="single-post.html" class="d-flex align-items-center">
+                                <img src="assets/img/post-sq-4.jpg" alt="" class="img-fluid me-3">
+                                <div>
+                                    <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                    <span>How to Avoid Distraction and Stay Focused During Video Calls?</span>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-legal">
+        <div class="container">
+
+            <div class="row justify-content-between">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <div class="copyright">
+                        © Copyright <strong><span>ZenBlog</span></strong>. All Rights Reserved
+                    </div>
+
+                    <div class="credits">
+                        <!-- All the links in the footer should remain intact. -->
+                        <!-- You can delete the links only if you purchased the pro version. -->
+                        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/herobiz-bootstrap-business-template/ -->
+                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</footer>
+
+<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/swiper/swiper-bundle.min.js}"></script>
+<script th:src="@{/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/vendor/aos/aos.js}"></script>
+<script th:src="@{/vendor/php-email-form/validate.js}"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
