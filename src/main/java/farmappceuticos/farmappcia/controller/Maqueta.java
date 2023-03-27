@@ -15,4 +15,6 @@ public class Maqueta {
     public String vistaHistorialMedico() {return "historialmedico";}
     @GetMapping("/usuarios/datosdelusuario")
     public String vistaDatosDelUsuario() {return "datosdelusuario";}
+    @GetMapping("/agenda")
+    public String vistaAgenda() {return "agenda";}
 }
