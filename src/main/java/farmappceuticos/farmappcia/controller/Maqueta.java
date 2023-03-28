@@ -11,6 +11,10 @@ public class Maqueta {
     public String vistaLogin() {return "login";}
     @GetMapping("/logout")
     public String vistaLogout() {return "logout";}
+    @GetMapping("/medicamentos")
+    public String catMedIni() {return "catalogomedicamentosinicio";}
+    @GetMapping("/incompatibles")
+    public String incompatiblies() {return "incompatibilidadesmedicamentosinicio";}
 
 
 }
