@@ -23,4 +23,16 @@ public class UserController {
 
    @GetMapping("/agenda")
    public String vistaAgenda() {return "agenda";}
+
+   @GetMapping("/tusmedicamentos")
+   public String tusMedicamentos() {return "tusmedicamentos";}
+
+   @GetMapping("/catalogomedicamentos")
+   public String catalogoMedicamentos() {return "catalogomedicamentos";}
+
+   @GetMapping("/incompatibilidadesmedicamentos")
+   public String incompatibilidadesMedicamentos() {return "incompatibilidadesmedicamentos";}
+
+   @GetMapping("/medicamentosfavoritos")
+   public String medicamentosFavoritos() {return "medicamentosfavoritos";}
 }
