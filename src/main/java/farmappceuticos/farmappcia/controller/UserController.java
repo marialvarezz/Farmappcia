@@ -10,29 +10,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/usuario")
 public class UserController {
    @GetMapping("/")
-   public String inicioUsuario(){return "inicioUsuario";}
+   public String inicioUsuario(){return "userinicio";}
 
    @GetMapping("/datosusuario")
-   public String datosUsuario(){return "datosdelusuario";}
+   public String datosUsuario(){return "userdata";}
 
    @GetMapping("/historialmedico")
-   public String historialMedico(){return "historialmedico";}
+   public String historialMedico(){return "userhistorialmedico";}
 
    @GetMapping("/configuracion")
-   public String settings(){return "settings";}
+   public String settings(){return "usersettings";}
 
    @GetMapping("/agenda")
-   public String vistaAgenda() {return "agenda";}
+   public String vistaAgenda() {return "useragenda";}
 
    @GetMapping("/tusmedicamentos")
-   public String tusMedicamentos() {return "tusmedicamentos";}
+   public String tusMedicamentos() {return "usertusmedicamentos";}
 
    @GetMapping("/catalogomedicamentos")
-   public String catalogoMedicamentos() {return "catalogomedicamentos";}
+   public String catalogoMedicamentos() {return "usercatalogomedicamentos";}
 
    @GetMapping("/incompatibilidadesmedicamentos")
-   public String incompatibilidadesMedicamentos() {return "incompatibilidadesmedicamentos";}
+   public String incompatibilidadesMedicamentos() {return "userincompatibilidadesmedicamentos";}
 
    @GetMapping("/medicamentosfavoritos")
-   public String medicamentosFavoritos() {return "medicamentosfavoritos";}
+   public String medicamentosFavoritos() {return "usermedicamentosfavoritos";}
+   @GetMapping("/aboutus")
+   public String aboutUser() {return "userabout";}
+   @GetMapping("/contacto")
+   public String contactusUser() {return "usercontacto";}
+   @GetMapping("/noticias")
+   public String noticiasUser() {return "usernoticias";}
+   @GetMapping("/hospitalescercanos")
+   public String hospitalesUser() {return "userhospitales";}
+   @GetMapping("/consejos")
+   public String consejosUser() {return "userconsejosf";}
 }
