@@ -55,13 +55,13 @@
         <ul>
 
 
-              <li class="dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-              <ul>
-                <li><a th:href="@{/usuario/tusmedicamentos}">Tus medicamentos</a></li>
-                <li><a th:href="@{/usuario/catalogomedicamentos}">Catálogo</a></li>
-                <li><a th:href="@{/usuario/incompatibilidadesmedicamentos}">Incompatibilidades</a></li>
-                <li><a th:href="@{/usuario/medicamentosfavoritos}">Favoritos</a></li>
-              </ul> </li>
+          <li class="dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul>
+              <li><a th:href="@{/usuario/tusmedicamentos}">Tus medicamentos</a></li>
+              <li><a th:href="@{/usuario/catalogomedicamentos}">Catálogo</a></li>
+              <li><a th:href="@{/usuario/incompatibilidadesmedicamentos}">Incompatibilidades</a></li>
+              <li><a th:href="@{/usuario/medicamentosfavoritos}">Favoritos</a></li>
+            </ul> </li>
           <li><a th:href="@{/usuario/agenda}">Agenda</a></li>
           <li class="dropdown"><a href="#"><span>Cuestionario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
@@ -72,11 +72,11 @@
           </li>
           <li class="dropdown"><a href="#"><span>Información de interés</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contacto</a></li>
-              <li><a href="#">Noticias del día</a></li>
-              <li><a href="#">Hospitales cercanos</a></li>
-              <li><a href="#">Consejos para dejar de fumar</a></li>
+              <li><a th:href="@{/usuario/aboutus}">About Us</a></li>
+              <li><a th:href="@{/usuario/contacto}">Contacto</a></li>
+              <li><a th:href="@{/usuario/noticias}">Noticias</a></li>
+              <li><a th:href="@{/usuario/hospitalescercanos}">Hospitales cercanos</a></li>
+              <li><a th:href="@{/usuario/consejos}">Consejos para dejar de fumar</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>Usuarios</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
@@ -114,7 +114,7 @@
   </header><!-- End Header -->
 
   <main id="main">
-    <H1> Esto va a ser la página de inicio</H1>
+    <H3>Aquí se verá el historial médico del usuario</H3>
 
   </main><!-- End #main -->
 
