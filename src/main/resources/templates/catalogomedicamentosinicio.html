@@ -62,13 +62,13 @@
                 </li>
                 <li class="dropdown"><a href="#"><span>Información de interés</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
-                        <li><a href="#">Noticias del día</a></li>
-                        <li><a href="#">Hospitales cercanos</a></li>
-                        <li><a href="#">Consejos para dejar de fumar</a></li>
+                        <li><a th:href="@{/noticias}">Noticias del día</a></li>
+                        <li><a th:href="@{/hospitalescercanos}">Hospitales cercanos</a></li>
+                        <li><a th:href="@{/consejos}">Consejos para dejar de fumar</a></li>
                     </ul>
                 </li>
-                <li><a href="single-post.html">About Us</a></li>
-                <li><a href="single-post.html">Contacto</a></li>
+                <li><a th:href="@{/aboutus}">About Us</a></li>
+                <li><a th:href="@{/contacto}">Contacto</a></li>
                 <li class="dropdown"><a href="#"><span>Usuario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a th:href="@{/login}">Inicio Sesión</a></li>
