@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html th:lang="en" xmlns:th="thymeleaf.org"
-
-      xmlns:layout="ultraq.net.nz/thymeleaf/layout">
+<html th:lang="#{principal.lang}" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
   <meta charset="utf-8">
@@ -114,7 +113,10 @@
   </header><!-- End Header -->
 
   <main id="main">
-    <H1> Esto va a ser la página de inicio</H1>
+    <!-- Aqui vamos a escribir las cabeceras de los bloques  -->
+    <section class="container" layout:fragment="cabecera"> </section>
+    <!-- Aqui vamos a escribir el contenido de los bloques  -->
+    <section class="container" layout:fragment="contenido"> </section>
 
   </main><!-- End #main -->
 

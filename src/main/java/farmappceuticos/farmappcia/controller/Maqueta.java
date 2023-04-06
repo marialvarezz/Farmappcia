@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class Maqueta {
     @GetMapping("/")
-    public String vistaInicial() {return "index2";}
+    public String vistaInicial() {return "index3";}
     @GetMapping("/login")
     public String vistaLogin() {return "login";}
     @GetMapping("/logout")

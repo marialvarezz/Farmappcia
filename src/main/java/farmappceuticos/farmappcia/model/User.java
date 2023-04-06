@@ -18,14 +18,24 @@ import java.time.LocalDateTime;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Integer id;
+    @Column(name="username")
     private String username;
+    @Column(name="email")
     private String email;
+    @Column(name="password")
     private String password;
+    @Column(name="birthDate")
     private LocalDate birthDate;
+    @Column(name="registrationDateTime")
     private LocalDateTime registrationDateTime;
+    @Column(name="updeteDateTime")
     private LocalDateTime updateDateTime;
+    @Column(name="tutor")
     private Integer tutor;
+
+
 
 
     //Constructors

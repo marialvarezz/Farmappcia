@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html th:lang="en" xmlns:th="thymeleaf.org"
 
-      xmlns:layout="ultraq.net.nz/thymeleaf/layout">
+<html th:lang="#{principal.lang}" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-  <meta charset="utf-8">
+  <meta th:charset="#{principal.charset}">
+  <title th:text="#{principal.title}"></title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>FeelingCare</title>
-  <meta content="" name="description">
   <meta content="" name="keywords">
+  <meta content="" name="description">
 
   <!-- Favicons -->
   <link th:href="@{/img/favicon.png}" rel="icon">
@@ -29,7 +27,6 @@
 
   <!-- Template Main CSS Files -->
   <link th:href="@{/css/variables.css}" rel="stylesheet">
-
   <link th:href="@{/css/main.css}" rel="stylesheet">
 
   <!-- =======================================================
@@ -53,7 +50,7 @@
 
       </a>
 
-      <nav id="navbar" class="navbar naves">
+      <nav id="navbar" style="font-family:century gothic black" class="navbar">
         <ul>
               <li class="dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
@@ -103,10 +100,15 @@
 
   </header><!-- End Header -->
 
-  <main id="main">
-    <H1> Esto va a ser la página de inicio</H1>
 
-  </main><!-- End #main -->
+    <div class="container-xxl py-5">
+      <!-- Aqui vamos a escribir las cabeceras de los bloques  -->
+      <section class="container" layout:fragment="cabecera"> </section>
+      <!-- Aqui vamos a escribir el contenido de los bloques  -->
+      <section class="container" layout:fragment="contenido"> </section>
+    </div>
+
+
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
