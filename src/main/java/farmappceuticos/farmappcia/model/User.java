@@ -8,13 +8,14 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "usuario")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +37,14 @@ public class User {
     private Integer tutor;
 
     //Relaciones
+
+    //Relación 1:1 con calendario
     @OneToOne(mappedBy = "user")
     private Calendar calendar;
+
+    //Relación 1:n con respuestas
+    @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
+    private Set<Answers> answers;
 
 
 
