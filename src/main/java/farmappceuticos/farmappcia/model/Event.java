@@ -34,6 +34,8 @@ public class Event {
     @Column(name="notificar_tutor")
     private Boolean notificar_tutor;
 
+    //Relaciones
+
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_calendar")
     Calendar calendar;

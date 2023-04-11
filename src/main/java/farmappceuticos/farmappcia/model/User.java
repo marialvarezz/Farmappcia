@@ -35,6 +35,10 @@ public class User {
     @Column(name="tutor")
     private Integer tutor;
 
+    //Relaciones
+    @OneToOne(mappedBy = "user")
+    private Calendar calendar;
+
 
 
 
