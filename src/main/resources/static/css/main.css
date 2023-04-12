@@ -1195,6 +1195,14 @@ section {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+.footer img{
+    width: 90px;
+}
+
+.footer p{
+    color: #fff;
+}
+
 .footer {
   overflow: hidden;
   background: rgba(var(--color-black-rgb), 0.9);
