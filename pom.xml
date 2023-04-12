@@ -64,7 +64,12 @@
 			<artifactId>entity-sql</artifactId>
 			<version>0.1.2</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-core</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
