@@ -46,6 +46,9 @@ public class User {
     @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
     private Set<Answers> answers;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST )
+    private Set<UserMedicine> userMedicines;
+
 
 
 
