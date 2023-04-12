@@ -42,13 +42,18 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Calendar calendar;
 
+    @OneToOne(mappedBy = "user")
+    private HistorialMedico historialMedico;
+
+    @OneToOne(mappedBy = "user")
+    private DatosDeUsuario datosDeUsuario;
+
     //Relación 1:n con respuestas
     @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
     private Set<Answers> answers;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST )
     private Set<UserMedicine> userMedicines;
-
 
 
 
