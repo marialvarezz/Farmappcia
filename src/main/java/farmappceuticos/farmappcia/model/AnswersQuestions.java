@@ -26,13 +26,13 @@ public class AnswersQuestions {
 
     //Cruce con etiqueta
     @ManyToOne
-    @MapsId("answers")
+    @MapsId("answersId")
     @JoinColumn(name = "answer_id")
     Answers answers;
 
     //Cruce con Galeria
     @ManyToOne
-    @MapsId("questions")
+    @MapsId("questionsId")
     @JoinColumn(name = "id_questions")
     Questions questions ;
 

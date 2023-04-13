@@ -27,7 +27,11 @@ public class IncMedicine {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "medicineA_id")
-    Medicine medicine;
+    Medicine incToMedicinesA;
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "medicineB_id")
+    Medicine incToMedicinesB;
 
     // TODO: 12/04/2023 Queda por ver cómo hacer la segunta relación ManyToOne con tabla Medicine 
 

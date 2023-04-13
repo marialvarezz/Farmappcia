@@ -44,11 +44,16 @@ public class Medicine {
     //Relaciones
 
 
-    @OneToMany(mappedBy = "userMedicines" )
+    @OneToMany(mappedBy = "medicineToMedicine" )
     private Set<UserMedicine> userMedicines;
 
-    @OneToMany(mappedBy = "medicine", cascade = CascadeType.PERSIST )
-    private Set<IncMedicine> incMedicines;
+    @OneToMany(mappedBy = "incToMedicinesA")
+    private Set<IncMedicine> incMedicinesA;
+
+    @OneToMany(mappedBy = "incToMedicinesB")
+    private Set<IncMedicine> incMedicinesB;
+
+
 
 
 
