@@ -33,14 +33,14 @@ public class UserMedicine {
     //Relaciones
 
     @ManyToOne
-    @MapsId("user")
+    @MapsId("userId")
     @JoinColumn(name = "user_id")
-    User user;
+    User userToMedicine;
 
     @ManyToOne
-    @MapsId("medicine")
+    @MapsId("medicineId")
     @JoinColumn(name = "id_medicine")
-    Medicine medicine;
+    Medicine medicineToMedicine;
 
 
 

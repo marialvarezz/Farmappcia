@@ -42,8 +42,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Calendar calendar;
 
-    @OneToOne(mappedBy = "user")
-    private HistorialMedico historialMedico;
+    @OneToOne(mappedBy = "userToHistorialMedico")
+    private HistorialMedico historialMedicoToUser;
 
     @OneToOne(mappedBy = "user")
     private DatosDeUsuario datosDeUsuario;
@@ -52,7 +52,7 @@ public class User {
     @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
     private Set<Answers> answers;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy = "userToMedicine", cascade = CascadeType.PERSIST )
     private Set<UserMedicine> userMedicines;
 
 
