@@ -30,12 +30,12 @@ public class Answers {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
-    User user;
+    User userToAnswers;
 
-    @OneToMany(mappedBy = "answers" , fetch = FetchType.EAGER)
-    private Set<Results> results;
+    @OneToMany(mappedBy = "answersToResults" , fetch = FetchType.EAGER)
+    private Set<Results> resultsToAnswers;
 
-    @OneToMany(mappedBy = "answers", cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy = "answersToQuestions", cascade = CascadeType.PERSIST )
     private Set<AnswersQuestions> answersQuestions;
 
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -13,29 +14,29 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "enfermedades")
-public class Enfermedades {
+@Table(name = "questionary")
+public class Questionary {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     @Column(name="nombre")
     private String nombre;
 
-    @Column(name="tipo")
-    private String tipo;
-
-    @Column(name="descripcion")
+    @Column(name="descripción")
     private String descripcion;
 
-    @Column(name="sintomas")
-    private String sintomas;
+    @Column(name="fecha_hora")
+    private LocalDateTime fechaHora;
 
-  //Relaciones
+    //Relaciones
 
-    @OneToMany(mappedBy = "enfermedades" , fetch = FetchType.EAGER)
-    private Set<HistorialMedico> historialMedico;
+    @OneToMany(mappedBy = "questionaryToAnswers" , fetch = FetchType.EAGER)
+    private Set<AnswersQuestions> answersToQuestions;
+
+
+
+
 
 
 }

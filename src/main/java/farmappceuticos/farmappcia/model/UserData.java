@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "datosDeUsuario")
-public class DatosDeUsuario {
+@Table(name = "userData")
+public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
@@ -58,6 +58,6 @@ public class DatosDeUsuario {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private User userToUserData;
 
 }

@@ -35,7 +35,7 @@ public class Reminder {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user_medicine")
-    UserMedicine userMedicine;
+    UserMedicine userMedicineToReminder;
 
 
 
