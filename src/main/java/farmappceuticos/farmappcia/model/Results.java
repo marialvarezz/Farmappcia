@@ -33,10 +33,10 @@ public class Results {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_answers")
-    Answers answers;
+    Answers answersToResults;
 
-    @OneToMany(mappedBy = "results" , fetch = FetchType.EAGER)
-    private Set<Tracing> tracings;
+    @OneToMany(mappedBy = "resultsToTracking" , fetch = FetchType.EAGER)
+    private Set<Tracking> trackingToResults;
 
 
 

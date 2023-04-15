@@ -29,11 +29,11 @@ public class Calendar {
     //Relaciones
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private User userToCalendar;
 
 
-    @OneToMany(mappedBy = "calendar" , fetch = FetchType.EAGER)
-    private Set<Event> event;
+    @OneToMany(mappedBy = "calendarToEvents" , fetch = FetchType.EAGER)
+    private Set<Event> eventsToCalendar;
 
 
 

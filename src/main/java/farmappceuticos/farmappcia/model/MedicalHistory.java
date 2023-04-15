@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "historialMedico")
-public class HistorialMedico {
+@Table(name = "medicalHistory")
+public class MedicalHistory {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,7 +37,7 @@ public class HistorialMedico {
     private User userToHistorialMedico;
 
     @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "enfermedades_id")
-    Enfermedades enfermedades;
+    @JoinColumn(name = "illness_id")
+    Illness illnessToMedicalHistory;
 
 }

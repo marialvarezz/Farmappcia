@@ -42,6 +42,9 @@ public class UserMedicine {
     @JoinColumn(name = "id_medicine")
     Medicine medicineToMedicine;
 
+    @OneToMany(mappedBy = "userMedicineToReminder")
+    private Set<Reminder> remindersToUserMedicine;
+
 
 
 

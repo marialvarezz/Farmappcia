@@ -24,17 +24,24 @@ public class AnswersQuestions {
 
     //Relaciones
 
-    //Cruce con etiqueta
+    //Cruce con answers
     @ManyToOne
     @MapsId("answersId")
     @JoinColumn(name = "answer_id")
-    Answers answers;
+    Answers answersToQuestions;
 
-    //Cruce con Galeria
+    //Cruce con questions
     @ManyToOne
     @MapsId("questionsId")
     @JoinColumn(name = "id_questions")
-    Questions questions ;
+    Questions questionsToAnswers ;
+
+    //Cruce con questionary
+    @ManyToOne
+    @MapsId("questionaryId")
+    @JoinColumn(name = "id_questionary")
+    Questionary questionaryToAnswers ;
+
 
 
 

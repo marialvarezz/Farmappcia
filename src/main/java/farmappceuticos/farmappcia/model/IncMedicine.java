@@ -33,7 +33,7 @@ public class IncMedicine {
     @JoinColumn(name = "medicineB_id")
     Medicine incToMedicinesB;
 
-    // TODO: 12/04/2023 Queda por ver cómo hacer la segunta relación ManyToOne con tabla Medicine 
+
 
 
 
