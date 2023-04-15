@@ -44,7 +44,7 @@ public class Questions {
 
     //Relaciones
 
-    @OneToMany(mappedBy = "questions" )
+    @OneToMany(mappedBy = "questionsToAnswers" )
     private Set<AnswersQuestions> answersQuestions;
 
 

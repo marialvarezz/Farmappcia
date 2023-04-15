@@ -38,7 +38,7 @@ public class Event {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_calendar")
-    Calendar calendar;
+    Calendar calendarToEvents;
 
 
 

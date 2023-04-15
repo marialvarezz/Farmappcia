@@ -39,22 +39,33 @@ public class User {
     //Relaciones
 
     //Relación 1:1 con calendario
-    @OneToOne(mappedBy = "user")
-    private Calendar calendar;
+    @OneToOne(mappedBy = "userToCalendar")
+    private Calendar calendarToUser;
+
+    //Relación con UserRole
+    @OneToMany(mappedBy = "userToRole")
+    private Set<UserRole> userRolesToUser;
 
     @OneToOne(mappedBy = "userToHistorialMedico")
-    private HistorialMedico historialMedicoToUser;
+    private MedicalHistory historialMedicoToUser;
 
-    @OneToOne(mappedBy = "user")
-    private DatosDeUsuario datosDeUsuario;
+    @OneToOne(mappedBy = "userToUserData")
+    private UserData userDataToUser;
 
     //Relación 1:n con respuestas
-    @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
-    private Set<Answers> answers;
+    @OneToMany(mappedBy = "userToAnswers" , fetch = FetchType.EAGER)
+    private Set<Answers> answersToUser;
 
     @OneToMany(mappedBy = "userToMedicine", cascade = CascadeType.PERSIST )
     private Set<UserMedicine> userMedicines;
 
+    //Relaciones con User
+    @OneToMany(mappedBy = "")
+    private Set<User> userToTutor;
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "tutor_id")
+    User tutorToUser;
 
 
     //Constructors

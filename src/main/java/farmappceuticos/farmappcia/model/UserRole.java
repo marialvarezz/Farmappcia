@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "rolDeUsuario")
-public class RolDeUsuario {
+@Table(name = "userRole")
+public class UserRole {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +28,6 @@ public class RolDeUsuario {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    User user;
+    User userToRole;
 
 }

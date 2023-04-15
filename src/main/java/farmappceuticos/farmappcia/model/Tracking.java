@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "tracing")
-public class Tracing {
+public class Tracking {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,7 +35,7 @@ public class Tracing {
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "id_results")
-    Results results;
+    Results resultsToTracking;
 
 
 
