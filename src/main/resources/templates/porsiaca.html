@@ -27,35 +27,52 @@
 
   <!-- Template Main CSS Files -->
   <link th:href="@{/css/variables.css}" rel="stylesheet">
+  <link th:href="@{/css/main.css}" rel="stylesheet">
 
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header  fixed-top">
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary  p-0" aria-label="Thirteenth navbar example">
-      <div class="container-fluid justify-content-end">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <nav class="navbar navbar-expand-lg " aria-label="Fifth navbar example">
+      <div class="container-fluid">
+        <a th:href="@{/}" class="logo d-flex align-items-center">
+          <img src="/img/logo.png" alt="FeelingCare Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-          <a  th:href="@{/}" class="logo d-flex">
-            <img class="" src="/img/logo.png" alt="FeelingCare Logo">
-          </a>
-          <ul class="navbar-nav col-lg-8 justify-content-lg-end">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" th:href="@{/login}">Inicio Sesión</a>
+        <div class="collapse navbar-collapse" id="navbarsExample05">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class=" nav-item dropdown" style="font-family:century gothic black"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item"><a th:href="@{/medicamentos}">Catálogo</a></li>
+                <li class="dropdown-item"><a  th:href="@{/incompatibles}">Incompatibilidades</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/usuario/new}">Registro</a>
+            <li class="nav-item dropdown"><a href="#"><span>Información de interés</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul  class="dropdown-menu">
+                <li  class="dropdown-item"><a th:href="@{/noticias}">Noticias del día</a></li>
+                <li  class="dropdown-item"><a th:href="@{/hospitalescercanos}">Hospitales cercanos</a></li>
+                <li  class="dropdown-item"><a th:href="@{/consejos}">Consejos para dejar de fumar</a></li>
+              </ul>
+            </li>
+            <li  class="nav-item"><a th:href="@{/aboutus}">About Us</a></li>
+            <li class="nav-item"><a th:href="@{/contacto}">Contacto</a></li>
+            <li class="nav-item dropdown"><a href="#"><span>Usuario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul class="dropdown-menu">
+                <li  class="dropdown-item"><a th:href="@{/login}">Inicio Sesión</a></li>
+                <li  class="dropdown-item"><a th:href="@{/usuario/new}">Registro</a></li>
+              </ul>
+            </li>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+    </div>
 
   </header><!-- End Header -->
 
@@ -103,14 +120,18 @@
       </div>
     </div>
   </footer>
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Vendor JS Files -->
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/vendor/glightbox/js/glightbox.min.js}"></script>
+  <script th:src="@{/vendor/aos/aos.js}"></script>
+  <script th:src="@{/vendor/php-email-form/validate.js}"></script>
 
-
-
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-        crossorigin="anonymous"></script>
 
 </html>
