@@ -36,6 +36,9 @@ public class QuestionsController {
         model.addAttribute("questions", questionsService.findById(id));
         return "questions/questions-form";
     }
+
+    //TODO falta el PostMapping
+
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         questionsService.deleteById(id);
