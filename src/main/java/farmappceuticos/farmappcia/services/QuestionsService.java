@@ -11,22 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class QuestionsService {
+public class QuestionsService extends AbstractBusinessServiceSoloEnt <Questions,Integer,QuestionsRepository> {
     @Autowired
     private QuestionsRepository questionsRepository;
 
+    protected QuestionsService(QuestionsRepository questionsRepository) {
+        super(questionsRepository);
+    }
     //Implementación de los métodos principales que se usan al entrar en el CRUD
-    public List<Questions> findAll() {
-        return questionsRepository.findAll();
-    }
-    public Optional<Questions> findById(Integer id) {
-        return questionsRepository.findById(id);
-    }
-
-    public Questions save(Questions questions) {
-        return questionsRepository.save(questions);
-    }
-    public void deleteById(Integer id) {
-        questionsRepository.deleteById(id);
-    }
 }
