@@ -37,19 +37,21 @@
   <!-- ======= Header ======= -->
   <header  class="header">
     <nav class="navbar navbar-expand-lg bg-body-tertiary  p-0" aria-label="Thirteenth navbar example">
-      <div class="container-fluid justify-content-end">
+
+
+
+      <div class="container-fluid">
+        <a th:href="@{/}" class="navbar-brand">
+        <div class="row"></div>
+        <img class="img-fluid" style="max-width:150px" src="/img/logo.png" alt="FeelingCare Logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
-          <div class="col-lg-4 me-0">
-            <a  th:href="@{/}" class="logo d-flex">
-              <img class="img-fluid" src="/img/logo.png" alt="FeelingCare Logo">
-            </a></div>
-
-            <ul class="navbar-nav col-lg-8 justify-content-lg-start">
-              <li class="nav-item dropdown"><a href="#"><span>Mi Perfil</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            <ul class="navbar-nav  justify-content-lg-center">
+              <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                Mi Perfil<img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/historialmedico}">Historial Médico</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/datosusuario}">Datos del Usuario</a></li>
@@ -57,8 +59,9 @@
                   <li class="dropdown-item"><a th:href="@{/}">Log Out<!--Se cerraría sesión--></a></li>
                 </ul>
               </li>
-              <li><a th:href="@{/usuario/agenda}">Agenda</a></li>
-              <li class="nav-item dropdown"><a href="#"><span>Medicamentos</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <li class="nav-item"><a class="nav-link" th:href="@{/usuario/agenda}">Agenda</a></li>
+              <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">Medicamentos
+                <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/tusmedicamentos}">Tus medicamentos</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/catalogomedicamentos}">Catálogo</a></li>
@@ -66,7 +69,8 @@
                   <li class="dropdown-item"><a th:href="@{/usuario/medicamentosfavoritos}">Favoritos</a></li>
                 </ul> </li>
 
-              <li class="nav-item dropdown"><a href="#"><span>Cuestionario</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuestionarios
+                <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item" ><a href="#">Cuestionarios</a></li>
                   <li class="dropdown-item"><a href="#">Tus Respuestas</a></li>
