@@ -64,9 +64,21 @@ section {
   margin-bottom: 0;
 }
 
+/*
+Dropdown arrow
+*/
+.dropdown-arrow-img{
+max-width:15px;
+margin:5px
+}
+
 /*--------------------------------------------------------------
 # Scroll top button
 --------------------------------------------------------------*/
+
+.nav-text{
+margin:10px;
+}
 .scroll-top {
   position: fixed;
   visibility: hidden;
