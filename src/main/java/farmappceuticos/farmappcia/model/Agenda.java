@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -15,8 +13,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "calendar")
-public class Calendar {
+@Table(name = "agenda")
+public class Agenda {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,11 +27,11 @@ public class Calendar {
     //Relaciones
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userToCalendar;
+    private User userToAgenda;
 
 
-    @OneToMany(mappedBy = "calendarToEvents" , fetch = FetchType.EAGER)
-    private Set<Event> eventsToCalendar;
+    @OneToMany(mappedBy = "agendaToEvents" , fetch = FetchType.EAGER)
+    private Set<Event> eventsToAgenda;
 
 
 

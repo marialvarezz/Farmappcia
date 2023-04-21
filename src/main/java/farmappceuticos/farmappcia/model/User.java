@@ -39,8 +39,8 @@ public class User {
     //Relaciones
 
     //Relación 1:1 con calendario
-    @OneToOne(mappedBy = "userToCalendar")
-    private Calendar calendarToUser;
+    @OneToOne(mappedBy = "userToAgenda")
+    private Agenda agendaToUser;
 
     //Relación con UserRole
     @OneToMany(mappedBy = "userToRole")
