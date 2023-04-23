@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -18,7 +19,7 @@ import java.util.Set;
 public class Questions {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="pregunta")
     private String pregunta;
@@ -44,8 +45,13 @@ public class Questions {
 
     //Relaciones
 
-    @OneToMany(mappedBy = "questionsToAnswers" )
-    private Set<AnswersQuestions> answersQuestions;
+    @ManyToMany
+    @JoinTable(
+            name = "answers_questionnaire",
+            joinColumns = @JoinColumn(name = "questionsId"),
+            inverseJoinColumns = @JoinColumn(name = "questionnaireId")
+    )
+    private List<Questionnaire> questionnaires;
 
 
 

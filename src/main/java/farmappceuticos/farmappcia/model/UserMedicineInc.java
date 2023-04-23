@@ -1,33 +1,32 @@
 package farmappceuticos.farmappcia.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "userRole")
-public class UserRole {
+@Table(name = "user_medicine_inc")
+public class UserMedicineInc {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="rol")
-    private boolean rol;
+    @Column(name="id_medicine")
+    private boolean idMedicine;
 
-    @Column(name="descripcion")
-    private String descripcion;
+    @Column(name="reason")
+    private String reason;
 
+    @Column(name="active")
+    private Boolean active;
     //Relaciones
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    User userToRole;
+    User userToMedicineInc;
 
 }

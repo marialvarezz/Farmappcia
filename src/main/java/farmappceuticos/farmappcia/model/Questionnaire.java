@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -14,16 +15,16 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "questionary")
-public class Questionary {
+@Table(name = "questionnaire")
+public class Questionnaire {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="nombre")
     private String nombre;
 
-    @Column(name="descripción")
+    @Column(name="descripcion")
     private String descripcion;
 
     @Column(name="fecha_hora")
@@ -31,9 +32,13 @@ public class Questionary {
 
     //Relaciones
 
-    @OneToMany(mappedBy = "questionaryToAnswers" , fetch = FetchType.EAGER)
-    private Set<AnswersQuestions> answersToQuestions;
-
+    @ManyToMany
+    @JoinTable(
+            name = "answers_questionnaire",
+            joinColumns = @JoinColumn(name = "questionnaireId"),
+            inverseJoinColumns = @JoinColumn(name = "questionsId")
+    )
+    private List<Questions> questions;
 
 
 

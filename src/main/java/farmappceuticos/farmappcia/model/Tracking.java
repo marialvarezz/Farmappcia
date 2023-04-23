@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Tracking {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="titular")
     private String titular;

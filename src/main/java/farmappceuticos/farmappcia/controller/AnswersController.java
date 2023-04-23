@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Controller
-@RequestMapping("/respuestas")//url
+@RequestMapping("/respuesta")//url
 public class AnswersController {
     @Autowired
     private AnswersService answersService;
@@ -24,13 +26,15 @@ public class AnswersController {
     }
     @GetMapping("/new")
     public String showNewProductForm(Model model) {
-        model.addAttribute("answers", new Answers());
+        Answers answer=new Answers();
+        answer.setFechaHora(LocalDateTime.now());
+        model.addAttribute("answers",answer);
         return "answers/answers-form";
     }
     @PostMapping("/save")
     public String saveAnswer(@ModelAttribute("answers") Answers answers) {
         answersService.save(answers);
-        return "redirect:/respuestas/";
+        return "redirect:/cuestionariopregunta/";
     }
     @GetMapping("/edit/{id}")
     public String showEditAnswerForm(@PathVariable("id") Integer id, Model model) {
@@ -40,7 +44,7 @@ public class AnswersController {
     @GetMapping("/delete/{id}")
     public String deleteAnswer(@PathVariable("id") Integer id) {
         answersService.deleteById(id);
-        return "redirect:/respuestas/";
+        return "redirect:/respuesta/";
     }
 
 }
