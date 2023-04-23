@@ -1,6 +1,8 @@
 package farmappceuticos.farmappcia.controller;
+import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.model.Questions;
 import farmappceuticos.farmappcia.model.UserMedicineInc;
+import farmappceuticos.farmappcia.services.MedicineService;
 import farmappceuticos.farmappcia.services.QuestionsService;
 import farmappceuticos.farmappcia.services.UserMedicineIncService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class UserMedicineIncController {
     @Autowired
     private UserMedicineIncService userMedicineIncService;
+    @Autowired
+    private MedicineService medicineService;
     //Para acceder a los métodos
 
     @GetMapping({"/",""})
@@ -31,15 +36,17 @@ public class UserMedicineIncController {
         return "userMedicineInc/userMedicineInc-form";
     }
     @PostMapping("/save")
-    public String saveProduct(@ModelAttribute("userMedicineInc") UserMedicineInc userMedicineInc) throws Exception {
+    public String saveProduct(@ModelAttribute("userMedicineInc") UserMedicineInc userMedicineInc) {
         userMedicineIncService.save(userMedicineInc);
-        return "redirect:/usumedicamentosinc/";
+        return "redirect:/usuario/userlist";
     }
     @GetMapping("/edit/{id}")
     public String showEditProductForm(@PathVariable("id") Integer id, Model model) {
         Optional<UserMedicineInc> userMedicineInc = userMedicineIncService.findById(id);
         if (userMedicineInc.isPresent()){
-            model.addAttribute("userMedicineInc", userMedicineInc.get());
+            List<Medicine> medicines = medicineService.findAll();
+            model.addAttribute("allMedicines", medicines);
+            model.addAttribute("medicineInc", userMedicineInc.get());
             return "userMedicineInc/userMedicineInc-form";
         }
         else {

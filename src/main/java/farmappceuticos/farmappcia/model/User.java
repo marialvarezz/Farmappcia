@@ -33,8 +33,7 @@ public class User {
     private LocalDateTime registrationDateTime;
     @Column(name="updeteDateTime")
     private LocalDateTime updateDateTime;
-    @Column(name="tutor")
-    private Integer tutor;
+
 
     //Relaciones
 

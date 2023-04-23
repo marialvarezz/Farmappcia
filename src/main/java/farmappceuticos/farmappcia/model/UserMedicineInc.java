@@ -15,8 +15,8 @@ public class UserMedicineInc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="id_medicine")
-    private boolean idMedicine;
+    @Column(name="medicine")
+    private String medicine;
 
     @Column(name="reason")
     private String reason;

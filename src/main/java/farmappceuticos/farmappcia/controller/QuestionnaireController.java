@@ -76,13 +76,22 @@ public String showAnswerQuestionnaireForm(@PathVariable("id") Integer id, Model 
     if (questionnaire.isPresent()){
 
         model.addAttribute("questionnaire", questionnaire.get());
-        return "questionnaire/questionnaireAnswer-form";
+        return "questionnaire/questionnaire-info";
     }
     else {
         return "questionnaire/questionnaire-form-notfound";
     }
 }
 
+    @GetMapping("/cuestionario/{id}")
+    public String verUsuario(@PathVariable("id") Integer id, Model model) {
+        Optional<Questionnaire> questionnaire=questionnaireService.findById(id);
+        if (questionnaire.isPresent()){
+            model.addAttribute("questionnaire", questionnaire.get());
+            return "questionnaire/questionnaire-info";
+        }
+        return "error";
+    }
 
 
 }
