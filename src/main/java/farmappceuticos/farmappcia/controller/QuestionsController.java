@@ -1,5 +1,7 @@
 package farmappceuticos.farmappcia.controller;
+import farmappceuticos.farmappcia.model.Questionnaire;
 import farmappceuticos.farmappcia.model.Questions;
+import farmappceuticos.farmappcia.services.QuestionnaireService;
 import farmappceuticos.farmappcia.services.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,29 +17,29 @@ public class QuestionsController {
     private QuestionsService questionsService;
     //Para acceder a los métodos
 
-    @GetMapping("/")
+    @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showProducts(Model model){
         //
-        model.addAttribute("questions",questionsService.buscarEntidades());
+        model.addAttribute("questions",questionsService.findAll());
         //Devuelve el HTML
         return "questions/questions-list";
     }
     @GetMapping("/new")
     public String showNewProductForm(Model model) {
-        model.addAttribute("questions", new Questions());
+        model.addAttribute("question", new Questions());
         return "questions/questions-form";
     }
     @PostMapping("/save")
-    public String saveProduct(@ModelAttribute("questions") Questions questions) throws Exception {
-        questionsService.guardar(questions);
+    public String saveProduct(@ModelAttribute("question") Questions questions) throws Exception {
+        questionsService.save(questions);
         return "redirect:/preguntas/";
     }
     @GetMapping("/edit/{id}")
     public String showEditProductForm(@PathVariable("id") Integer id, Model model) {
-        Optional<Questions> questions = questionsService.encuentraPorId(id);
+        Optional<Questions> questions = questionsService.findById(id);
         if (questions.isPresent()){
-            model.addAttribute("questions", questions.get());
+            model.addAttribute("question", questions.get());
             return "questions/questions-form";
         }
         else {
@@ -49,7 +51,7 @@ public class QuestionsController {
     //Cuidado solo es un ejmplo, no borramos ficicamente
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
-        questionsService.eliminarPorId(id);
+        questionsService.deleteById(id);
         return "redirect:/preguntas/";
     }
 

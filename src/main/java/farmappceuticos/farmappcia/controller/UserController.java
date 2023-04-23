@@ -1,6 +1,7 @@
 package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.User;
+import farmappceuticos.farmappcia.services.QuestionnaireService;
 import farmappceuticos.farmappcia.services.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,10 @@ public class UserController {
    @Autowired
    UserService userService;
 
-   @GetMapping("/")
+   @Autowired
+   QuestionnaireService questionnaireService;
+
+   @GetMapping({"/",""})
    public String inicioUsuario(){return "user/userinicio";}
 
    @GetMapping("/datosusuario")
@@ -52,6 +56,14 @@ public class UserController {
    @GetMapping("/consejos")
    public String consejosUser() {return "user/userconsejosf";}
 
+
+   //Cuestionarios
+   @GetMapping("/cuestionarios")
+   public String showQuestionnaire(Model model){
+      model.addAttribute("questionnaires",questionnaireService.findAll());
+      //Devuelve el HTML
+      return "questionnaire/questionnaire-list";
+   }
 
    //CRUD User
    @GetMapping("/userlist")

@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>Crear o Editar Producto</h1>
-            <form th:action="@{/preguntas/save}" th:object="${questions}" method="post">
+            <form th:action="@{/preguntas/save}" th:object="${question}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label for="pregunta">Pregunta</label>

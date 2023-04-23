@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -20,8 +19,7 @@ import java.util.Set;
 @Table(name = "answers")
 public class Answers {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name="respuesta")
     private String respuesta;
@@ -34,14 +32,15 @@ public class Answers {
     //Relaciones
 
     @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_usuario")
-    User userToAnswers;
+    @JoinColumn(name = "usuarioId")
+    User user;
 
     @OneToMany(mappedBy = "answersToResults" , fetch = FetchType.EAGER)
     private Set<Results> resultsToAnswers;
 
-    @OneToMany(mappedBy = "answersToQuestions", cascade = CascadeType.PERSIST )
-    private Set<AnswersQuestions> answersQuestions;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "questionnaireId", referencedColumnName = "id",unique = true)
+    private QuestionQuestionnaire questionnaire;
 
 
 

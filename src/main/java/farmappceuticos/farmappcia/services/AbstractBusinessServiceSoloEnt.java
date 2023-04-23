@@ -14,7 +14,7 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
         this.repo = repo;
     }
 
-    public List<E> buscarEntidades(){
+    public List<E> findAll(){
         return  this.repo.findAll();
     }
 
@@ -23,11 +23,11 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
         return  eSet;
     }
 
-    public Optional<E> encuentraPorId(ID id){
+    public Optional<E> findById(ID id){
         return this.repo.findById(id);
     }
 
-    public Page<E> buscarTodos(Pageable pageable){
+    public Page<E> findAll(Pageable pageable){
         return  repo.findAll(pageable);
     }
 
@@ -37,14 +37,14 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
     }
 //Guardar
 
-    public E guardar(E entidad) throws Exception {
+    public E save(E entidad) throws Exception {
         //Guardo el la base de datos
         E entidadGuardada =  repo.save(entidad);
         //Traducir la entidad a DTO para devolver el DTO
         return entidadGuardada;
     }
 
-    public void  guardar(List<E> ents ) throws Exception {
+    public void  save(List<E> ents ) throws Exception {
         Iterator<E> it = ents.iterator();
         // mientras al iterador queda proximo juego
         while(it.hasNext()){
@@ -57,7 +57,7 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
 
 //eliminar un registro
 
-    public void eliminarPorId(ID id){
+    public void deleteById(ID id){
         this.repo.deleteById(id);
     }
 //Obtener el repo

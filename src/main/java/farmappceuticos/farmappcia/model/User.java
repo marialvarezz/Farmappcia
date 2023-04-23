@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
     @Column(name="username")
@@ -53,7 +53,7 @@ public class User {
     private UserData userDataToUser;
 
     //Relación 1:n con respuestas
-    @OneToMany(mappedBy = "userToAnswers" , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user" )
     private Set<Answers> answersToUser;
 
     @OneToMany(mappedBy = "userToMedicine", cascade = CascadeType.PERSIST )
@@ -67,23 +67,11 @@ public class User {
     @JoinColumn(name = "tutor_id")
     User tutorToUser;
 
+    @OneToMany(mappedBy = "userToMedicineInc")
+    private Set<UserMedicineInc> userMedicineIncs;
+
 
     //Constructors
 
 
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String username, String email, String password, LocalDate birthDate, LocalDateTime registrationDateTime, LocalDateTime updateDateTime, Integer tutor) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.registrationDateTime = registrationDateTime;
-        this.updateDateTime = updateDateTime;
-        this.tutor = tutor;
-    }
 }

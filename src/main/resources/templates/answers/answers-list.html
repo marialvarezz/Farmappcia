@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>Lista de Usuarios</h1>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Respuesta</th>
+          <th>Fecha y Hora</th>
+          <th>Pregunta</th>
+          <th>Nombre cuestionario</th>
+
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="answer : ${answers}">
+          <td th:text="${answer.id}">1</td>
+          <td th:text="${answer.respuesta}">maria</td>
+          <td th:text="${answer.fechaHora}">Email</td>
+          <div th:each="questionnaireQuestion : ${answer.questionnaire}">
+            <div th:each="question : ${questionnaireQuestion.questionsToQuestionnaire}">
+              <td th:text="${question.pregunta}">aa</td></div>
+          </div>
+
+        <div th:each="questionnaireQuestion : ${answer.questionnaire}">
+            <div th:each="questionnaire : ${questionnaireQuestion.questionnaireToAnswers}">
+              <td th:text="${questionnaire.nombre}">aa</td></div>
+          </div>
+
+          <td>
+            <a th:href="@{/respuesta/edit/{id}(id=${answer.id})}" class="btn btn-primary">Editar</a>
+            <a th:href="@{/respuesta/delete/{id}(id=${answer.id})}" class="btn btn-primary">Eliminar</a>
+          </td>
+
+        </tbody>
+      </table>
+      <a th:href="@{/cuestionario/}" style="margin:10px" class="btn btn-primary">Ir a cuestionarios</a>
+      <a th:href="@{/preguntas/}" style="margin:10px" class="btn btn-primary">Ir a preguntas</a>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
