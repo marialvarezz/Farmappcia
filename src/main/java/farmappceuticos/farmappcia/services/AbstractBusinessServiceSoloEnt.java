@@ -37,7 +37,7 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
     }
 //Guardar
 
-    public E save(E entidad) throws Exception {
+    public E save(E entidad)  {
         //Guardo el la base de datos
         E entidadGuardada =  repo.save(entidad);
         //Traducir la entidad a DTO para devolver el DTO
