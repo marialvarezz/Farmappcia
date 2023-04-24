@@ -19,7 +19,7 @@ public class MedicineController {
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showMedicines(Model model){
         //
-        model.addAttribute("medicine",medicineService.buscarEntidades());
+        model.addAttribute("medicine",medicineService.findAll());
         //Devuelve el HTML
         return "medicine/medicine-list";
     }
@@ -30,12 +30,12 @@ public class MedicineController {
     }
     @PostMapping("/save")
     public String saveMedicine(@ModelAttribute("medicine") Medicine medicine) throws Exception {
-        medicineService.guardar(medicine);
+        medicineService.save(medicine);
         return "redirect:/medicine/";
     }
     @GetMapping("/edit/{id}")
     public String showEditMedicineForm(@PathVariable("id") Integer id, Model model) {
-        Optional<Medicine> medicine = medicineService.encuentraPorId(id);
+        Optional<Medicine> medicine = medicineService.findById(id);
         if (medicine.isPresent()){
             model.addAttribute("medicine", medicine.get());
             return "medicine/medicine-form";
@@ -47,7 +47,7 @@ public class MedicineController {
     }
     @GetMapping("/delete/{id}")
     public String deleteMedicine(@PathVariable("id") Integer id) {
-        medicineService.eliminarPorId(id);
+        medicineService.deleteById(id);
         return "redirect:/medicine/";
     }
 

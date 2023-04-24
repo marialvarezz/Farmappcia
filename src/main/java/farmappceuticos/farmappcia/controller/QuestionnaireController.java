@@ -1,15 +1,13 @@
 package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.*;
-import farmappceuticos.farmappcia.services.AnswersService;
-import farmappceuticos.farmappcia.services.QuestionnaireService;
-import farmappceuticos.farmappcia.services.QuestionsService;
-import farmappceuticos.farmappcia.services.UserMedicineIncService;
+import farmappceuticos.farmappcia.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,9 +18,13 @@ public class QuestionnaireController {
 
     @Autowired
     private QuestionnaireService questionnaireService;
+    @Autowired
+    private AnswersService answersService;
 
     @Autowired
     private QuestionsService questionsService;
+    @Autowired
+    private QuestionQuestionnaireService questionQuestionnaireService;
     //Para acceder a los métodos
 
     @GetMapping({"/",""})
@@ -74,14 +76,42 @@ public class QuestionnaireController {
 public String showAnswerQuestionnaireForm(@PathVariable("id") Integer id, Model model) {
     Optional<Questionnaire> questionnaire = questionnaireService.findById(id);
     if (questionnaire.isPresent()){
+        Questionnaire questionnaire1=questionnaire.get();
+        List<Questions>questions=questionnaire1.getQuestions();
+        model.addAttribute("questionnaire", questionnaire1);
+        for (Questions question:questions
+             ) {
+            QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
+            Answers answers=new Answers();
+            model.addAttribute("questionnaireQuestion",questionQuestionnaire);
+            model.addAttribute("answers",answers);
+            questionQuestionnaire.setQuestionnaireToAnswers(questionnaire1);
+            questionQuestionnaire.setQuestionsToQuestionnaire(question);
+            questionQuestionnaire.setAnswers(answers);
 
-        model.addAttribute("questionnaire", questionnaire.get());
+        }
         return "questionnaire/questionnaire-info";
     }
     else {
         return "questionnaire/questionnaire-form-notfound";
     }
 }
+    @PostMapping("/{id}/questionnaire/answer")
+    public String showAnswerQuestionnaireFormPost(@ModelAttribute("questionnaire") Questionnaire questionnaire,@ModelAttribute("answers") Answers answers) {
+        QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
+        questionQuestionnaire.setQuestionnaireToAnswers(questionnaire);
+        for (Questions question:questionnaire.getQuestions()
+             ) {
+            questionQuestionnaire.setQuestionsToQuestionnaire(question);
+            questionQuestionnaire.setAnswers(answers);
+            answers.setFechaHora(LocalDateTime.now());
+            answers.setQuestionnaire(questionQuestionnaire);
+            answersService.save(answers);
+            questionQuestionnaireService.save(questionQuestionnaire);
+
+        }
+        return "redirect:/respuesta/";
+    }
 
     @GetMapping("/cuestionario/{id}")
     public String verUsuario(@PathVariable("id") Integer id, Model model) {
