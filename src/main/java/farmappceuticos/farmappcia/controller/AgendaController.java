@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/agenda")//url
 public class AgendaController {
@@ -33,8 +35,15 @@ public class AgendaController {
     }
     @GetMapping("/edit/{id}")
     public String showEditAgendaForm(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("agenda", agendaService.findById(id));
-        return "agenda/agenda-form";
+        Optional<Agenda> agenda = agendaService.findById(id);
+        if (agenda.isPresent()){
+            model.addAttribute("agenda", agendaService.findById(id));
+            return "agenda/agenda-form";
+        }else{
+            return "agenda/agenda-form-notfound";
+        }
+
+
     }
     @GetMapping("/delete/{id}")
     public String deleteAgenda(@PathVariable("id") Integer id) {
