@@ -16,7 +16,7 @@ public class AnswersController {
     private AnswersService answersService;
     //Para acceder a los métodos
 
-    @GetMapping("/")
+    @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showProducts(Model model){
         //
