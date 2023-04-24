@@ -40,7 +40,15 @@ public class Event {
     @JoinColumn(name = "id_agenda")
     Agenda agendaToEvents;
 
-
+public Event(String nombre, String descripcion, LocalDateTime fecha_hora, String especializacion, String ubicacion, Boolean notificar, Boolean notificar_tutor){
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.fecha_hora = fecha_hora;
+    this.especializacion = especializacion;
+    this.ubicacion = ubicacion;
+    this.notificar = notificar;
+    this.notificar_tutor = notificar_tutor;
+}
 
 
 
