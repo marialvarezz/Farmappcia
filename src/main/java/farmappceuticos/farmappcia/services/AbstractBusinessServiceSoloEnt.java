@@ -44,7 +44,7 @@ public abstract class AbstractBusinessServiceSoloEnt<E, ID,  REPO extends JpaRep
         return entidadGuardada;
     }
 
-    public void  save(List<E> ents ) throws Exception {
+    public void  save(List<E> ents ) {
         Iterator<E> it = ents.iterator();
         // mientras al iterador queda proximo juego
         while(it.hasNext()){

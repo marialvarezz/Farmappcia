@@ -13,27 +13,31 @@ import lombok.Setter;
 @Entity
 @Table(name = "answers_questionnaire")
 public class QuestionQuestionnaire {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
+    @EmbeddedId
+    private QuestionQuestionnaireId id;
 
     //Relaciones
 
     //Cruce con answers
-    @OneToOne(mappedBy = "questionnaire")
-    private Answers answers;
+    @OneToOne
+    @JoinColumn(name = "answerId")
+    private Answers answer;
 
     //Cruce con questions
+
     @ManyToOne
+    @MapsId("questionId")
     @JoinColumn(name = "questionsId")
-    Questions questionsToQuestionnaire;
+    Questions question;
 
     //Cruce con questionary
     @ManyToOne
+    @MapsId("questionnaireId")
     @JoinColumn(name = "questionnaireId")
-    Questionnaire questionnaireToAnswers ;
+    Questionnaire questionnaire;
+
+
 
 
 

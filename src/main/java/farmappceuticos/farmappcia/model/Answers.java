@@ -38,10 +38,15 @@ public class Answers {
     @OneToMany(mappedBy = "answersToResults" , fetch = FetchType.EAGER)
     private Set<Results> resultsToAnswers;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "questionnaireId", referencedColumnName = "id",unique = true)
-    private QuestionQuestionnaire questionnaire;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinTable(name = "answers_questionnaire",
+      //      joinColumns = @JoinColumn(name = "questionnaireId"),
+        //    inverseJoinColumns = @JoinColumn(name = "questionId")
+    //)
+    //private QuestionQuestionnaire questionnaire;
 
+    @OneToOne (mappedBy = "answer" , fetch = FetchType.EAGER)
+    QuestionQuestionnaire questionQuestionnaire;
 
 
 

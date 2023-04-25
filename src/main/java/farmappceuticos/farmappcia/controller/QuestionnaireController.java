@@ -8,9 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/cuestionario")//url
@@ -72,23 +70,29 @@ public class QuestionnaireController {
     }
 
 //Cuestionarios
-@GetMapping("/{id}/questionnaire/answer")
+@GetMapping("/{id}/respuestas")
 public String showAnswerQuestionnaireForm(@PathVariable("id") Integer id, Model model) {
     Optional<Questionnaire> questionnaire = questionnaireService.findById(id);
     if (questionnaire.isPresent()){
         Questionnaire questionnaire1=questionnaire.get();
         List<Questions>questions=questionnaire1.getQuestions();
+        //List<Answers>answersList=new ArrayList<>();
+        //List<QuestionQuestionnaire>questionQuestionnaireList=new ArrayList<>();
         model.addAttribute("questionnaire", questionnaire1);
         for (Questions question:questions
              ) {
             QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
-            Answers answers=new Answers();
-            model.addAttribute("questionnaireQuestion",questionQuestionnaire);
-            model.addAttribute("answers",answers);
-            questionQuestionnaire.setQuestionnaireToAnswers(questionnaire1);
-            questionQuestionnaire.setQuestionsToQuestionnaire(question);
-            questionQuestionnaire.setAnswers(answers);
+            Answers answer=new Answers();
 
+            questionQuestionnaire.setQuestionnaire(questionnaire1);
+            questionQuestionnaire.setQuestion(question);
+            questionQuestionnaire.setAnswer(answer);
+
+            answer.setQuestionQuestionnaire(questionQuestionnaire);
+            model.addAttribute("answers",answer);
+            model.addAttribute("questionnaireQuestion",questionQuestionnaire);
+           // questionQuestionnaireList.add(questionQuestionnaire);
+            //answersList.add(answer);
         }
         return "questionnaire/questionnaire-info";
     }
@@ -96,21 +100,36 @@ public String showAnswerQuestionnaireForm(@PathVariable("id") Integer id, Model 
         return "questionnaire/questionnaire-form-notfound";
     }
 }
-    @PostMapping("/{id}/questionnaire/answer")
-    public String showAnswerQuestionnaireFormPost(@ModelAttribute("questionnaire") Questionnaire questionnaire,@ModelAttribute("answers") Answers answers) {
-        QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
-        questionQuestionnaire.setQuestionnaireToAnswers(questionnaire);
-        for (Questions question:questionnaire.getQuestions()
-             ) {
-            questionQuestionnaire.setQuestionsToQuestionnaire(question);
-            questionQuestionnaire.setAnswers(answers);
-            answers.setFechaHora(LocalDateTime.now());
-            answers.setQuestionnaire(questionQuestionnaire);
-            answersService.save(answers);
-            questionQuestionnaireService.save(questionQuestionnaire);
+    @PostMapping("/{id}/respuestas")
+    public String showAnswerQuestionnaireFormPost(@PathVariable("id") Integer id,@ModelAttribute("answers") Answers answers) {
+       Optional<Questionnaire>questionnaire=questionnaireService.findById(id);
 
-        }
-        return "redirect:/respuesta/";
+       if (questionnaire.isPresent()){
+           List<Answers> answersList=new ArrayList<>();
+           List<QuestionQuestionnaire>questionQuestionnaireList=new ArrayList<>();
+           Questionnaire questionnaire1=questionnaire.get();
+           for (Questions question:questionnaire1.getQuestions()) {
+               QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
+               questionQuestionnaire.setAnswer(answers);
+               questionQuestionnaire.setQuestionnaire(questionnaire1);
+               questionQuestionnaire.setQuestion(question);
+               answers.setFechaHora(LocalDateTime.now());
+               answers.setQuestionQuestionnaire(questionQuestionnaire);
+               answersList.add(answers);
+               questionQuestionnaireList.add(questionQuestionnaire);
+           }
+           for (Answers answer:answersList
+                ) {answersService.save(answer);
+           }
+           for (QuestionQuestionnaire questionQuestionnaire:questionQuestionnaireList
+                ) {questionQuestionnaireService.save(questionQuestionnaire);
+
+           }
+          // questionQuestionnaireService.save(questionQuestionnaireList);
+          // answersService.save(answersList);
+           return "redirect:/respuesta/";
+       }
+       return "error";
     }
 
     @GetMapping("/cuestionario/{id}")

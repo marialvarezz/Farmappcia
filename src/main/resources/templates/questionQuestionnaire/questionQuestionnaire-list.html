@@ -14,7 +14,7 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th>Id</th>
+
           <th>Nombre del Cuestionario</th>
           <th>Pregunta</th>
           <th>Respuesta</th>
@@ -23,14 +23,14 @@
         </thead>
         <tbody>
         <tr th:each="questionQuestionnaire : ${questionQuestionnaire}">
-          <td th:text="${questionQuestionnaire.id}">1</td>
-          <td th:text="${questionQuestionnaire.questionnaireToAnswers.nombre}">maria</td>
-          <td th:text="${questionQuestionnaire.questionsToQuestionnaire.pregunta}">Email</td>
-          <div th:each="answer : ${questionQuestionnaire.answers}">
+
+          <td th:text="${questionQuestionnaire.questionnaire.nombre}">maria</td>
+          <td th:text="${questionQuestionnaire.question.pregunta}">Email</td>
+          <div th:each="answer : ${questionQuestionnaire.answer}">
               <td th:text="${answer.respuesta}">aa</td></div>
           <td>
            <!-- <a th:href="@{/cuestionariopregunta/edit/{id}(id=${questionQuestionnaire.id})}" class="btn btn-primary">Editar</a>-->
-            <a th:href="@{/cuestionariopregunta/{id}/respuesta/new?(id=${questionQuestionnaire.id})}" class="btn btn-outline-success" >Crear Respuesta</a>
+            <a th:href="@{/cuestionariopregunta/{id}/respuesta/new?(id=${questionQuestionnaire.questionnaire.id})}" class="btn btn-outline-success" >Crear Respuesta</a>
             <a th:href="@{/cuestionariopregunta/delete/{id}(id=${questionQuestionnaire.id})}" class="btn btn-primary">Eliminar</a>
           </td>
         </tr>

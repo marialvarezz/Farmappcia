@@ -1,9 +1,6 @@
 package farmappceuticos.farmappcia.controller;
 
-import farmappceuticos.farmappcia.model.Answers;
-import farmappceuticos.farmappcia.model.QuestionQuestionnaire;
-import farmappceuticos.farmappcia.model.Questionnaire;
-import farmappceuticos.farmappcia.model.Questions;
+import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.AnswersService;
 import farmappceuticos.farmappcia.services.QuestionQuestionnaireService;
 import farmappceuticos.farmappcia.services.QuestionnaireService;
@@ -26,6 +23,8 @@ public class QuestionQuestionnaireController {
 
     @Autowired
     private QuestionsService questionsService;
+    @Autowired
+    private QuestionnaireService questionnaireService;
 
     @Autowired
     private
@@ -61,14 +60,24 @@ public class QuestionQuestionnaireController {
     }
 
     @GetMapping("/{id}/respuesta/new")
-    public String newInvoiceForm(@PathVariable("id") Integer id, Model model) {
-        Optional<QuestionQuestionnaire> questionQuestionnaire = questionQuestionnaireService.findById(id);
-        if (questionQuestionnaire.isPresent()) {
+    public String newInvoiceForm(@PathVariable("id")Integer  id, Model model) {
+        Optional<Questionnaire> questionnaire = questionnaireService.findById(id);
+        if (questionnaire.isPresent()) {
+            Questionnaire questionnaire1=questionnaire.get();
+            model.addAttribute("questionnaire",questionnaire1);
+            for (Questions question:questionnaire1.getQuestions()
+                 ) {
+
+                Answers answers=new Answers();
+
+
+
+            }
             Answers answers = new Answers();
-            answers.setQuestionnaire(questionQuestionnaire.get());
+
             answers.setFechaHora(LocalDateTime.now());
             model.addAttribute("answers",answers);
-            return "answers/answers-form";
+            return "questionnaire/questionnaire-info";
         } else {
             return "error-page";
         }
@@ -77,7 +86,7 @@ public class QuestionQuestionnaireController {
     public String createInvoice(@PathVariable("id") Integer id, @ModelAttribute("answer") Answers answers) {
         Optional<QuestionQuestionnaire> questionQuestionnaire = questionQuestionnaireService.findById(id);
         if(questionQuestionnaire.isPresent()){
-            answers.setQuestionnaire(questionQuestionnaire.get());
+            answers.setQuestionQuestionnaire(questionQuestionnaire.get());
             answers.setFechaHora(LocalDateTime.now());
             answersService.save(answers);
             return "redirect:/cuestionariopregunta/";

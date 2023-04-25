@@ -10,19 +10,19 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-
-      <h2> <span th:text="${questionnaire.nombre}"></span></h2>
-      <h4> <span th:text="${questionnaire.descripcion}"></span></h4>
-      <div th:each="question:${questionnaire.questions}">
-        <p th:text="${question.pregunta}">aaaa</p>
-        <form >
-          <div class="form-group">
-            <label for="answer">Respuesta:</label>
-            <input type="text" class="form-control" id="answer" />
-          </div>
-        </form>
-      </div>
-    </div></div>
+      <form th:action="@{/cuestionario/{id}/respuestas(id=${questionnaire.id})}" method="post">
+        <input type="hidden" th:field="*{id}">
+      <h2> <span th:text="${questionnaire.nombre}">aaaaaaa</span></h2>
+      <h4> <span th:text="${questionnaire.descripcion}">hh</span></h4>
+        <div class="form-group" th:each="question : ${questionnaire.questions}">
+          <label th:text="${question.pregunta}">aaa</label>
+            <input type="text" class="form-control" name="${question.id}" th:field="*{answers.respuesta}"  />
+          <br/>
+        </div>
+        <input type="submit" value="Añadir respuestas" />
+      </form>
+    </div>
+  </div>
 </div>
 </body>
 </html>

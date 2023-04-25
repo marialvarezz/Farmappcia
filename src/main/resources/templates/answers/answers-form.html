@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>Crear o Editar Cuestionarios</h1>
-            <form th:action="@{/cuestionariopregunta/{questionnaireId}/respuesta/new(questionnaireId=${answers.questionnaire.id})}" th:object="${answers}" method="post">
+            <form th:action="@{/cuestionariopregunta/{questionnaireId}/respuesta/new(questionnaireId=${answers.questionQuestionnaire.id})}" th:object="${answers}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label for="respuesta">Respuesta: </label>
