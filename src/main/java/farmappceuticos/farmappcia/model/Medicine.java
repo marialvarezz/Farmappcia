@@ -44,7 +44,7 @@ public class Medicine {
     //Relaciones
 
 
-    @OneToMany(mappedBy = "medicineToMedicine" )
+    @OneToMany(mappedBy = "medicineToMedicine")
     private Set<UserMedicine> userMedicines;
 
     @OneToMany(mappedBy = "incToMedicinesA")

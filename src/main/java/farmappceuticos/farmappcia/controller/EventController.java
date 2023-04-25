@@ -19,7 +19,7 @@ public class EventController {
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showEvents(Model model){
         //
-        model.addAttribute("event",eventService.buscarEntidades());
+        model.addAttribute("event",eventService.findAll());
         //Devuelve el HTML
         return "event/event-list";
     }
@@ -30,12 +30,12 @@ public class EventController {
     }
     @PostMapping("/save")
     public String saveEvent(@ModelAttribute("event") Event event) throws Exception {
-        eventService.guardar(event);
+        eventService.save(event);
         return "redirect:/event/";
     }
     @GetMapping("/edit/{id}")
     public String showEditEventForm(@PathVariable("id") Integer id, Model model) {
-        Optional<Event> event = eventService.encuentraPorId(id);
+        Optional<Event> event = eventService.findById(id);
         if (event.isPresent()){
             model.addAttribute("event", event.get());
             return "event/event-form";
@@ -47,7 +47,7 @@ public class EventController {
     }
     @GetMapping("/delete/{id}")
     public String deleteEvent(@PathVariable("id") Integer id) {
-        eventService.eliminarPorId(id);
+        eventService.deleteById(id);
         return "redirect:/event/";
     }
 
