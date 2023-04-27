@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Illness List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Lista de enfermedades</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Síntomas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="illness : ${illness}">
+            <td th:text="${illness.id}">1</td>
+            <td th:text="${illness.nombre}">Nombre de la enfermedad</td>
+            <td th:text="${illness.tipo}">Tipo de enfermedad</td>
+            <td th:text="${illness.descripcion}">Descripción de la enfermedad</td>
+            <td th:text="${illness.sintomas}">Síntomas de la enfermedad</td>
+            <td>
+                <a class="btn btn-outline-primary" th:href="@{/illness/edit/{id}(id=${illness.id})}">Editar</a>
+                <a class="btn btn-outline-danger" th:href="@{/illness/delete/{id}(id=${illness.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-outline-success" th:href="@{/illness/new}">Añade una nueva enfermedad</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

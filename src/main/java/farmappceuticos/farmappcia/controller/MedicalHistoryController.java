@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/historialMedico")//url
+@RequestMapping("/medicalHistory")//url
 public class MedicalHistoryController {
     @Autowired
     private MedicalHistoryService medicalHistoryService;
@@ -31,7 +31,7 @@ public class MedicalHistoryController {
     @PostMapping("/save")
     public String saveMedicalHistory(@ModelAttribute("medicalHistory") MedicalHistory medicalHistory){
         medicalHistoryService.save(medicalHistory);
-        return "redirect:/historialMedico/";
+        return "redirect:/medicalHistory/";
     }
     @GetMapping("/edit/{id}")
     public String showEditMedicalHistoryForm(@PathVariable("id") Integer id, Model model) {
@@ -50,7 +50,7 @@ public class MedicalHistoryController {
     @GetMapping("/delete/{id}")
     public String deleteMedicalHistory(@PathVariable("id") Integer id) {
         medicalHistoryService.deleteById(id);
-        return "redirect:/historialMedico/";
+        return "redirect:/medicalHistory/";
     }
 
 }
