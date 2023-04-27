@@ -42,8 +42,8 @@ public class User {
     private Agenda agendaToUser;
 
     //Relación con UserRole
-    @OneToMany(mappedBy = "userToRole")
-    private Set<UserRole> userRolesToUser;
+    @OneToOne(mappedBy = "user")
+    private Role role;
 
     @OneToOne(mappedBy = "userToHistorialMedico")
     private MedicalHistory historialMedicoToUser;
@@ -59,7 +59,7 @@ public class User {
     private Set<UserMedicine> userMedicines;
 
     //Relaciones con User
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "tutorToUser")
     private Set<User> userToTutor;
 
     @ManyToOne (fetch = FetchType.EAGER)

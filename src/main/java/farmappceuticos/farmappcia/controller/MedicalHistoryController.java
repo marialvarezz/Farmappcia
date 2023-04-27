@@ -29,7 +29,7 @@ public class MedicalHistoryController {
         return "medicalHistory/medicalHistory-form";
     }
     @PostMapping("/save")
-    public String saveMedicalHistory(@ModelAttribute("medicalHistory") MedicalHistory medicalHistory) throws Exception {
+    public String saveMedicalHistory(@ModelAttribute("medicalHistory") MedicalHistory medicalHistory){
         medicalHistoryService.save(medicalHistory);
         return "redirect:/historialMedico/";
     }

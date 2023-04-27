@@ -29,7 +29,7 @@ public class IncMedicineController {
         return "incMedicine/incMedicine-form";
     }
     @PostMapping("/save")
-    public String saveIncMedicine(@ModelAttribute("incMedicine") IncMedicine incMedicine) throws Exception {
+    public String saveIncMedicine(@ModelAttribute("incMedicine") IncMedicine incMedicine) {
         incMedicineService.save(incMedicine);
         return "redirect:/medicamentosIncompatibles/";
     }

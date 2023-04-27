@@ -29,7 +29,7 @@ public class IllnessController {
         return "illness/illness-form";
     }
     @PostMapping("/save")
-    public String saveIllness(@ModelAttribute("illness") Illness illness) throws Exception {
+    public String saveIllness(@ModelAttribute("illness") Illness illness)  {
         illnessService.save(illness);
         return "redirect:/enfermedades/";
     }

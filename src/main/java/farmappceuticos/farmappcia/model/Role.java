@@ -12,22 +12,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "userRole")
-public class UserRole {
+public class Role {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="rol")
-    private boolean rol;
-
-    @Column(name="descripcion")
-    private String descripcion;
+    private String rol;
 
     //Relaciones
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @OneToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    User userToRole;
+    User user;
 
 }
