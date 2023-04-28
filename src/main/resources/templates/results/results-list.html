@@ -24,12 +24,12 @@
         <tbody>
         <tr th:each="elemento : ${datos}">
           <td th:text="${elemento.id}">1</td>
-          <td th:text="${elemento.titurlar}"></td>
+          <td th:text="${elemento.titular}"></td>
           <td th:text="${elemento.descripcion}"></td>
           <td th:text="${elemento.fechaHora}"></td>
           <td>
-            <a th:href="@{/results/edit/{id}(id=${elemento.id})}" class="btn btn-primary">Editar</a>
-            <a th:href="@{/results/delete/{id}(id=${elemento.id})}" class="btn btn-primary">Eliminar</a>
+            <a th:href="@{/resultados/edit/{id}(id=${elemento.id})}" class="btn btn-primary">Editar</a>
+            <a th:href="@{/resultados/delete/{id}(id=${elemento.id})}" class="btn btn-primary">Eliminar</a>
           </td>
         </tbody>
       </table>

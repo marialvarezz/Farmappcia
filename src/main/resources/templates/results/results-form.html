@@ -11,14 +11,18 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>Crear o Editar Resultados</h1>
-            <form th:action="@{/cuestionariopregunta/{questionnaireId}/respuesta/new(questionnaireId=${answers.questionnaire.id})}" th:object="${answers}" method="post">
+            <form th:action="@{/resultados/save}" th:object="${datos}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
-                    <label for="respuesta">Respuesta: </label>
-                    <input type="text" class="form-control" id="respuesta" th:field="*{respuesta}" />
+                    <label for="titular">Titular: </label>
+                    <input type="text" class="form-control" id="titular" th:field="*{titular}" />
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción: </label>
+                    <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" />
                 </div>
                     <button type="submit" class="btn btn-outline-success">Guardar</button>
-                    <a th:href="@{/cuestionariopregunta/}" class="btn btn-outline-secondary">Cancelar</a>
+                    <a th:href="@{/resultados/}" class="btn btn-outline-secondary">Cancelar</a>
 
             </form>
 
