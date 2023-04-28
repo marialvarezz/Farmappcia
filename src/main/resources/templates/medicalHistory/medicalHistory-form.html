@@ -12,19 +12,28 @@
   <div class="row">
     <div class="col-lg-12">
       <h1>Añadir o Editar Historial Médico</h1>
-      <form th:action="@{/medicalHistory/save}" th:object="${medicalHistory}" method="post">
+      <form th:action="@{/historialmedico/save}" th:object="${medicalHistory}" method="post">
         <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+          <label for="diagnostico">Diagnóstico:</label>
+          <input type="text" class="form-control" id="diagnostico" th:field="*{diagnostico}"/>
+        </div>
         <div class="form-group">
           <label for="sintomas">Síntomas:</label>
           <input type="text" class="form-control" id="sintomas" th:field="*{sintomas}"/>
         </div>
         <div class="form-group">
           <label for="fechaIncidencia">Fecha de la incidencia:</label>
-          <input type="text" class="form-control" id="fechaIncidencia" th:field="*{fechaIncidencia}"/>
+          <input type="date" class="form-control" id="fechaIncidencia" th:field="*{fechaIncidencia}"/>
         </div>
         <div class="form-group">
           <label for="ingreso">Ingreso:</label>
-          <input type="text" class="form-control" id="ingreso" th:field="*{ingreso}"/>
+
+          <select  name="ingreso" class="form-select" id="ingreso" th:field="*{ingreso}">
+            <option selected value="null">Abre este menú</option>
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="ubiHospital">Ubicación del hospital:</label>
@@ -33,7 +42,7 @@
 
         <div class="form-group">
           <button type="submit" class="btn btn-outline-success">Guardar</button>
-          <a th:href="@{/medicalHistory/}" class="btn btn-outline-secondary">Cancelar</a>
+          <a th:href="@{/historialmedico/}" class="btn btn-outline-secondary">Cancelar</a>
         </div>
       </form>
     </div>

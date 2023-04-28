@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,11 +20,14 @@ public class MedicalHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="diagnostico")
+    private String diagnostico;
+
     @Column(name="sintomas")
     private String sintomas;
 
     @Column(name="fechaIncidencia")
-    private String fechaIncidencia;
+    private LocalDate fechaIncidencia;
 
     @Column(name="ingreso")
     private String ingreso;

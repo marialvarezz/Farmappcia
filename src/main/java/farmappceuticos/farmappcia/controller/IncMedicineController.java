@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/incMedicine")//url
+@RequestMapping("/medicamentosinc")//url
 public class IncMedicineController {
     @Autowired
     private IncMedicineService incMedicineService;
@@ -31,7 +31,7 @@ public class IncMedicineController {
     @PostMapping("/save")
     public String saveIncMedicine(@ModelAttribute("incMedicine") IncMedicine incMedicine) {
         incMedicineService.save(incMedicine);
-        return "redirect:/incMedicine/";
+        return "redirect:/medicamentosinc/";
     }
     @GetMapping("/edit/{id}")
     public String showEditIncMedicineForm(@PathVariable("id") Integer id, Model model) {
@@ -50,7 +50,7 @@ public class IncMedicineController {
     @GetMapping("/delete/{id}")
     public String deleteIncMedicine(@PathVariable("id") Integer id) {
         incMedicineService.deleteById(id);
-        return "redirect:/incMedicine/";
+        return "redirect:/medicamentosinc/";
     }
 
 }

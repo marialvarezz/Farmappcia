@@ -13,6 +13,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Diagnóstico</th>
             <th>Síntomas</th>
             <th>Fecha de la incidencia</th>
             <th>Ingreso</th>
@@ -22,18 +23,19 @@
         <tbody>
         <tr th:each="medicalHistory : ${medicalHistory}">
             <td th:text="${medicalHistory.id}">1</td>
+            <td th:text="${medicalHistory.diagnostico}">Diagnostico</td>
             <td th:text="${medicalHistory.sintomas}">Nombre de la enfermedad</td>
             <td th:text="${medicalHistory.fechaIncidencia}">Tipo de enfermedad</td>
             <td th:text="${medicalHistory.ingreso}">Descripción de la enfermedad</td>
             <td th:text="${medicalHistory.ubiHospital}">Síntomas de la enfermedad</td>
             <td>
-                <a class="btn btn-outline-primary" th:href="@{/medicalHistory/edit/{id}(id=${medicalHistory.id})}">Editar</a>
-                <a class="btn btn-outline-danger" th:href="@{/medicalHistory/delete/{id}(id=${medicalHistory.id})}">Eliminar</a>
+                <a class="btn btn-outline-primary" th:href="@{/historialmedico/edit/{id}(id=${medicalHistory.id})}">Editar</a>
+                <a class="btn btn-outline-danger" th:href="@{/historialmedico/delete/{id}(id=${medicalHistory.id})}">Eliminar</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-outline-success" th:href="@{/medicalHistory/new}">Añade un nuevo Historial Médico</a>
+    <a class="btn btn-outline-success" th:href="@{/historialmedico/new}">Añade un nuevo Historial Médico</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
