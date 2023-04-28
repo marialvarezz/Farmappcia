@@ -1,9 +1,6 @@
 package farmappceuticos.farmappcia.controller;
 
-import farmappceuticos.farmappcia.model.Medicine;
-import farmappceuticos.farmappcia.model.Questions;
-import farmappceuticos.farmappcia.model.User;
-import farmappceuticos.farmappcia.model.UserMedicineInc;
+import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.MedicineService;
 import farmappceuticos.farmappcia.services.QuestionnaireService;
 import farmappceuticos.farmappcia.services.UserMedicineIncService;
@@ -141,5 +138,32 @@ public class UserController {
       }
 
       return "error";
+   }
+
+   //Medicamentos
+   @GetMapping("/{id}/medicamentos/new")
+   public String newUserMedicineForm(@PathVariable("id") Integer id, Model model) {
+      Optional<User> user = userService.findById(id);
+      if (user.isPresent()){
+         UserMedicine userMedicine = new UserMedicine();
+         userMedicine.setUserToMedicine(user.get());
+         model.addAttribute("medicine",userMedicine);
+         return "medicine/user-medicine-form";
+      }else{
+         return "error";
+      }
+   }
+
+   @PostMapping("/{id}/medicamentos/new")
+   public String createMedicine(@PathVariable("id") Integer id, @ModelAttribute("medicine") Medicine medicine){
+      Optional<User> user = userService.findById(id);
+      if (user.isPresent()){
+         medicine.setUserMedicines(user.get().getUserMedicines());
+         medicineService.save(medicine);
+         return "redirect:/usuario/edit/" + id;
+      }else{
+         return "error";
+      }
+
    }
 }

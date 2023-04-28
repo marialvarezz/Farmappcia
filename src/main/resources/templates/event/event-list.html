@@ -1,0 +1,75 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+
+<head>
+    <meta th:charset="#{principal.charset}">
+    <title th:text="#{principal.title}"></title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+    <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+
+    <!-- Template Main CSS Files -->
+    <link th:href="@{/css/variables.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+</head>
+<body>
+<h1 layout:fragment="cabecera" class="my-4">Lista de Eventos</h1>
+<div layout:fragment="contenido" class="container" >
+    <div class="col-lg-12">
+    <div class="row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha/Hora</th>
+            <th>Especialización</th>
+            <th>Ubicación</th>
+            <th>Notificar</th>
+            <th>Notificar Tutor</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="event : ${event}">
+                <td th:text="${event.id}">1</td>
+                <td th:text="${event.nombre}">Nombre</td>
+                <td th:text="${event.descripcion}">Descripción</td>
+                <td th:text="${event.fechaHora}">Fecha/Hora</td>
+                <td th:text="${event.especializacion}">Especialización</td>
+                <td th:text="${event.ubicacion}">Ubicación</td>
+                <td th:text="${event.notificar}">Notificar</td>
+                <td th:text="${event.notificarTutor}">Notificar CareGiver</td>
+
+                <td>
+                    <a class="btn btn-outline-primary" th:href="@{/eventos/edit/{id}(id=${event.id})}">Editar</a>
+                    <a onclick="return confirm('¿Está seguro que quiere borrar el evento?')" class="btn btn-outline-danger" th:href="@{/eventos/delete/{id}(id=${event.id})}">Borrar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        <a class="btn btn-outline-success" th:href="@{/eventos/new}">Agregar Nuevo Evento</a>
+    </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
