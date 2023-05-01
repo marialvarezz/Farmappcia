@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,6 +23,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
+
+    @Column(name = "name")
+    String name;
     @Column(name="username")
     private String username;
     @Column(name="email")
@@ -42,8 +47,12 @@ public class User {
     private Agenda agendaToUser;
 
     //Relación con UserRole
-    @OneToOne(mappedBy = "user")
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+    @JoinTable(
+            name="role_usuario",
+            joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
+    private List<Role> roles = new ArrayList<>();
 
     @OneToOne(mappedBy = "userToHistorialMedico")
     private MedicalHistory historialMedicoToUser;

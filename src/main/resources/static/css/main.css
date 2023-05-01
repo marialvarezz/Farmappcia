@@ -64,6 +64,11 @@ section {
   margin-bottom: 0;
 }
 
+.tittle{
+family-font:centuty gothic black;
+text-align:center;
+}
+
 /*--------------------------------------------------------------
 # Scroll top button
 --------------------------------------------------------------*/

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "userRole")
+
 public class Role {
     @Id
     @Column(name = "id")
@@ -23,8 +23,6 @@ public class Role {
 
     //Relaciones
 
-    @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    User user;
+
 
 }
