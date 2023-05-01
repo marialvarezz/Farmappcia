@@ -31,17 +31,17 @@
     <link th:href="@{/css/main.css}" rel="stylesheet">
 </head>
 <body>
-<h1 layout:fragment="cabecera">Crear o Editar Medicamentos</h1>
+<h1 layout:fragment="cabecera">Añadir Medicamento</h1>
 <div layout:fragment="contenido" class="container">
     <div class="col-lg-12">
      <div class="row">
-            <form th:action="@{/user/{userId}/medicamentos/new(userId=${medicine.userToMedicine.id})}" th:object="${medicine}" method="post">
+            <form th:action="@{/usuario/{userId}/medicamentos/new(userId=${userMedicine.userToMedicine.id})}" th:object="${userMedicine}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label>Medicamento:</label>
-                    <select multiple="true" name="preguntas" class="form-select" id="preguntas" th:field="*{medicine}">
+                    <select multiple="true" name="medicamentos" class="form-select" id="medicamentos" th:field="*{medicineToMedicine}">
                         <option th:each="medicine : ${allMedicines}"
-                                th:value="${medicine.name}"
+                                th:value="${medicine.id}"
                                 th:text="${medicine.name}"
                         >
                         </option>
@@ -49,26 +49,17 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="administer">Consumo:</label>
-                    <input class="form-control" type="text" id="administer" th:field="*{administer}">
+                    <label for="active">Active:</label>
+                    <input class="form-control" type="text" id="active" th:field="*{active}">
                     <br>
                 </div>
                 <div class="form-group">
-                    <label for="efects">Efectos Secundarios:</label>
-                    <input class="form-control" type="text" id="efects" th:field="*{efects}">
+                    <label for="descripcion">Descripción:</label>
+                    <input class="form-control" type="text" id="descripcion" th:field="*{descripcion}">
                     <br>
                 </div>
-                <div class="form-group">
-                    <label for="misc">Misc.:</label>
-                    <input class="form-control" type="text" id="misc" th:field="*{misc}">
-                    <br>
-                </div>
-                <!--                <div class="form-group">-->
-                <!--                    <label>Impuestos:</label>-->
-                <!--                    <select class="form-control" multiple="multiple" th:field="*{taxes}">-->
-                <!--                        <option th:each="tax : ${allTaxes}" th:value="${tax}" th:text="${tax.name}" th:selected="${invoice.taxes.contains(tax)}"></option>-->
-                <!--                    </select>-->
-                <!--                </div>-->
+
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-outline-success">Guardar</button>
                     <a th:href="@{/medicamentos/}" class="btn btn-outline-secondary">Cancelar</a>

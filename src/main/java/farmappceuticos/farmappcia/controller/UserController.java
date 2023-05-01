@@ -1,10 +1,7 @@
 package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.*;
-import farmappceuticos.farmappcia.services.MedicineService;
-import farmappceuticos.farmappcia.services.QuestionnaireService;
-import farmappceuticos.farmappcia.services.UserMedicineIncService;
-import farmappceuticos.farmappcia.services.UserService;
+import farmappceuticos.farmappcia.services.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +24,8 @@ public class UserController {
    UserMedicineIncService userMedicineIncService;
    @Autowired
    MedicineService medicineService;
+   @Autowired
+   UserMedicineService userMedicineService;
 
    @GetMapping({"/",""})
    public String inicioUsuario(){return "user/userinicio";}
@@ -146,8 +145,11 @@ public class UserController {
       Optional<User> user = userService.findById(id);
       if (user.isPresent()){
          UserMedicine userMedicine = new UserMedicine();
+         List<Medicine> medicines = medicineService.findAll();
+         model.addAttribute("allMedicines", medicines);
          userMedicine.setUserToMedicine(user.get());
-         model.addAttribute("medicine",userMedicine);
+         model.addAttribute("userMedicine",userMedicine);
+
          return "medicine/user-medicine-form";
       }else{
          return "error";
@@ -155,12 +157,13 @@ public class UserController {
    }
 
    @PostMapping("/{id}/medicamentos/new")
-   public String createMedicine(@PathVariable("id") Integer id, @ModelAttribute("medicine") Medicine medicine){
+   public String createMedicine(@PathVariable("id") Integer id, @ModelAttribute("userMedicine") UserMedicine userMedicine){
       Optional<User> user = userService.findById(id);
       if (user.isPresent()){
-         medicine.setUserMedicines(user.get().getUserMedicines());
-         medicineService.save(medicine);
-         return "redirect:/usuario/edit/" + id;
+        userMedicine.setUserToMedicine(user.get());
+         userMedicineService.save(userMedicine);
+      userMedicineService.save(userMedicine);
+         return "redirect:/usuario/info/" + id;
       }else{
          return "error";
       }
