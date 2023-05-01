@@ -1,11 +1,16 @@
 package farmappceuticos.farmappcia.controller;
+import farmappceuticos.farmappcia.model.Illness;
 import farmappceuticos.farmappcia.model.IncMedicine;
+import farmappceuticos.farmappcia.model.Medicine;
+import farmappceuticos.farmappcia.services.IllnessService;
 import farmappceuticos.farmappcia.services.IncMedicineService;
+import farmappceuticos.farmappcia.services.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -14,6 +19,9 @@ public class IncMedicineController {
     @Autowired
     private IncMedicineService incMedicineService;
     //Para acceder a los métodos
+
+    @Autowired
+    private MedicineService medicineService;
 
     @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
@@ -25,6 +33,8 @@ public class IncMedicineController {
     }
     @GetMapping("/new")
     public String showNewIncMedicineForm(Model model) {
+        List<Medicine> medicineList=medicineService.findAll();
+        model.addAttribute("allMedicines", medicineList);
         model.addAttribute("incMedicine", new IncMedicine());
         return "incMedicine/incMedicine-form";
     }
@@ -52,5 +62,7 @@ public class IncMedicineController {
         incMedicineService.deleteById(id);
         return "redirect:/medicamentosinc/";
     }
+
+
 
 }

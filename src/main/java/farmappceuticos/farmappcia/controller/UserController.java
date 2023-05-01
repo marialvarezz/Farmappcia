@@ -1,13 +1,7 @@
 package farmappceuticos.farmappcia.controller;
 
-import farmappceuticos.farmappcia.model.Medicine;
-import farmappceuticos.farmappcia.model.Questions;
-import farmappceuticos.farmappcia.model.User;
-import farmappceuticos.farmappcia.model.UserMedicineInc;
-import farmappceuticos.farmappcia.services.MedicineService;
-import farmappceuticos.farmappcia.services.QuestionnaireService;
-import farmappceuticos.farmappcia.services.UserMedicineIncService;
-import farmappceuticos.farmappcia.services.UserService;
+import farmappceuticos.farmappcia.model.*;
+import farmappceuticos.farmappcia.services.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +24,12 @@ public class UserController {
    UserMedicineIncService userMedicineIncService;
    @Autowired
    MedicineService medicineService;
+
+   @Autowired
+   IllnessService illnessService;
+
+   @Autowired
+   MedicalHistoryService medicalHistoryService;
 
    @GetMapping({"/",""})
    public String inicioUsuario(){return "user/userinicio";}
@@ -142,4 +142,32 @@ public class UserController {
 
       return "error";
    }
+
+   @GetMapping("/{id}/historialmedico/new")
+   public String nuevoParte(@PathVariable("id") Integer id, Model model) {
+      Optional<User> user = userService.findById(id);
+      if (user.isPresent()) {
+         MedicalHistory medicalHistory = new MedicalHistory();
+         List<Illness> illnessList = illnessService.findAll();
+         model.addAttribute("allIllness", illnessList);
+         medicalHistory.setUserToHistorialMedico(user.get());
+         model.addAttribute("medicalhistory",medicalHistory);
+         return "medicalHistory/medicalHistoryUser-form";
+      } else {
+         return "error-page";
+      }
+   }
+
+   @PostMapping("/{id}/historialmedico/new")
+   public String nuevoParteSave(@PathVariable("id") Integer id, @ModelAttribute("medicalhistory") MedicalHistory medicalHistory){
+      Optional<User> user = userService.findById(id);
+      if(user.isPresent()){
+         medicalHistory.setUserToHistorialMedico(user.get());
+         medicalHistoryService.save(medicalHistory);
+         return "redirect:/usuario/info/"+id;
+      }
+
+      return "error";
+   }
+
 }

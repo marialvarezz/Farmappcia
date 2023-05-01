@@ -23,8 +23,6 @@ public class MedicalHistory {
     @Column(name="diagnostico")
     private String diagnostico;
 
-    @Column(name="sintomas")
-    private String sintomas;
 
     @Column(name="fechaIncidencia")
     private LocalDate fechaIncidencia;
@@ -37,7 +35,7 @@ public class MedicalHistory {
 
     //Relaciones
 
-    @OneToOne(cascade = CascadeType.ALL) //Revisar el fetch type
+    @ManyToOne(cascade = CascadeType.ALL) //Revisar el fetch type
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userToHistorialMedico;
 

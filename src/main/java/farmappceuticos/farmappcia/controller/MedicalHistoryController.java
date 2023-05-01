@@ -1,11 +1,14 @@
 package farmappceuticos.farmappcia.controller;
+import farmappceuticos.farmappcia.model.Illness;
 import farmappceuticos.farmappcia.model.MedicalHistory;
+import farmappceuticos.farmappcia.services.IllnessService;
 import farmappceuticos.farmappcia.services.MedicalHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -13,6 +16,9 @@ import java.util.Optional;
 public class MedicalHistoryController {
     @Autowired
     private MedicalHistoryService medicalHistoryService;
+
+    @Autowired
+    private IllnessService illnessService;
     //Para acceder a los métodos
 
     @GetMapping({"/",""})
@@ -26,6 +32,8 @@ public class MedicalHistoryController {
     @GetMapping("/new")
     public String showNewMedicalHistoryForm(Model model) {
         model.addAttribute("medicalHistory", new MedicalHistory());
+        List<Illness> illnessList = illnessService.findAll();
+        model.addAttribute("allIllness", illnessList);
         return "medicalHistory/medicalHistory-form";
     }
     @PostMapping("/save")
@@ -38,6 +46,9 @@ public class MedicalHistoryController {
         Optional<MedicalHistory> medicalHistory = medicalHistoryService.findById(id);
         if (medicalHistory.isPresent()){
             model.addAttribute("medicalHistory", medicalHistory.get());
+            List<Illness> illnessList = illnessService.findAll();
+            model.addAttribute("allIllness", illnessList);
+
             return "medicalHistory/medicalHistory-form";
         }
         else {

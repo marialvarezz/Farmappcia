@@ -18,7 +18,23 @@
           <label for="reason">Motivo:</label>
           <input type="text" class="form-control" id="reason" th:field="*{reason}"/>
         </div>
+        <label>Seleciona la medicina:</label>
+        <select multiple="false" name="medicineA" class="form-control" id="medicineA" th:field="*{incToMedicinesA}">
+          <option th:each="medicine : ${allMedicines}"
+                  th:value="${medicine.id}"
+                  th:text="${medicine.name}"
+          >
+          </option>
+        </select>
 
+        <label>Seleciona la medicina:</label>
+        <select multiple="false" name="medicineB" class="form-control" id="medicineB" th:field="*{incToMedicinesB}">
+          <option th:each="medicine : ${allMedicines}"
+                  th:value="${medicine.id}"
+                  th:text="${medicine.name}"
+          >
+          </option>
+        </select>
         <div class="form-group">
           <button type="submit" class="btn btn-outline-success">Guardar</button>
           <a th:href="@{/medicamentosinc/}" class="btn btn-outline-secondary">Cancelar</a>

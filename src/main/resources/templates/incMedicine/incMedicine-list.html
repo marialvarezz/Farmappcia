@@ -14,12 +14,16 @@
         <tr>
             <th>ID</th>
             <th>Motivo</th>
+            <th>Medicamento</th>
+            <th>Medicamento</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="incMedicine : ${incMedicine}">
             <td th:text="${incMedicine.id}">1</td>
             <td th:text="${incMedicine.reason}">Motivo de la incompatibilidad</td>
+            <td th:text="${incMedicine.incToMedicinesA.name}">Motivo de la incompatibilidad</td>
+            <td th:text="${incMedicine.incToMedicinesB.name}">Motivo de la incompatibilidad</td>
             <td>
                 <a class="btn btn-outline-primary" th:href="@{/medicamentosinc/edit/{id}(id=${incMedicine.id})}">Editar</a>
                 <a class="btn btn-outline-danger" th:href="@{/medicamentosinc/delete/{id}(id=${incMedicine.id})}">Eliminar</a>

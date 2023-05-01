@@ -45,8 +45,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Role role;
 
-    @OneToOne(mappedBy = "userToHistorialMedico")
-    private MedicalHistory historialMedicoToUser;
+    @OneToMany(mappedBy = "userToHistorialMedico")
+    private Set<MedicalHistory> historialMedicoToUser;
 
     @OneToOne(mappedBy = "userToUserData")
     private UserData userDataToUser;
