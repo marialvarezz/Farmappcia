@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
       xmlns:sd="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layout}">
+    >
 
 <head>
   <meta th:charset="#{principal.charset}">
@@ -33,22 +33,27 @@
 </head>
 
 <body>
-<div layout:fragment="cabecera"></div>
-<div layout:fragment="contenido">
   <div class="container-fluid">
+
+    <h2 class="tittle">¡Hola de nuevo!</h2>
+    <div th:if="${param.error}">
+    Invalid username and password.</div>
+    <div th:if="${param.logout}">
+      You have been logged out.</div>
     <form th:action="@{/procesarLogin}" method="post">
+
       <div>
     <label for="username">Usuario</label>
-    <input id="username" type="text" name="username">
+    <input id="username" type="text" name="username" placeholder="Username">
       </div>
       <div>
     <label for="password">Password</label>
-    <input id="password" type="password" name="password">
+    <input id="password" type="password" name="password"  placeholder="Password">
       </div>
       <input type="submit" value="Log in"/>
   </form>
   </div>
-</div>
+
 
 
 </body>

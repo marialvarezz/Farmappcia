@@ -1,13 +1,12 @@
 package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.Medicine;
-import farmappceuticos.farmappcia.model.Questions;
 import farmappceuticos.farmappcia.model.User;
 import farmappceuticos.farmappcia.model.UserMedicineInc;
 import farmappceuticos.farmappcia.services.MedicineService;
 import farmappceuticos.farmappcia.services.QuestionnaireService;
 import farmappceuticos.farmappcia.services.UserMedicineIncService;
-import farmappceuticos.farmappcia.services.UserService;
+import farmappceuticos.farmappcia.services.UserService1;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ import java.util.Optional;
 @RequestMapping("/usuario")
 public class UserController {
    @Autowired
-   UserService userService;
+   UserService1 userService;
 
    @Autowired
    QuestionnaireService questionnaireService;
