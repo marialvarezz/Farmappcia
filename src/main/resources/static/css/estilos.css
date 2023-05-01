@@ -1,0 +1,37 @@
+.azul{
+background-color: transparent;
+padding: 70px;
+margin-top: 20px;
+
+}
+.yx{
+max-width: 750px;
+    text-align: start;
+    margin: 10px;
+}
+
+.blanco{
+background-color:white;
+padding:30px;
+}
+
+.tittle{
+font-family:century gothic black;}
+
+.verde{
+background-color:#76BE83;
+}
+
+
+.cartas{
+    background-color: transparent;
+            border: 1px solid #005CA9 ;
+            margin: 20px;
+
+    }
+
+
+.img-carta{
+    max-width: 100px;
+        margin-bottom: 10px;
+}

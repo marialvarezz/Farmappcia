@@ -12,6 +12,8 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+}
 :root {
   scroll-behavior: smooth;
 }
@@ -50,6 +52,7 @@ section {
   padding: 40px 0;
 
 }
+
 
 .section-header {
   border-bottom: 2px solid var(--color-black);
