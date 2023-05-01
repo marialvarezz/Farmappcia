@@ -33,27 +33,36 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-
-    <h2 class="tittle">¡Hola de nuevo!</h2>
-    <div th:if="${param.error}">
-    Invalid username and password.</div>
+  <div class="container-fluid justify-content-center" style="padding:100px;background-image: url(/img/fondoUsu.png);height: 1000px;">
+  <div class="row">
+    <div class="col-lg-6 d-flex ">
+    <div class="container-fluid" style="padding-left:20px">
+    <h2 style="font-family:century gothic black">¡Hola de nuevo!</h2>
+    <div th:if="${param.error}"><p style="color:red">
+    Usuario o contraseña incorrectos.</p></div>
     <div th:if="${param.logout}">
-      You have been logged out.</div>
+      <p style="color:red">
+      Has cerrado sesión.</p></div>
     <form th:action="@{/procesarLogin}" method="post">
 
-      <div>
+      <div class="form-group">
     <label for="username">Usuario</label>
-    <input id="username" type="text" name="username" placeholder="Username">
+    <input id="username" class="form-control" type="text" name="username" placeholder="Username">
       </div>
-      <div>
+      <div class="form-group">
     <label for="password">Password</label>
-    <input id="password" type="password" name="password"  placeholder="Password">
+    <input id="password"  class="form-control" type="password" name="password"  placeholder="Password">
       </div>
       <input type="submit" value="Log in"/>
-  </form>
+  </form></div>
+  </div>
+    <div class="col-lg-6 d-flex justify-content-center">
+
+    <img src="/img/robotin2.png" alt="robotin" class="img-fluid">
+  </div>
   </div>
 
+  </div>
 
 
 </body>
