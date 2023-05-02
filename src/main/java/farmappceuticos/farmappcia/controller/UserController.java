@@ -150,7 +150,7 @@ public class UserController {
          MedicalHistory medicalHistory = new MedicalHistory();
          List<Illness> illnessList = illnessService.findAll();
          model.addAttribute("allIllness", illnessList);
-         medicalHistory.setUserToHistorialMedico(user.get());
+         medicalHistory.setUser(user.get());
          model.addAttribute("medicalhistory",medicalHistory);
          return "medicalHistory/medicalHistoryUser-form";
       } else {
@@ -162,7 +162,7 @@ public class UserController {
    public String nuevoParteSave(@PathVariable("id") Integer id, @ModelAttribute("medicalhistory") MedicalHistory medicalHistory){
       Optional<User> user = userService.findById(id);
       if(user.isPresent()){
-         medicalHistory.setUserToHistorialMedico(user.get());
+         medicalHistory.setUser(user.get());
          medicalHistoryService.save(medicalHistory);
          return "redirect:/usuario/info/"+id;
       }

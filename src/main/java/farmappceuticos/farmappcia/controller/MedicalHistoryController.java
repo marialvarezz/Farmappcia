@@ -38,8 +38,9 @@ public class MedicalHistoryController {
     }
     @PostMapping("/save")
     public String saveMedicalHistory(@ModelAttribute("medicalHistory") MedicalHistory medicalHistory){
+        Integer id=medicalHistory.getUser().getId();
         medicalHistoryService.save(medicalHistory);
-        return "redirect:/historialmedico/";
+        return "redirect:/usuario/info/"+id;
     }
     @GetMapping("/edit/{id}")
     public String showEditMedicalHistoryForm(@PathVariable("id") Integer id, Model model) {
@@ -60,8 +61,9 @@ public class MedicalHistoryController {
     //Cuidado solo es un ejemplo, no borramos fisicamente
     @GetMapping("/delete/{id}")
     public String deleteMedicalHistory(@PathVariable("id") Integer id) {
+        Integer y=medicalHistoryService.findById(id).get().getUser().getId();
         medicalHistoryService.deleteById(id);
-        return "redirect:/historialmedico/";
+        return "redirect:/usuario/info/"+y;
     }
 
 }

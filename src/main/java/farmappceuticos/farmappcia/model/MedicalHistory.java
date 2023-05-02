@@ -35,9 +35,9 @@ public class MedicalHistory {
 
     //Relaciones
 
-    @ManyToOne(cascade = CascadeType.ALL) //Revisar el fetch type
+    @ManyToOne(fetch = FetchType.EAGER) //Revisar el fetch type
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userToHistorialMedico;
+    private User user;
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "illness_id")

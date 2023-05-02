@@ -12,8 +12,13 @@
   <div class="row">
     <div class="col-lg-12">
       <h1>Añadir o Editar Historial Médico</h1>
+
       <form th:action="@{/historialmedico/save}" th:object="${medicalHistory}" method="post">
+
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{user}">
+
+
         <label>Indique la enfermedad:</label>
         <select multiple="false" name="illness" class="form-control" id="illness" th:field="*{illnessToMedicalHistory}">
           <option th:each="illness : ${allIllness}"

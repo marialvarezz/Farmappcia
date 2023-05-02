@@ -14,7 +14,7 @@
         <tr>
             <th>ID</th>
             <th>Diagnóstico</th>
-            <th>Síntomas</th>
+
             <th>Fecha de la incidencia</th>
             <th>Ingreso</th>
             <th>Ubicación del hospital</th>
@@ -24,7 +24,7 @@
         <tr th:each="medicalHistory : ${medicalHistory}">
             <td th:text="${medicalHistory.id}">1</td>
             <td th:text="${medicalHistory.diagnostico}">Diagnostico</td>
-            <td th:text="${medicalHistory.sintomas}">Nombre de la enfermedad</td>
+
             <td th:text="${medicalHistory.fechaIncidencia}">Tipo de enfermedad</td>
             <td th:text="${medicalHistory.ingreso}">Descripción de la enfermedad</td>
             <td th:text="${medicalHistory.ubiHospital}">Síntomas de la enfermedad</td>
