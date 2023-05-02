@@ -41,6 +41,38 @@
           </tr>
           </tbody>
         </table>
+
+        <div class="container">
+        <h2>Historial Médico</h2>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Enfermedad</th>
+            <th>Diagnostico</th>
+            <th>Fecha de la incidencia</th>
+            <th>ingreso</th>
+            <th>Ubicación Hospital</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="medicalHistory : ${user.medicalHistories}">
+            <td th:text="${medicalHistory.illnessToMedicalHistory.nombre}">1</td>
+            <td th:text="${medicalHistory.diagnostico}">Invoice date</td>
+            <td th:text="${medicalHistory.fechaIncidencia}">Invoice Code</td>
+            <td th:text="${medicalHistory.ingreso}">Invoice Code</td>
+            <td th:text="${medicalHistory.ubiHospital}">Invoice Code</td>
+            <td>
+              <a class="btn btn-outline-primary" th:href="@{/historialmedico/edit/{id}(id=${medicalHistory.id})}">Edit</a>
+              <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/historialmedico/delete/{idparte}(idparte=${medicalHistory.id})}">Delete</a>
+            </td>
+          </tr>
+          <tr>
+            <a class="btn btn-outline-success" th:href="@{/usuario/{id}/historialmedico/new?(id=${id})}">Añadir nuevo parte</a>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+
       </div>
       </form>
     </div>

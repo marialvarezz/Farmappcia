@@ -54,8 +54,8 @@ public class User {
             inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
     private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userToHistorialMedico")
-    private MedicalHistory historialMedicoToUser;
+    @OneToMany(mappedBy = "user")
+    private Set<MedicalHistory> medicalHistories;
 
     @OneToOne(mappedBy = "userToUserData")
     private UserData userDataToUser;
