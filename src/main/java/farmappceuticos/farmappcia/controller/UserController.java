@@ -225,32 +225,38 @@ public class UserController {
       }
 
 
-   @GetMapping("/{id}/historialmedico/new")
-   public String nuevoParte(@PathVariable("id") Integer id, Model model) {
-      Optional<User> user = userService.findById(id);
-      if (user.isPresent()) {
+   @GetMapping("/historialmedico/new")
+   public String nuevoParte( Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
          MedicalHistory medicalHistory = new MedicalHistory();
          List<Illness> illnessList = illnessService.findAll();
          model.addAttribute("allIllness", illnessList);
-         medicalHistory.setUser(user.get());
+         medicalHistory.setUser(user);
          model.addAttribute("medicalhistory",medicalHistory);
          return "medicalHistory/medicalHistoryUser-form";
-      } else {
-         return "error-page";
-      }
-   }
-
-   @PostMapping("/{id}/historialmedico/new")
-   public String nuevoParteSave(@PathVariable("id") Integer id, @ModelAttribute("medicalhistory") MedicalHistory medicalHistory){
-      Optional<User> user = userService.findById(id);
-      if(user.isPresent()){
-         medicalHistory.setUser(user.get());
-         medicalHistoryService.save(medicalHistory);
-         return "redirect:/usuario/info/"+id;
       }
 
-      return "error";
+
+
+   @PostMapping("/historialmedico/new")
+   public String nuevoParteSave( @ModelAttribute("medicalhistory") MedicalHistory medicalHistory) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user = userService.findByName(userName);
+      medicalHistory.setUser(user);
+      medicalHistoryService.save(medicalHistory);
+      return "redirect:/usuario/info/";
+
    }
-
-
 }
