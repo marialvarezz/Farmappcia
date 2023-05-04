@@ -31,7 +31,7 @@
           <img class="img-fluid" src="/img/logo.png" alt="FeelingCare Logo">
         </a></div>
         <ul class="navbar-nav col-lg-8 justify-content-lg-end">
-          <li sec:authorize="isAuthenticated()" class="nav-item"><a  class="nav-link" th:href="@{/usuario/}">Menú Usuario</a></li>
+          <li  sec:authorize="isAuthenticated()" class="nav-item"><a  class="nav-link" th:href="@{/usuario/}">Menú Usuario</a></li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" th:href="@{/login}">Inicio Sesión</a>
           </li>
