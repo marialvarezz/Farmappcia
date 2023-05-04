@@ -6,14 +6,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <link th:href="@{/img/logoiso.png}" rel="icon">
   <title>FeelingCare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link th:href="@{/img/favicon.png}" rel="icon">
-  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +23,7 @@
   <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
   <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
   <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-  <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+  <link th:href="@{/vendor/aos/aos.css}" rel="stylesheet}">
 
   <!-- Template Main CSS Files -->
   <link th:href="@{/css/variables.css}" rel="stylesheet">
@@ -66,7 +64,7 @@
                 <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/tusmedicamentos}">Tus medicamentos</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/catalogomedicamentos}">Catálogo</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/medicamentos}">Catálogo</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/incompatibilidadesmedicamentos}">Incompatibilidades</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/medicamentosfavoritos}">Favoritos</a></li>
                 </ul> </li>
@@ -93,9 +91,9 @@
 
     <div class="container-fluid p-0" style="background-image: url(/img/fondoUsu.png);min-height: 1000px;">
     <!-- Aqui vamos a escribir las cabeceras de los bloques  -->
-    <section class="container-fluid p-0" layout:fragment="cabecera"> </section>
+    <section class="container-fluid p-0"  layout:fragment="cabecera"> </section>
     <!-- Aqui vamos a escribir el contenido de los bloques  -->
-    <section class="container-fluid p-0" layout:fragment="contenido"> </section>
+    <section class="container-fluid p-0"  layout:fragment="contenido"> </section>
   </div>
 
 

@@ -59,10 +59,23 @@ public class UserController {
    public String vistaAgenda() {return "user/useragenda";}
 
    @GetMapping("/tusmedicamentos")
-   public String tusMedicamentos() {return "user/usertusmedicamentos";}
+   public String tusMedicamentos(Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
 
-   @GetMapping("/catalogomedicamentos")
-   public String catalogoMedicamentos() {return "user/usercatalogomedicamentos";}
+      model.addAttribute("user",user);
+      return "user/usertusmedicamentos";}
+
+   @GetMapping("/medicamentos")
+   public String catalogoMedicamentos(Model model) {
+      List<Medicine> medicines=medicineService.findAll();
+      model.addAttribute("allMedicines",medicines);
+      return "user/usercatalogomedicamentos";}
 
    @GetMapping("/incompatibilidadesmedicamentos")
    public String incompatibilidadesMedicamentos() {return "user/userincompatibilidadesmedicamentos";}

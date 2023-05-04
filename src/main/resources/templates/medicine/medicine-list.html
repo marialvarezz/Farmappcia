@@ -1,6 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sd="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layout2}">
 
 <head>
@@ -23,14 +24,15 @@
 
 </head>
 <body>
-<h1 layout:fragment="cabecera" class="my-4">Lista de Medicamentos</h1>
-<div layout:fragment="contenido" class="container">
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;"><h3> Lista de Medicamentos</h3></div></div>
+<div layout:fragment="contenido" class="container" style="padding-top:20px;">
 
         <div class="container-fluid" style="padding-bottom:20px;">
             <table class="table table-striped">
                 <thead>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-success" th:href="@{/medicamentos/new}">Agregar Nuevo Medicamento</a>
                 <tr>
-                    <th>ID</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">ID</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Imágen</th>
@@ -42,7 +44,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="medicine : ${medicine}">
-                    <td th:text="${medicine.id}">1</td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${medicine.id}">1</td>
                     <td th:text="${medicine.name}">Nombre</td>
                     <td th:text="${medicine.description}">Descripción</td>
                     <td th:text="${medicine.image}">Imágen</td>
@@ -51,14 +53,14 @@
                     <td th:text="${medicine.efects}">Efectos Secundarios</td>
                     <td th:text="${medicine.misc}">Misc.</td>
 
-                    <td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="btn btn-outline-primary" th:href="@{/medicamentos/edit/{id}(id=${medicine.id})}">Editar</a>
                         <a onclick="return confirm('¿Está seguro que quiere borrar el medicamento?')" class="btn btn-outline-danger" th:href="@{/medicamentos/delete/{id}(id=${medicine.id})}">Borrar</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <a class="btn btn-outline-success" th:href="@{/medicamentos/new}">Agregar Nuevo Medicamento</a>
+
         </div>
     </div>
 </div>

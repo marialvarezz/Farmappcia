@@ -48,3 +48,14 @@ INSERT INTO medicine (name, description, image, components, administer, efects, 
 ('Losartán', 'Antagonista del receptor de angiotensina II', 'losartan.png', 'Losartán', 'Vía oral', 'Control de la presión arterial', 'Tomar antes de dormir');
 INSERT INTO medicine (name, description, image, components, administer, efects, misc) VALUES
 ('Diazepam', 'Medicamento ansiolítico y sedante', 'diazepam.jpg', 'Diazepam 10mg', 'Vía oral', 'Sedación, relajación muscular, disminución de ansiedad', 'Puede causar somnolencia y mareo');
+
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Cuál es su edad?', '1', 'Menor de 18 años', '18 a 25 años', '26 a 35 años', '36 a 50 años', 'Más de 50 años', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Tiene alguna enfermedad crónica?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Cuántas veces al día come verduras?', '1', 'Nunca', '1 a 2 veces', '3 a 4 veces', '5 o más veces', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Cuántas veces al día come frutas?', '1', 'Nunca', '1 a 2 veces', '3 a 4 veces', '5 o más veces', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Cuántas veces a la semana hace ejercicio?', '1', 'Nunca', '1 a 2 veces', '3 a 4 veces', '5 o más veces', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Cuántas horas al día pasa sentado?', '1', 'Menos de 2 horas', '2 a 4 horas', '4 a 6 horas', 'Más de 6 horas', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Cuántas horas al día duerme?', '1', 'Menos de 5 horas', '5 a 7 horas', '7 a 9 horas', 'Más de 9 horas', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Fuma?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Toma alcohol?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());
+INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Tiene alergias?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());

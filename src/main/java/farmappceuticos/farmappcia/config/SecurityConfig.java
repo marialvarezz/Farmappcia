@@ -18,7 +18,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests( authorize -> authorize
 
                 //Permitimos todas las visitas a la pagina principal
-                .requestMatchers("","/").permitAll()
+                .requestMatchers("","/","/medicamentos/").permitAll()
                 //Permitimos todas las visitas a la pagina principal
                 .requestMatchers("/registro","/registrarusuario").permitAll()
                 //Permitimos la entrada a los css, js e imágenes

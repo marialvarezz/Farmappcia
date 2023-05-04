@@ -5,43 +5,54 @@
 
 <head>
     <meta th:charset="#{principal.charset}">
-    <title th:text="#{principal.title}"></title>
+    <title>Tus medicamentos</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicons -->
-    <link th:href="@{/img/favicon.png}" rel="icon">
-    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
-    <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-    <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
     <!-- Template Main CSS Files -->
     <link th:href="@{/css/variables.css}" rel="stylesheet">
-    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/main2.css}" rel="stylesheet">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: ZenBlog
-    * Updated: Mar 10 2023 with Bootstrap v5.2.3
-    * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
-    * Author: BootstrapMade.com
-    * License: https:///bootstrapmade.com/license/
-    ======================================================== -->
+
 </head>
 
 <body>
-<div layout:fragment="cabecera"><h3>Prueba</h3></div>
-<div layout:fragment="contenido"><p>Prueba2</p></div>
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px"> <h3>Medicamentos de <span th:text="${user.name}"></span></h3></div></div>
+<div layout:fragment="contenido">
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Medicamento</th>
+                <th>Motivo</th>
+                <th>Activo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medicine : ${user.userMedicines}">
+                <td th:text="${medicine.medicineToMedicine.name}">1</td>
+                <td th:text="${medicine.descripcion}">Invoice date</td>
+                <td th:text="${medicine.active}">Invoice Code</td>
+                <td>
+                    <!-- <a class="btn btn-outline-primary" th:href="@{/historialmedico/edit/{id}(id=${medicalHistory.id})}">Edit</a>
+                     <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/historialmedico/delete/{idparte}(idparte=${medicalHistory.id})}">Delete</a>
+                   --></td>
+            </tr>
+            <tr>
+                <a class="btn btn-outline-success" th:href="@{/usuario/medicamentos/new}">Añadir nuevo medicamento</a>
+            </tr>
+            </tbody>
+        </table>
+
+</div> </div>
 
 
 </body>
