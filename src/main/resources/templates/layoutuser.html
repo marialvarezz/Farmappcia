@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html th:lang="#{principal.lang}" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -41,7 +42,7 @@
 
 
       <div class="container-fluid">
-        <a th:href="@{/}" class="navbar-brand">
+        <a th:href="@{/usuario}" class="navbar-brand">
         <div class="row"></div>
         <img class="img-fluid" style="max-width:150px" src="/img/logo.png" alt="FeelingCare Logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,9 +56,9 @@
                 Mi Perfil<img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/historialmedico}">Historial Médico</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/datosusuario}">Datos del Usuario</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/info/}">Datos del Usuario</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/configuracion}">FeelingCare Giver</a></li>
-                  <li class="dropdown-item"><a th:href="@{/}">Log Out<!--Se cerraría sesión--></a></li>
+                  <li class="dropdown-item"><a th:href="@{/logout}">Log Out<!--Se cerraría sesión--></a></li>
                 </ul>
               </li>
               <li class="nav-item"><a class="nav-link" th:href="@{/usuario/agenda}">Agenda</a></li>
@@ -78,6 +79,7 @@
                   <li class="dropdown-item"><a href="#">Estadísticas</a></li>
                 </ul>
               </li>
+              <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a  class="nav-link" th:href="@{/admin/}">Admin</a></li>
 
             </ul>
         </div>
@@ -89,13 +91,13 @@
 
   </header><!-- End Header -->
 
-  <main id="main">
+    <div class="container-fluid p-0" style="background-image: url(/img/fondoUsu.png);min-height: 1000px;">
     <!-- Aqui vamos a escribir las cabeceras de los bloques  -->
-    <section class="container" layout:fragment="cabecera"> </section>
+    <section class="container-fluid p-0" layout:fragment="cabecera"> </section>
     <!-- Aqui vamos a escribir el contenido de los bloques  -->
-    <section class="container" layout:fragment="contenido"> </section>
+    <section class="container-fluid p-0" layout:fragment="contenido"> </section>
+  </div>
 
-  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

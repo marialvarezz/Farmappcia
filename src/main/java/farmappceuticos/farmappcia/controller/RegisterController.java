@@ -39,11 +39,11 @@ public class RegisterController {
         User user = userRepository.findByUsername(userDto.getUsername());
         if(user != null && user.getUsername() != null && !user.getUsername().isEmpty()){
             result.rejectValue("username", null,
-                    "There is already an account registered with the same username");
+                    "Usuario ocupado, por favor introduzca otro usuario");
         }
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
-            return "/register";
+            return "adminUser/register-user-form";
         }
 
         userService.guardarUsuarioDTO(userDto);

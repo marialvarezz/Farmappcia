@@ -29,7 +29,8 @@ public class SecurityConfig {
                 //Solo permitimos a usuarios registrados visitar "/private"
                 .requestMatchers("/usuario/**").authenticated() //Permitimos únicamente las visitas de usuarios registrados a  /private
                 // Todas las request no filtradas hasta ahora, se rechazarán
-                .anyRequest().denyAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().hasRole("ADMIN")
         );
 
         http

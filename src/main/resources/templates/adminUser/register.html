@@ -7,11 +7,16 @@
     <title>Registro</title>
 </head>
 <body>
-<div class="container-fluid justify-content-center" style="padding:100px;background-image: url(/img/fondo.png);height: 1000px;">
+<div class="container-fluid justify-content-center" style="padding:50px;background-image: url(/img/fondo.png);height: 1000px;">
     <div class="row">
         <div class="col-lg-6">
             <h1 class="tittle">¡Bienvenido!</h1>
-            <form th:action="@{/registrarusuario}" th:object="${user}" th:method="post">
+            <div th:if="${param.success}">
+                <div class="alert alert-info">
+                    You have successfully registered our app!
+                </div>
+            </div>
+            <form th:action="@{/registrarusuario}" th:object="${user}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                 <label for="firstName">Nombre:</label>
@@ -24,8 +29,6 @@
                 <div class="form-group">
                     <label for="username">Usuario:</label>
                     <input type="text" class="form-control" id="username" th:field="*{username}"/>
-                    <p th:errors = "*{username}" class="text-danger"
-                       th:if="${#fields.hasErrors('username')}"></p>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>

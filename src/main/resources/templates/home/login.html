@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
-
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:sd="http://www.w3.org/1999/xhtml"
     >
 
@@ -43,6 +43,10 @@
     <div th:if="${param.logout}">
       <p style="color:red">
       Has cerrado sesión.</p></div>
+      <div  sec:authorize="isAuthenticated()"><p style="color:red;">Ya has iniciado sesión
+        <a type="button" th:href="@{/usuario}" class="btn" style="border-color:red;color:red;margin-bottom:10px;">Ir a la pantalla de inicio</a>
+        <a type="button" th:href="@{/logout}" class="btn " style="border-color:red;color:red;margin-bottom:10px;">Cerrar Sesión</a></div>
+      </p>
     <form th:action="@{/procesarLogin}" method="post">
 
       <div class="form-group">
@@ -53,8 +57,10 @@
     <label for="password">Password</label>
     <input id="password"  class="form-control" type="password" name="password"  placeholder="Password">
       </div>
-      <input type="submit" value="Log in"/>
-  </form></div>
+      <input  class="btn btn-outline-primary" style="border-color:#005CA9;color:#005CA9;margin-top:10px;margin-bottom:10px;" type="submit" value="Log in"/>
+    </form> <div><p>No tienes cuenta, <a th:href="@{/registro}" style="color:blue"><u>registrate aquí</u></a></p></div>
+      <div><p> <a th:href="@{/}" style="color:blue"><u>Volver al inicio</u></a></p></div></div>
+
   </div>
     <div class="col-lg-6 d-flex justify-content-center">
 

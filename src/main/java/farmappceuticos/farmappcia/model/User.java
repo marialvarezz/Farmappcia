@@ -66,7 +66,7 @@ public class User {
     @OneToMany(mappedBy = "user" )
     private Set<Answers> answersToUser;
 
-    @OneToMany(mappedBy = "userToMedicine", cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy = "userToMedicine")
     private Set<UserMedicine> userMedicines;
 
     //Relaciones con User
