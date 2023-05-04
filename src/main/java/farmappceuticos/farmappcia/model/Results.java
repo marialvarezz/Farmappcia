@@ -39,9 +39,4 @@ public class Results {
     @OneToMany(mappedBy = "resultsToTracking" , fetch = FetchType.EAGER)
     private Set<Tracking> trackingToResults;
 
-
-
-
-
-
 }
