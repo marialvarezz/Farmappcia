@@ -6,6 +6,7 @@ import farmappceuticos.farmappcia.services.MedicineService;
 import farmappceuticos.farmappcia.services.QuestionsService;
 import farmappceuticos.farmappcia.services.UserMedicineIncService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,7 @@ public class UserMedicineIncController {
 
     //TODO falta el PostMapping
     //Cuidado solo es un ejmplo, no borramos ficicamente
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         userMedicineIncService.deleteById(id);

@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -64,7 +66,7 @@ public class User {
     @OneToMany(mappedBy = "user" )
     private Set<Answers> answersToUser;
 
-    @OneToMany(mappedBy = "userToMedicine", cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy = "userToMedicine")
     private Set<UserMedicine> userMedicines;
 
     //Relaciones con User
@@ -77,6 +79,7 @@ public class User {
 
     @OneToMany(mappedBy = "userToMedicineInc")
     private Set<UserMedicineInc> userMedicineIncs;
+
 
 
     //Constructors

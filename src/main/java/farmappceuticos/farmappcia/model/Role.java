@@ -18,8 +18,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="rol")
-    private String rol;
+    @Column(name="name")
+    private String name;
 
     //Relaciones
 

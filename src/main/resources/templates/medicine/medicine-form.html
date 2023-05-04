@@ -1,0 +1,82 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layoutadmin}">
+
+<head>
+    <meta th:charset="#{principal.charset}">
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+
+
+    <title>Añadir Medicamentos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+    <!-- Template Main CSS Files -->
+    <link th:href="@{/css/variables.css}" rel="stylesheet">
+    <link th:href="@{/css/main2.css}" rel="stylesheet">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
+
+</head>
+<body>
+<div layout:fragment="cabecera"><div class="container"><h3> Crear o Editar Medicamentos</h3></div></div>
+<div layout:fragment="contenido" class="container">
+
+        <div class="container-fluid" style="padding-bottom:20px;">
+            <form th:action="@{/medicamentos/save}" th:object="${medicine}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input class="form-control" type="text" id ="name" th:field="*{name}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción:</label>
+                    <input class="form-control" type="text" id="description" th:field="*{description}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="image">Imagen:</label>
+                    <input class="form-control" type="file" id="image" th:field="*{image}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="components">Componentes:</label>
+                    <input class="form-control" type="text" id="components" th:field="*{components}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="administer">Consumo:</label>
+                    <input class="form-control" type="text" id="administer" th:field="*{administer}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="efects">Efectos Secundarios:</label>
+                    <input class="form-control" type="text" id="efects" th:field="*{efects}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <label for="misc">Misc.:</label>
+                    <input class="form-control" type="text" id="misc" th:field="*{misc}">
+                    <br>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                    <a th:href="@{/medicamentos/}" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+
+        </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

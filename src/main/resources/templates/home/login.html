@@ -1,19 +1,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:sd="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layout}">
+    >
 
 <head>
   <meta th:charset="#{principal.charset}">
-  <title th:text="#{principal.title}"></title>
+
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
   <title>Inicio Sesión</title>
 
   <!-- Favicons -->
-  <link th:href="@{/img/favicon.png}" rel="icon">
-  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+  <link th:href="@{/img/logoiso.png}" rel="icon">
+
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,22 +33,42 @@
 </head>
 
 <body>
-<div layout:fragment="cabecera"></div>
-<div layout:fragment="contenido">
-  <div class="container-fluid">
+  <div class="container-fluid justify-content-center" style="padding:100px;background-image: url(/img/fondoUsu.png);height: 1000px;">
+  <div class="row">
+    <div class="col-lg-6 d-flex ">
+    <div class="container-fluid" style="padding-left:20px">
+    <h2 style="font-family:century gothic black">¡Hola de nuevo!</h2>
+    <div th:if="${param.error}"><p style="color:red">
+    Usuario o contraseña incorrectos.</p></div>
+    <div th:if="${param.logout}">
+      <p style="color:red">
+      Has cerrado sesión.</p></div>
+      <div  sec:authorize="isAuthenticated()"><p style="color:red;">Ya has iniciado sesión
+        <a type="button" th:href="@{/usuario}" class="btn" style="border-color:red;color:red;margin-bottom:10px;">Ir a la pantalla de inicio</a>
+        <a type="button" th:href="@{/logout}" class="btn " style="border-color:red;color:red;margin-bottom:10px;">Cerrar Sesión</a></div>
+      </p>
     <form th:action="@{/procesarLogin}" method="post">
-      <div>
+
+      <div class="form-group">
     <label for="username">Usuario</label>
-    <input id="username" type="text" name="username">
+    <input id="username" class="form-control" type="text" name="username" placeholder="Username">
       </div>
-      <div>
+      <div class="form-group">
     <label for="password">Password</label>
-    <input id="password" type="password" name="password">
+    <input id="password"  class="form-control" type="password" name="password"  placeholder="Password">
       </div>
-      <input type="submit" value="Log in"/>
-  </form>
+      <input  class="btn btn-outline-primary" style="border-color:#005CA9;color:#005CA9;margin-top:10px;margin-bottom:10px;" type="submit" value="Log in"/>
+    </form> <div><p>No tienes cuenta, <a th:href="@{/registro}" style="color:blue"><u>registrate aquí</u></a></p></div>
+      <div><p> <a th:href="@{/}" style="color:blue"><u>Volver al inicio</u></a></p></div></div>
+
   </div>
-</div>
+    <div class="col-lg-6 d-flex justify-content-center">
+
+    <img src="/img/robotin2.png" alt="robotin" class="img-fluid">
+  </div>
+  </div>
+
+  </div>
 
 
 </body>
