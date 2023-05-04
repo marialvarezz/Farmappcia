@@ -20,6 +20,7 @@ public class Results {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name="titular")
     private String titular;
 
