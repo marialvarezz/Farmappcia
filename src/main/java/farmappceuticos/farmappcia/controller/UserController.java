@@ -29,11 +29,14 @@ public class UserController {
    @Autowired
    UserMedicineService userMedicineService;
 
-
+   @Autowired
    IllnessService illnessService;
 
    @Autowired
    MedicalHistoryService medicalHistoryService;
+
+   @Autowired
+   UserDataService userDataService;
 
 
    @GetMapping({"/",""})
@@ -259,4 +262,43 @@ public class UserController {
       return "redirect:/usuario/info/";
 
    }
+
+   @GetMapping("/datosusuario/new")
+   public String datosusuarionew( Model model) {
+
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+
+      UserData userData = new UserData();
+      userData.setUserToUserData(user);
+      model.addAttribute("userdata",userData);
+      return "userData/userData-User-form";
+   }
+
+
+
+   @PostMapping("/datosusuario/new")
+   public String datosusuarionew(@ModelAttribute("userdata") UserData userData) {
+
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user = userService.findByName(userName);
+
+
+      userData.setUserToUserData(user);
+      userDataService.save(userData);
+      return "redirect:/usuario/info/";
+
+   }
+
 }

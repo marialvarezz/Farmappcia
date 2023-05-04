@@ -115,6 +115,41 @@
         </table>
       </div>
 
+      <div class="container">
+        <h3>Datos del Usuario <a class="btn btn-outline-primary" th:href="@{/datosusuario/edit/{id}(id=${user.userDataToUser.id})}">Editar</a></h3>
+
+        <table class="table">
+          <thead>
+          <th>Dirección</th>
+          <th>Ciudad</th>
+          <th>Teléfono</th>
+          <th>Grupo Sangre</th>
+          <th>Alergias</th>
+          <th>Altura</th>
+          <th>Peso</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td th:text="${user.userDataToUser.direccion}">Nombre</td>
+            <td th:text="${user.userDataToUser.ciudad}">Descripción</td>
+            <td th:text="${user.userDataToUser.telefono}">Imágen</td>
+            <td th:text="${user.userDataToUser.grupoSangre}">Componentes</td>
+            <td th:text="${user.userDataToUser.alergias}">Consumo</td>
+            <td th:text="${user.userDataToUser.altura}">Efectos Secundarios</td>
+            <td th:text="${user.userDataToUser.peso}">Misc.</td>
+            <td>
+
+              <a onclick="return confirm('¿Está seguro que quiere borrar el medicamento?')" class="btn btn-outline-danger" th:href="@{/datosusuario/delete/{id}(id=${user.userDataToUser.id})}">Borrar</a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
     </div>
     </div>
   </div>

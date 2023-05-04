@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,15 +20,6 @@ public class UserData {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="nombre")
-    private String nombre;
-
-    @Column(name="apellido1")
-    private String apellido1;
-
-    @Column(name="apellido2")
-    private String apellido2;
-
     @Column(name="direccion")
     private String direccion;
 
@@ -36,8 +29,6 @@ public class UserData {
     @Column(name="telefono")
     private String telefono;
 
-    @Column(name="email")
-    private String email;
 
     @Column(name="grupoSangre")
     private String grupoSangre;
@@ -48,11 +39,14 @@ public class UserData {
     @Column(name="altura")
     private String altura;
 
+    @Column(name="peso")
+    private String peso;
+
     @Column(name="fechaInsert")
-    private String fechaInsert;
+    private LocalDateTime fechaInsert;
 
     @Column(name="fechaUpdate")
-    private String fechaUpdate;
+    private LocalDateTime fechaUpdate;
 
     //Relaciones
 
