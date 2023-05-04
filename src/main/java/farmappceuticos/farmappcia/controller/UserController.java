@@ -29,7 +29,7 @@ public class UserController {
    @Autowired
    UserMedicineService userMedicineService;
 
-
+@Autowired
    IllnessService illnessService;
 
    @Autowired
