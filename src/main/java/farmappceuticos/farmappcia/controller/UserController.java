@@ -1,9 +1,5 @@
 package farmappceuticos.farmappcia.controller;
-
-import farmappceuticos.farmappcia.model.Medicine;
-import farmappceuticos.farmappcia.model.User;
-import farmappceuticos.farmappcia.model.UserMedicine;
-import farmappceuticos.farmappcia.model.UserMedicineInc;
+import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +28,12 @@ public class UserController {
 
    @Autowired
    UserMedicineService userMedicineService;
+
+
+   IllnessService illnessService;
+
+   @Autowired
+   MedicalHistoryService medicalHistoryService;
 
 
    @GetMapping({"/",""})
@@ -179,6 +181,7 @@ public class UserController {
    }
 
 
+
    @GetMapping("/medicamentosinc/delete/{id}")
    public String deleteMedicamentosInc(@PathVariable("id") Integer id) {
       userMedicineIncService.deleteById(id);
@@ -220,6 +223,34 @@ public class UserController {
          userMedicineService.save(userMedicine);
          return "redirect:/usuario/info/";
       }
+
+
+   @GetMapping("/{id}/historialmedico/new")
+   public String nuevoParte(@PathVariable("id") Integer id, Model model) {
+      Optional<User> user = userService.findById(id);
+      if (user.isPresent()) {
+         MedicalHistory medicalHistory = new MedicalHistory();
+         List<Illness> illnessList = illnessService.findAll();
+         model.addAttribute("allIllness", illnessList);
+         medicalHistory.setUser(user.get());
+         model.addAttribute("medicalhistory",medicalHistory);
+         return "medicalHistory/medicalHistoryUser-form";
+      } else {
+         return "error-page";
+      }
+   }
+
+   @PostMapping("/{id}/historialmedico/new")
+   public String nuevoParteSave(@PathVariable("id") Integer id, @ModelAttribute("medicalhistory") MedicalHistory medicalHistory){
+      Optional<User> user = userService.findById(id);
+      if(user.isPresent()){
+         medicalHistory.setUser(user.get());
+         medicalHistoryService.save(medicalHistory);
+         return "redirect:/usuario/info/"+id;
+      }
+
+      return "error";
+   }
 
 
 }
