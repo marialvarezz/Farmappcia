@@ -25,7 +25,10 @@
 </head>
 
 <body>
-<div layout:fragment="cabecera"><div class="container" style="padding-top:20px"> <h3>Medicamentos de <span th:text="${user.name}"></span></h3></div></div>
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px">
+    <h3>Medicamentos de <span th:text="${user.name}"></span>
+        <a class="btn btn-outline-success" th:href="@{/usuario/medicamentos/new}">Añadir nuevo medicamento</a>
+    </h3></div></div>
 <div layout:fragment="contenido">
     <div class="container">
         <table class="table">
@@ -42,13 +45,11 @@
                 <td th:text="${medicine.descripcion}">Invoice date</td>
                 <td th:text="${medicine.active}">Invoice Code</td>
                 <td>
-                    <!-- <a class="btn btn-outline-primary" th:href="@{/historialmedico/edit/{id}(id=${medicalHistory.id})}">Edit</a>
-                     <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/historialmedico/delete/{idparte}(idparte=${medicalHistory.id})}">Delete</a>
-                   --></td>
+                    <a class="btn btn-outline-primary" th:href="@{/usuario/medicamentos/edit/{id}(id=${medicine.id})}">Edit</a>
+                    <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/usuario/medicamentos/delete/{idparte}(idparte=${medicine.id})}">Delete</a>
+                </td>
             </tr>
-            <tr>
-                <a class="btn btn-outline-success" th:href="@{/usuario/medicamentos/new}">Añadir nuevo medicamento</a>
-            </tr>
+
             </tbody>
         </table>
 

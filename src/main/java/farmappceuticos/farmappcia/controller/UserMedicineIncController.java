@@ -39,7 +39,7 @@ public class UserMedicineIncController {
     @PostMapping("/save")
     public String saveProduct(@ModelAttribute("userMedicineInc") UserMedicineInc userMedicineInc) {
         userMedicineIncService.save(userMedicineInc);
-        return "redirect:/usuario/userlist";
+        return "redirect:/usuario/incompatibilidades";
     }
     @GetMapping("/edit/{id}")
     public String showEditProductForm(@PathVariable("id") Integer id, Model model) {
@@ -61,7 +61,7 @@ public class UserMedicineIncController {
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         userMedicineIncService.deleteById(id);
-        return "redirect:/usumedicamentosinc/";
+        return "redirect:/usuario/incompatibilidades";
     }
 
 }

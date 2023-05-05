@@ -35,10 +35,10 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')">ID</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Imágen</th>
+
                 <th>Componentes</th>
                 <th>Consumo</th>
                 <th>Efectos Secundarios</th>
@@ -47,10 +47,10 @@
             </thead>
             <tbody>
             <tr th:each="medicine : ${allMedicines}">
-                <td th:text="${medicine.id}">1</td>
+                <td th:text="${medicine.id}" sec:authorize="hasRole('ROLE_ADMIN')">1</td>
                 <td th:text="${medicine.name}">Nombre</td>
                 <td th:text="${medicine.description}">Descripción</td>
-                <td th:text="${medicine.image}">Imágen</td>
+
                 <td th:text="${medicine.components}">Componentes</td>
                 <td th:text="${medicine.administer}">Consumo</td>
                 <td th:text="${medicine.efects}">Efectos Secundarios</td>

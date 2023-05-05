@@ -8,15 +8,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
   <!-- Template Main CSS Files -->
   <link th:href="@{/css/variables.css}" rel="stylesheet">
   <link th:href="@{/css/main2.css}" rel="stylesheet">
   <link th:href="@{/css/estilos.css}" rel="stylesheet">
   <title>User Info</title>
+
+
 </head>
 <body>
 <div layout:fragment="cabecera"> <div class="container" style="padding-top:20px;"> <h3>Información del usuario</h3></div></div>
@@ -28,92 +27,8 @@
       <p>Usuario: <span th:text="${user.username}"></span></p>
       <p>Email: <span th:text="${user.email}"></span></p>
       <p>Año de nacimiento: <span th:text="${user.birthDate}"></span></p>
-      <div class="container">
-        <h4 class="my-4">Medicamentos Incompatibles de  <span th:text="${user.name}"></span></h4>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Medicamento</th>
-            <th>Razón</th>
-            <th>Activo</th>
-            <th>Acciones</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="userMedicineIncs : ${user.userMedicineIncs}">
-            <td th:text="${userMedicineIncs.medicine}">1</td>
-            <td th:text="${userMedicineIncs.reason}">Invoice date</td>
-            <td th:text="${userMedicineIncs.active}">Invoice Code</td>
-            <td>
-             <a class="btn btn-outline-primary" th:href="@{/usumedicamentosinc/edit/{id}(id=${userMedicineIncs.id})}">Editar</a>
-              <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/usuario/medicamentosinc/delete/{id}(id=${userMedicineIncs.id})}">Borrar</a>
-            </td>
-          </tr>
-          <tr>
-            <a class="btn btn-outline-success" th:href="@{/usuario/medicamentosinc/new}">Añadir Nuevo Medicamento Incompatible</a>
-          </tr>
-          </tbody>
-        </table>
 
-        <div class="container">
-        <h3>Historial Médico</h3>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Enfermedad</th>
-            <th>Diagnostico</th>
-            <th>Fecha de la incidencia</th>
-            <th>ingreso</th>
-            <th>Ubicación Hospital</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="medicalHistory : ${user.medicalHistories}">
-            <td th:text="${medicalHistory.illnessToMedicalHistory.nombre}">1</td>
-            <td th:text="${medicalHistory.diagnostico}">Invoice date</td>
-            <td th:text="${medicalHistory.fechaIncidencia}">Invoice Code</td>
-            <td th:text="${medicalHistory.ingreso}">Invoice Code</td>
-            <td th:text="${medicalHistory.ubiHospital}">Invoice Code</td>
-            <td>
-              <a class="btn btn-outline-primary" th:href="@{/historialmedico/edit/{id}(id=${medicalHistory.id})}">Edit</a>
-              <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/historialmedico/delete/{idparte}(idparte=${medicalHistory.id})}">Delete</a>
-            </td>
-          </tr>
-          <tr>
-            <a class="btn btn-outline-success" th:href="@{/usuario/historialmedico/new}">Añadir nuevo parte</a>
-          </tr>
-          </tbody>
-        </table>
-        </div>
 
-      </div>
-      <div class="container">
-        <h4>Medicamentos de <span th:text="${user.name}"></span></h4>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Medicamento</th>
-            <th>Motivo</th>
-            <th>Activo</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:each="medicine : ${user.userMedicines}">
-           <td th:text="${medicine.medicineToMedicine.name}">1</td>
-            <td th:text="${medicine.descripcion}">Invoice date</td>
-            <td th:text="${medicine.active}">Invoice Code</td>
-
-            <td>
-             <!-- <a class="btn btn-outline-primary" th:href="@{/historialmedico/edit/{id}(id=${medicalHistory.id})}">Edit</a>
-              <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/historialmedico/delete/{idparte}(idparte=${medicalHistory.id})}">Delete</a>
-            --></td>
-          </tr>
-          <tr>
-            <a class="btn btn-outline-success" th:href="@{/usuario/medicamentos/new}">Añadir nuevo medicamento</a>
-          </tr>
-          </tbody>
-        </table>
-      </div>
 
     </div>
     </div>

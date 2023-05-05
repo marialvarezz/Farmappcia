@@ -40,7 +40,7 @@ public class MedicalHistoryController {
     public String saveMedicalHistory(@ModelAttribute("medicalHistory") MedicalHistory medicalHistory){
         Integer id=medicalHistory.getUser().getId();
         medicalHistoryService.save(medicalHistory);
-        return "redirect:/usuario/info/"+id;
+        return "redirect:/usuario/historialmedico";
     }
     @GetMapping("/edit/{id}")
     public String showEditMedicalHistoryForm(@PathVariable("id") Integer id, Model model) {
@@ -63,7 +63,7 @@ public class MedicalHistoryController {
     public String deleteMedicalHistory(@PathVariable("id") Integer id) {
         Integer y=medicalHistoryService.findById(id).get().getUser().getId();
         medicalHistoryService.deleteById(id);
-        return "redirect:/usuario/info/"+y;
+        return "redirect:/usuario/historialmedico";
     }
 
 }
