@@ -1,11 +1,13 @@
 package farmappceuticos.farmappcia.controller;
-import farmappceuticos.farmappcia.model.Agenda;
+import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.AgendaService;
+import farmappceuticos.farmappcia.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -14,6 +16,8 @@ public class AgendaController {
     @Autowired
     private AgendaService agendaService;
     //Para acceder a los métodos
+    @Autowired
+    private EventService eventService;
 
     @GetMapping("/")
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
@@ -50,5 +54,42 @@ public class AgendaController {
         agendaService.deleteById(id);
         return "redirect:/agenda/";
     }
+    @GetMapping("/info/{id}")
+    public String verAgenda(@PathVariable("id") Integer id, Model model) {
+        Optional<Agenda> agenda = agendaService.findById(id);
+        if (agenda.isPresent()){
+            model.addAttribute("agenda", agenda.get());
+            return "agenda/agenda-info";
+        }
+        return "error";
+    }
 
+    //Eventos
+
+    @GetMapping("/{id}/eventos/new")
+    public String newEventForm(@PathVariable("id") Integer id, Model model){
+        Optional<Agenda> agenda = agendaService.findById(id);
+        if (agenda.isPresent()){
+            Event event = new Event();
+            event.setAgendaToEvents(agenda.get());
+            model.addAttribute("event", event);
+            return "agenda/agenda-info";
+        }else {
+            return "error";
+        }
+    }
+
+    @PostMapping("/{id}/eventos/new")
+    public String createEvento(@PathVariable("id") Integer id, Event event){
+        Optional<Agenda> agenda = agendaService.findById(id);
+        if (agenda.isPresent()){
+            event.setAgendaToEvents(agenda.get());
+            eventService.save(event);
+            return"redirect:/agenda/info/" + id;
+
+        }else {
+            return "error";
+        }
+
+    }
 }

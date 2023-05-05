@@ -49,9 +49,13 @@
                 <td th:text="${agenda.nombre}">Nombre</td>
                 <td>
                     <a class="btn btn-outline-primary" th:href="@{/agenda/edit/{id}(id=${agenda.id})}">Editar</a>
-                    <a onclick="return confirm('¿Está seguro que quiere borrar la agenda?')" class="btn btn-outline-danger" th:href="@{/agenda/delete/{id}(id=${agenda.id})}">Borrar</a>
+                </td>
+                <td>
+                    <a th:href="@{/agenda/info/{id}(id=${agenda.id})}" class="btn btn-primary">Ver Info</a>
+
                 </td>
             </tr>
+
         </tbody>
     </table>
         <a class="btn btn-outline-success" th:href="@{/agenda/new}">Crear Nueva Agenda</a>
