@@ -31,7 +31,11 @@ public class EventController {
     @PostMapping("/save")
     public String saveEvent(@ModelAttribute("event") Event event) throws Exception {
         eventService.save(event);
+
         return "redirect:/eventos/";
+
+       
+
     }
     @GetMapping("/edit/{id}")
     public String showEditEventForm(@PathVariable("id") Integer id, Model model) {
@@ -48,7 +52,9 @@ public class EventController {
     @GetMapping("/delete/{id}")
     public String deleteEvent(@PathVariable("id") Integer id) {
         eventService.deleteById(id);
+
         return "redirect:/eventos/";
+
     }
 
 }

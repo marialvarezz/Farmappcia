@@ -5,9 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,6 +25,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
+
+    @Column(name = "name")
+    String name;
     @Column(name="username")
     private String username;
     @Column(name="email")
@@ -42,11 +49,15 @@ public class User {
     private Agenda agendaToUser;
 
     //Relación con UserRole
-    @OneToMany(mappedBy = "userToRole")
-    private Set<UserRole> userRolesToUser;
+    @ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+    @JoinTable(
+            name="role_usuario",
+            joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
+    private List<Role> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "userToHistorialMedico")
-    private MedicalHistory historialMedicoToUser;
+    @OneToMany(mappedBy = "user")
+    private Set<MedicalHistory> medicalHistories;
 
     @OneToOne(mappedBy = "userToUserData")
     private UserData userDataToUser;
@@ -55,11 +66,11 @@ public class User {
     @OneToMany(mappedBy = "user" )
     private Set<Answers> answersToUser;
 
-    @OneToMany(mappedBy = "userToMedicine", cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy = "userToMedicine")
     private Set<UserMedicine> userMedicines;
 
     //Relaciones con User
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "tutorToUser")
     private Set<User> userToTutor;
 
     @ManyToOne (fetch = FetchType.EAGER)
@@ -68,6 +79,7 @@ public class User {
 
     @OneToMany(mappedBy = "userToMedicineInc")
     private Set<UserMedicineInc> userMedicineIncs;
+
 
 
     //Constructors

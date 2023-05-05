@@ -30,18 +30,47 @@
     <link th:href="@{/css/variables.css}" rel="stylesheet">
     <link th:href="@{/css/main2.css}" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: ZenBlog
-    * Updated: Mar 10 2023 with Bootstrap v5.2.3
-    * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
-    * Author: BootstrapMade.com
-    * License: https:///bootstrapmade.com/license/
-    ======================================================== -->
+
 </head>
 
 <body>
-<div layout:fragment="cabecera"><h3>Prueba</h3></div>
-<div layout:fragment="contenido"><p>Esto va a ser el inicio</p></div>
+<div layout:fragment="cabecera"><div class="contrainer"><h3>Lista de medicamentos</h3></div></div>
+<div layout:fragment="contenido" class="container">
+
+    <div class="container-fluid" style="padding-bottom:20px;">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Imágen</th>
+                <th>Componentes</th>
+                <th>Consumo</th>
+                <th>Efectos Secundarios</th>
+                <th>Misc.</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medicine : ${allMedicines}">
+                <td th:text="${medicine.id}">1</td>
+                <td th:text="${medicine.name}">Nombre</td>
+                <td th:text="${medicine.description}">Descripción</td>
+                <td th:text="${medicine.image}">Imágen</td>
+                <td th:text="${medicine.components}">Componentes</td>
+                <td th:text="${medicine.administer}">Consumo</td>
+                <td th:text="${medicine.efects}">Efectos Secundarios</td>
+                <td th:text="${medicine.misc}">Misc.</td>
+
+                <td>
+                    <a class="btn btn-outline-primary" th:href="@{/medicamentos/edit/{id}(id=${medicine.id})}">Editar</a>
+                    <a onclick="return confirm('¿Está seguro que quiere borrar el medicamento?')" class="btn btn-outline-danger" th:href="@{/medicamentos/delete/{id}(id=${medicine.id})}">Borrar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 </body>

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,11 +21,13 @@ public class MedicalHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="sintomas")
-    private String sintomas;
+    @Column(name="diagnostico")
+    private String diagnostico;
+
 
     @Column(name="fechaIncidencia")
-    private String fechaIncidencia;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaIncidencia;
 
     @Column(name="ingreso")
     private String ingreso;
@@ -32,9 +37,9 @@ public class MedicalHistory {
 
     //Relaciones
 
-    @OneToOne(cascade = CascadeType.ALL) //Revisar el fetch type
+    @ManyToOne(fetch = FetchType.EAGER) //Revisar el fetch type
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User userToHistorialMedico;
+    private User user;
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "illness_id")

@@ -33,13 +33,11 @@ public class UserMedicine {
     //Relaciones
 
     @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     User userToMedicine;
 
     @ManyToOne
-    @MapsId("medicineId")
-    @JoinColumn(name = "id_medicine")
+    @JoinColumn(name = "id_medicine",referencedColumnName = "id")
     Medicine medicineToMedicine;
 
     @OneToMany(mappedBy = "userMedicineToReminder")

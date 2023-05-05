@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>IncMedicine List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Lista de Medicamentos Incompatibles </h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Motivo</th>
+            <th>Medicamento</th>
+            <th>Medicamento</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="incMedicine : ${incMedicine}">
+            <td th:text="${incMedicine.id}">1</td>
+            <td th:text="${incMedicine.reason}">Motivo de la incompatibilidad</td>
+            <td th:text="${incMedicine.incToMedicinesA.name}">Motivo de la incompatibilidad</td>
+            <td th:text="${incMedicine.incToMedicinesB.name}">Motivo de la incompatibilidad</td>
+            <td>
+                <a class="btn btn-outline-primary" th:href="@{/medicamentosinc/edit/{id}(id=${incMedicine.id})}">Editar</a>
+                <a class="btn btn-outline-danger" th:href="@{/medicamentosinc/delete/{id}(id=${incMedicine.id})}">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-outline-success" th:href="@{/medicamentosinc/new}">Añade una nueva incompatibilidad</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

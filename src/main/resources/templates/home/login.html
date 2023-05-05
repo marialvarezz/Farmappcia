@@ -1,18 +1,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:sd="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layout}">
+    >
 
 <head>
   <meta th:charset="#{principal.charset}">
-  <title th:text="#{principal.title}"></title>
+
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
+  <title>Inicio Sesión</title>
 
   <!-- Favicons -->
-  <link th:href="@{/img/favicon.png}" rel="icon">
-  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+  <link th:href="@{/img/logoiso.png}" rel="icon">
+
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,29 +21,59 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
-  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-  <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
   <!-- Template Main CSS Files -->
   <link th:href="@{/css/variables.css}" rel="stylesheet">
   <link th:href="@{/css/main.css}" rel="stylesheet">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: ZenBlog
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
-  * Author: BootstrapMade.com
-  * License: https:///bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
-<div layout:fragment="cabecera"><h3>Prueba</h3></div>
-<div layout:fragment="contenido"><p>Aquí iría el formulario</p></div>
+  <div class="container-fluid justify-content-center" style="padding:100px;background-image: url(/img/fondoUsu.png);height: 1000px;">
+  <div class="row">
+    <div class="col-lg-6 d-flex ">
+    <div class="container-fluid" style="padding-left:20px">
+    <h2 style="font-family:century gothic black">¡Hola de nuevo!</h2>
+    <div th:if="${param.error}"><p style="color:red">
+    Usuario o contraseña incorrectos.</p></div>
+    <div th:if="${param.logout}">
+      <p style="color:red">
+      Has cerrado sesión.</p></div>
+      <div  sec:authorize="isAuthenticated()"><p style="color:red;">Ya has iniciado sesión
+        <a type="button" th:href="@{/usuario}" class="btn" style="border-color:red;color:red;margin-bottom:10px;">Ir a la pantalla de inicio</a>
+        <a type="button" th:href="@{/logout}" class="btn " style="border-color:red;color:red;margin-bottom:10px;">Cerrar Sesión</a></div>
+      </p>
+    <form th:action="@{/procesarLogin}" method="post">
+
+      <div class="form-group">
+    <label for="username">Usuario</label>
+    <input id="username" class="form-control" type="text" name="username" placeholder="Username">
+      </div>
+      <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password"  class="form-control" type="password" name="password"  placeholder="Password">
+      </div>
+      <input  class="btn btn-outline-primary" style="border-color:#005CA9;color:#005CA9;margin-top:10px;margin-bottom:10px;" type="submit" value="Log in"/>
+    </form> <div><p>No tienes cuenta, <a th:href="@{/registro}" style="color:blue"><u>registrate aquí</u></a></p></div>
+      <div><p> <a th:href="@{/}" style="color:blue"><u>Volver al inicio</u></a></p></div></div>
+
+  </div>
+    <div class="col-lg-6 d-flex justify-content-center">
+
+    <img src="/img/robotin2.png" alt="robotin" class="img-fluid">
+  </div>
+  </div>
+
+  </div>
 
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
 </html>

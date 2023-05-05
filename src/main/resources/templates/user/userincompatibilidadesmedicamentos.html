@@ -1,47 +1,85 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sd="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layoutuser}">
 
 <head>
     <meta th:charset="#{principal.charset}">
-    <title th:text="#{principal.title}"></title>
+    <title>Incompatibilidades</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicons -->
-    <link th:href="@{/img/favicon.png}" rel="icon">
-    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
 
-    <!-- Vendor CSS Files -->
-    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
-    <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-    <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
     <!-- Template Main CSS Files -->
     <link th:href="@{/css/variables.css}" rel="stylesheet">
-    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <link th:href="@{/css/main2.css}" rel="stylesheet">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
 
-    <!-- =======================================================
-    * Template Name: ZenBlog
-    * Updated: Mar 10 2023 with Bootstrap v5.2.3
-    * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
-    * Author: BootstrapMade.com
-    * License: https:///bootstrapmade.com/license/
-    ======================================================== -->
+
 </head>
 
 <body>
-<div layout:fragment="cabecera"><h3>Prueba</h3></div>
-<div layout:fragment="contenido"><p>Prueba2</p></div>
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;padding-bottom:20px;"><h3>Incompatibilidades</h3></div> </div>
+<div layout:fragment="contenido">
+    <div class="container">
+        <h4>Medicamentos Incompatibles de  <span th:text="${user.name}"></span>
+            <a class="btn btn-outline-success" th:href="@{/usuario/medicamentosinc/new}">Añadir Nuevo</a></h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Medicamento</th>
+                <th>Razón</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userMedicineIncs : ${user.userMedicineIncs}">
+                <td th:text="${userMedicineIncs.medicine}">1</td>
+                <td th:text="${userMedicineIncs.reason}">Invoice date</td>
+                <td th:text="${userMedicineIncs.active}">Invoice Code</td>
+                <td>
+                    <a class="btn btn-outline-primary" th:href="@{/usumedicamentosinc/edit/{id}(id=${userMedicineIncs.id})}">Editar</a>
+                    <a onclick="return confirm('Are you sure you want to delete this medicine?')" class="btn btn-outline-danger" th:href="@{/usuario/medicamentosinc/delete/{id}(id=${userMedicineIncs.id})}">Borrar</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+
+            <h4>Lista de Medicamentos Incompatibles  <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-success" th:href="@{/medicamentosinc/new}">Añade una nueva incompatibilidad</a></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">ID</th>
+                    <th>Motivo</th>
+                    <th>Medicamento</th>
+                    <th>Medicamento</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="incMedicine : ${incMedicine}">
+                    <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${incMedicine.id}">1</td>
+                    <td th:text="${incMedicine.reason}">Motivo de la incompatibilidad</td>
+                    <td th:text="${incMedicine.incToMedicinesA.name}">Motivo de la incompatibilidad</td>
+                    <td th:text="${incMedicine.incToMedicinesB.name}">Motivo de la incompatibilidad</td>
+                    <td>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-primary" th:href="@{/medicamentosinc/edit/{id}(id=${incMedicine.id})}">Editar</a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-danger" th:href="@{/medicamentosinc/delete/{id}(id=${incMedicine.id})}">Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+
+</div>
 
 
 </body>

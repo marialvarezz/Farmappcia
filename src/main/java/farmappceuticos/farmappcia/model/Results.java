@@ -20,6 +20,7 @@ public class Results {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name="titular")
     private String titular;
 
@@ -37,10 +38,5 @@ public class Results {
 
     @OneToMany(mappedBy = "resultsToTracking" , fetch = FetchType.EAGER)
     private Set<Tracking> trackingToResults;
-
-
-
-
-
 
 }

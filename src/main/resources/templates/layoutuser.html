@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html th:lang="#{principal.lang}" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <link th:href="@{/img/logoiso.png}" rel="icon">
   <title>FeelingCare</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link th:href="@{/img/favicon.png}" rel="icon">
-  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +23,7 @@
   <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
   <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
   <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
-  <link th:href="@{/vendor/aos/aos.css}" rel="styleshee}t">
+  <link th:href="@{/vendor/aos/aos.css}" rel="stylesheet}">
 
   <!-- Template Main CSS Files -->
   <link th:href="@{/css/variables.css}" rel="stylesheet">
@@ -41,7 +40,7 @@
 
 
       <div class="container-fluid">
-        <a th:href="@{/}" class="navbar-brand">
+        <a th:href="@{/usuario}" class="navbar-brand">
         <div class="row"></div>
         <img class="img-fluid" style="max-width:150px" src="/img/logo.png" alt="FeelingCare Logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,9 +54,9 @@
                 Mi Perfil<img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/historialmedico}">Historial Médico</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/datosusuario}">Datos del Usuario</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/info/}">Datos del Usuario</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/configuracion}">FeelingCare Giver</a></li>
-                  <li class="dropdown-item"><a th:href="@{/}">Log Out<!--Se cerraría sesión--></a></li>
+                  <li class="dropdown-item"><a th:href="@{/logout}">Log Out<!--Se cerraría sesión--></a></li>
                 </ul>
               </li>
               <li class="nav-item"><a class="nav-link" th:href="@{/usuario/agenda}">Agenda</a></li>
@@ -65,9 +64,8 @@
                 <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/tusmedicamentos}">Tus medicamentos</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/catalogomedicamentos}">Catálogo</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/incompatibilidadesmedicamentos}">Incompatibilidades</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/medicamentosfavoritos}">Favoritos</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/medicamentos}">Catálogo</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/incompatibilidades}">Incompatibilidades</a></li>
                 </ul> </li>
 
               <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cuestionarios
@@ -78,6 +76,7 @@
                   <li class="dropdown-item"><a href="#">Estadísticas</a></li>
                 </ul>
               </li>
+              <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a  class="nav-link" th:href="@{/admin/}">Admin</a></li>
 
             </ul>
         </div>
@@ -89,13 +88,13 @@
 
   </header><!-- End Header -->
 
-  <main id="main">
+    <div class="container-fluid p-0" style="background-image: url(/img/fondoUsu.png);min-height: 1000px;">
     <!-- Aqui vamos a escribir las cabeceras de los bloques  -->
-    <section class="container" layout:fragment="cabecera"> </section>
+    <section class="container-fluid p-0"  layout:fragment="cabecera"> </section>
     <!-- Aqui vamos a escribir el contenido de los bloques  -->
-    <section class="container" layout:fragment="contenido"> </section>
+    <section class="container-fluid p-0"  layout:fragment="contenido"> </section>
+  </div>
 
-  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

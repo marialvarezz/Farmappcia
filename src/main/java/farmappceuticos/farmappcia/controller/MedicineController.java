@@ -15,7 +15,7 @@ public class MedicineController {
     private MedicineService medicineService;
     //Para acceder a los métodos
 
-    @GetMapping("/")
+    @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showMedicines(Model model){
         //
@@ -29,7 +29,9 @@ public class MedicineController {
         return "medicine/medicine-form";
     }
     @PostMapping("/save")
+
     public String saveMedicine(@ModelAttribute("medicine") Medicine medicine){
+
         medicineService.save(medicine);
         return "redirect:/medicamentos/";
     }

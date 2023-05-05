@@ -1,9 +1,14 @@
 package farmappceuticos.farmappcia.controller;
 
+
+
+
 import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +21,9 @@ import java.util.Optional;
 @RequestMapping("/usuario")
 public class UserController {
    @Autowired
-   UserService userService;
+   UserService1 userService;
+   @Autowired
+   IncMedicineService incMedicineService;
 
    @Autowired
    QuestionnaireService questionnaireService;
@@ -27,14 +34,43 @@ public class UserController {
    @Autowired
    UserMedicineService userMedicineService;
 
+   @Autowired
+   UserMedicineService userMedicineService;
+
+@Autowired
+   IllnessService illnessService;
+
+   @Autowired
+   MedicalHistoryService medicalHistoryService;
+
+
    @GetMapping({"/",""})
-   public String inicioUsuario(){return "user/userinicio";}
+   public String inicioUsuario(Model model){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+      model.addAttribute("user",user);
+      return "user/userinicio";}
 
    @GetMapping("/datosusuario")
    public String datosUsuario(){return "user/userdata";}
 
    @GetMapping("/historialmedico")
-   public String historialMedico(){return "user/userhistorialmedico";}
+   public String historialMedico(Model model){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+      model.addAttribute("user",user);
+      return "user/userhistorialmedico";}
 
    @GetMapping("/configuracion")
    public String settings(){return "user/usersettings";}
@@ -43,16 +79,40 @@ public class UserController {
    public String vistaAgenda() {return "user/useragenda";}
 
    @GetMapping("/tusmedicamentos")
-   public String tusMedicamentos() {return "user/usertusmedicamentos";}
+   public String tusMedicamentos(Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
 
-   @GetMapping("/catalogomedicamentos")
-   public String catalogoMedicamentos() {return "user/usercatalogomedicamentos";}
+      model.addAttribute("user",user);
+      return "user/usertusmedicamentos";}
 
-   @GetMapping("/incompatibilidadesmedicamentos")
-   public String incompatibilidadesMedicamentos() {return "user/userincompatibilidadesmedicamentos";}
+   @GetMapping("/medicamentos")
+   public String catalogoMedicamentos(Model model) {
+      List<Medicine> medicines=medicineService.findAll();
+      model.addAttribute("allMedicines",medicines);
+      return "user/usercatalogomedicamentos";}
 
-   @GetMapping("/medicamentosfavoritos")
-   public String medicamentosFavoritos() {return "user/usermedicamentosfavoritos";}
+   @GetMapping("/incompatibilidades")
+   public String incompatibilidadesMedicamentos(Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+      List<IncMedicine>incMedicineList=incMedicineService.findAll();
+      model.addAttribute("incMedicine",incMedicineList);
+
+      model.addAttribute("user",user);
+      return "user/userincompatibilidadesmedicamentos";}
+
    @GetMapping("/aboutus")
    public String aboutUser() {return "user/userabout";}
    @GetMapping("/contacto")
@@ -103,29 +163,39 @@ public class UserController {
       return "redirect:/usuario/userlist";
    }
 
-   @GetMapping("/info/{id}")
-   public String verUsuario(@PathVariable("id") Integer id, Model model) {
-      Optional<User> user=userService.findById(id);
-      if (user.isPresent()){
-         model.addAttribute("user", user.get());
+   @GetMapping("/info/")
+   public String verUsuario( Model model) {
+      //Para conseguir el username del usuario autentificado
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+         model.addAttribute("user", user);
          return "adminUser/user-info";
       }
-      return "error";
-   }
 
-   @GetMapping("/{id}/medicamentosinc/new")
-   public String newUserMedicineInc(@PathVariable("id") Integer id, Model model) {
-      Optional<User> user = userService.findById(id);
-      if (user.isPresent()) {
+
+   @GetMapping("/medicamentosinc/new")
+   public String newUserMedicineInc( Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
          UserMedicineInc userMedicineInc = new UserMedicineInc();
          List<Medicine> medicines = medicineService.findAll();
          model.addAttribute("allMedicines", medicines);
-         userMedicineInc.setUserToMedicineInc(user.get());
+         userMedicineInc.setUserToMedicineInc(user);
          model.addAttribute("medicineInc",userMedicineInc);
          return "adminUser/user-medicine-form";
-      } else {
-         return "error-page";
-      }
+
    }
    @PostMapping("/{id}/medicamentosinc/new")
    public String createContract(@PathVariable("id") Integer id, @ModelAttribute("medicineInc") UserMedicineInc userMedicineInc){
@@ -133,40 +203,112 @@ public class UserController {
       if(user.isPresent()){
          userMedicineInc.setUserToMedicineInc(user.get());
          userMedicineIncService.save(userMedicineInc);
-         return "redirect:/usuario/info/"+id;
+         return "redirect:/usuario/incompatibilidades";
       }
 
       return "error";
    }
 
-   //Medicamentos
-   @GetMapping("/{id}/medicamentos/new")
-   public String newUserMedicineForm(@PathVariable("id") Integer id, Model model) {
-      Optional<User> user = userService.findById(id);
-      if (user.isPresent()){
+
+
+
+   @GetMapping("/medicamentosinc/delete/{id}")
+   public String deleteMedicamentosInc(@PathVariable("id") Integer id) {
+      userMedicineIncService.deleteById(id);
+      return "redirect:/usuario/incompatibilidades";
+   }
+
+   @GetMapping("/medicamentos/new")
+   public String nuevoMedicamento(Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+
          UserMedicine userMedicine = new UserMedicine();
          List<Medicine> medicines = medicineService.findAll();
          model.addAttribute("allMedicines", medicines);
-         userMedicine.setUserToMedicine(user.get());
+         userMedicine.setUserToMedicine(user);
          model.addAttribute("userMedicine",userMedicine);
-
          return "medicine/user-medicine-form";
-      }else{
-         return "error";
+
+   }
+
+   @PostMapping("/medicamentos/new")
+   public String nuevoParteSave( @ModelAttribute("userMedicine") UserMedicine userMedicine){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+
+         userMedicine.setUserToMedicine(user);
+         userMedicineService.save(userMedicine);
+         return "redirect:/usuario/tusmedicamentos";
+      }
+
+   @GetMapping("/medicamentos/edit/{id}")
+   public String showEditMedicineForm(@PathVariable("id") Integer id, Model model) {
+      Optional<UserMedicine> userMedicine = userMedicineService.findById(id);
+      if (userMedicine.isPresent()) {
+         List<Medicine> medicines = medicineService.findAll();
+         model.addAttribute("allMedicines", medicines);
+         model.addAttribute("userMedicine", userMedicine.get());
+         return "medicine/user-medicine-form";
+      } else {
+         return "medicine/medicine-form-notfound";
       }
    }
 
-   @PostMapping("/{id}/medicamentos/new")
-   public String createMedicine(@PathVariable("id") Integer id, @ModelAttribute("userMedicine") UserMedicine userMedicine){
-      Optional<User> user = userService.findById(id);
-      if (user.isPresent()){
-        userMedicine.setUserToMedicine(user.get());
-         userMedicineService.save(userMedicine);
-      userMedicineService.save(userMedicine);
-         return "redirect:/usuario/info/" + id;
-      }else{
-         return "error";
+   @GetMapping("/medicamentos/delete/{id}")
+   public String deleteMedicine(@PathVariable("id") Integer id) {
+      userMedicineService.deleteById(id);
+      return "redirect:/usuario/tusmedicamentos";
+   }
+
+
+   @GetMapping("/historialmedico/new")
+   public String nuevoParte( Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
       }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+         MedicalHistory medicalHistory = new MedicalHistory();
+         List<Illness> illnessList = illnessService.findAll();
+         model.addAttribute("allIllness", illnessList);
+         medicalHistory.setUser(user);
+         model.addAttribute("medicalhistory",medicalHistory);
+         return "medicalHistory/medicalHistoryUser-form";
+      }
+
+
+
+
+
+      @PostMapping("/historialmedico/new")
+   public String nuevoParteSave( @ModelAttribute("medicalhistory") MedicalHistory medicalHistory) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user = userService.findByName(userName);
+      medicalHistory.setUser(user);
+      medicalHistoryService.save(medicalHistory);
+      return "redirect:/usuario/historialmedico";
+
 
    }
 }

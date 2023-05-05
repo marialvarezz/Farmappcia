@@ -11,23 +11,18 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "userRole")
-public class UserRole {
+
+public class Role {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="rol")
-    private boolean rol;
-
-    @Column(name="descripcion")
-    private String descripcion;
+    @Column(name="name")
+    private String name;
 
     //Relaciones
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    User userToRole;
+
 
 }
