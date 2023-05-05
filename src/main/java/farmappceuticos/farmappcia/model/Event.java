@@ -24,7 +24,7 @@ public class Event {
     @Column(name="descripcion")
     private String descripcion;
     @Column(name="fecha_hora")
-    private LocalDateTime fecha_hora;
+    private LocalDateTime fechaHora;
     @Column(name="especializacion")
     private String especializacion;
     @Column(name="ubicacion")
@@ -32,7 +32,7 @@ public class Event {
     @Column(name="notificar")
     private Boolean notificar;
     @Column(name="notificar_tutor")
-    private Boolean notificar_tutor;
+    private Boolean notificarTutor;
 
     //Relaciones
 
@@ -40,14 +40,14 @@ public class Event {
     @JoinColumn(name = "id_agenda")
     Agenda agendaToEvents;
 
-public Event(String nombre, String descripcion, LocalDateTime fecha_hora, String especializacion, String ubicacion, Boolean notificar, Boolean notificar_tutor){
+public Event(String nombre, String descripcion, LocalDateTime fechaHora, String especializacion, String ubicacion, Boolean notificar, Boolean notificarTutor){
     this.nombre = nombre;
     this.descripcion = descripcion;
-    this.fecha_hora = fecha_hora;
+    this.fechaHora = fechaHora;
     this.especializacion = especializacion;
     this.ubicacion = ubicacion;
     this.notificar = notificar;
-    this.notificar_tutor = notificar_tutor;
+    this.notificarTutor = notificarTutor;
 }
 
 

@@ -29,7 +29,9 @@ public class MedicineController {
         return "medicine/medicine-form";
     }
     @PostMapping("/save")
-    public String saveMedicine(@ModelAttribute("medicine") Medicine medicine) throws Exception {
+
+    public String saveMedicine(@ModelAttribute("medicine") Medicine medicine){
+
         medicineService.save(medicine);
         return "redirect:/medicamentos/";
     }

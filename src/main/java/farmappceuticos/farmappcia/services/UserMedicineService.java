@@ -1,5 +1,6 @@
 package farmappceuticos.farmappcia.services;
 
+
 import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.model.UserMedicine;
 import farmappceuticos.farmappcia.repositories.MedicineRepository;
@@ -16,4 +17,5 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         super(userMedicineRepository);
     }
     //Implementación de los métodos principales que se usan al entrar en el CRUD
+
 }

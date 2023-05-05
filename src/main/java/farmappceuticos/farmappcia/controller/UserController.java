@@ -1,4 +1,8 @@
 package farmappceuticos.farmappcia.controller;
+
+
+
+
 import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.*;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +31,8 @@ public class UserController {
    UserMedicineIncService userMedicineIncService;
    @Autowired
    MedicineService medicineService;
+   @Autowired
+   UserMedicineService userMedicineService;
 
    @Autowired
    UserMedicineService userMedicineService;
@@ -205,6 +211,7 @@ public class UserController {
 
 
 
+
    @GetMapping("/medicamentosinc/delete/{id}")
    public String deleteMedicamentosInc(@PathVariable("id") Integer id) {
       userMedicineIncService.deleteById(id);
@@ -301,6 +308,7 @@ public class UserController {
       medicalHistory.setUser(user);
       medicalHistoryService.save(medicalHistory);
       return "redirect:/usuario/historialmedico";
+
 
    }
 }
