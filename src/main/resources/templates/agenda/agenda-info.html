@@ -54,7 +54,7 @@
         </tr>
         </thead>
         <tr>
-          <a class="btn btn-outline-success" th:href="@{/{id}/eventos/new?(id=${id})}">Nueva Cita Médica</a>
+          <a class="btn btn-outline-success" th:href="@{/agenda/{id}/eventos/new?(id=${id})}">Nueva Cita Médica</a>
         </tr>
         <tbody>
       <tr th:each="event:${agenda.eventsToAgenda}">

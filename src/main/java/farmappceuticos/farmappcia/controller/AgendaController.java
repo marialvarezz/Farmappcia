@@ -73,14 +73,14 @@ public class AgendaController {
             Event event = new Event();
             event.setAgendaToEvents(agenda.get());
             model.addAttribute("event", event);
-            return "agenda/agenda-info";
+            return "agenda/agenda-event-form";
         }else {
             return "error";
         }
     }
 
     @PostMapping("/{id}/eventos/new")
-    public String createEvento(@PathVariable("id") Integer id, Event event){
+    public String createEvento(@PathVariable("id") Integer id,@ModelAttribute("event") Event event){
         Optional<Agenda> agenda = agendaService.findById(id);
         if (agenda.isPresent()){
             event.setAgendaToEvents(agenda.get());
