@@ -1,7 +1,9 @@
 package farmappceuticos.farmappcia.controller;
 
+import farmappceuticos.farmappcia.model.Event;
 import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.model.User;
+import farmappceuticos.farmappcia.services.EventService;
 import farmappceuticos.farmappcia.services.MedicineService;
 import farmappceuticos.farmappcia.services.UserService1;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,9 +26,15 @@ public class AdminController {
     UserService1 userService;
     @Autowired
     MedicineService medicineService;
+    @Autowired
+    EventService eventService;
 
     @GetMapping({"/", ""})
-    public String inicioAdmin() {
+    public String inicioAdmin(Model model) {
+        List<User>userList=userService.findAll();
+        model.addAttribute("numUsu",userList.size());
+
+
         return "adminUser/admininicio";
     }
 
@@ -67,6 +76,15 @@ public class AdminController {
         model.addAttribute("medicine", medicineService.findAll());
         //Devuelve el HTML
         return "medicine/medicine-list";
+    }
+
+    @GetMapping("/eventos/")
+    //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
+    public String showEvents(Model model){
+        //
+        model.addAttribute("event",eventService.findAll());
+        //Devuelve el HTML
+        return "event/event-list";
     }
 
 

@@ -28,6 +28,11 @@ public class UserMedicine {
     @Column(name="descripción")
     private String descripcion;
 
+    private Boolean notificar;
+    private LocalDateTime fechainicio;
+    private LocalDateTime fechafinal;
+    private int cadahoras;
+
 
 
     //Relaciones
