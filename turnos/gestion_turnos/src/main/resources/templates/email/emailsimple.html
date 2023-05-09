@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sd="http://www.w3.org/1999/xhtml"
+	  layout:decorate="~{/layout/layout}">
+<head>
+	<meta charset="UTF-8">
+	<title>Emails</title>
+</head>
+
+<body>
+	<div layout:fragment="cabecera">
+		<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Envío de un email</p>
+	</div>
+	<div layout:fragment="contenido">
+	<hr>
+		<h1>Envío de emails</h1>
+		<hr>
+		<br>
+		<form method="post" th:action="@{/email/emailsimple}">
+			<label>Introduce email</label>
+			<input type="email" name="to" id="to">
+			<label>Introduce subject</label>
+			<input type="text" name="subject" id="subject">
+			<label>Introduce texto</label>
+			<input type="text" name="text" id="text">
+
+			<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+				<button type="submit"  class="btn btn-primary btn-lg">Enviar email</button>
+			</div>
+
+			<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+				<label th:text="${resultado}"></label>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
