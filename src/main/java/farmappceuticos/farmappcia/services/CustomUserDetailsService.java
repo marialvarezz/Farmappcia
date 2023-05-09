@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findUserByUsernameAndActiveTrue(username);
         if(user != null )
         {
             //Es un User de la clase principal de SpringSecurity (UserDetails-User)

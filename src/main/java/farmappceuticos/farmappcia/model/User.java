@@ -40,7 +40,8 @@ public class User {
     private LocalDateTime registrationDateTime;
     @Column(name="updeteDateTime")
     private LocalDateTime updateDateTime;
-
+    @Column(columnDefinition = "boolean default true")
+    private Boolean active;
 
     //Relaciones
 

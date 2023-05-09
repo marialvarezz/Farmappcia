@@ -16,14 +16,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests( authorize -> authorize
-
+                //Permitimos la entrada a los css, js e imágenes
+                .requestMatchers("/webjars/**","/vendor/**", "/js/**","/css/**","/img/**","/fonts/**","/favicon.ico").permitAll()
+                .requestMatchers("*css", "*js").permitAll()
                 //Permitimos todas las visitas a la pagina principal
                 .requestMatchers("","/","/medicamentos/").permitAll()
                 //Permitimos todas las visitas a la pagina principal
                 .requestMatchers("/registro","/registrarusuario").permitAll()
-                //Permitimos la entrada a los css, js e imágenes
-                .requestMatchers("/webjars/**","/vendor/**", "/js/**","/css/**","/img/**","/fonts/**","/favicon.ico").permitAll()
-                .requestMatchers("*css", "*js").permitAll()
                 //Permitimos todas las visitas a /public
                 .requestMatchers("/public").permitAll()
                 //Solo permitimos a usuarios registrados visitar "/private"
@@ -35,16 +34,21 @@ public class SecurityConfig {
 
         http
                 .formLogin(form -> form
-                        .loginPage("/login").permitAll() //Permitimos todas las visitas a la página de login
+                        .loginPage("/login") //Establecemos la url del controlador para login
                         .loginProcessingUrl("/procesarLogin") // Establece la ruta de procesamiento del formulario de inicio de sesión
+                        //.failureUrl("/login-error")
                         .defaultSuccessUrl("/usuario")// Establece la ruta de redirección después de que el usuario inicia sesión correctamente
+                        .permitAll() //Permitimos todas las visitas a la página de login
                 );
 
         http.
                 logout(logout -> logout
+                        //.logoutUrl("/logout")
+                        //Para en caso de logout correcto redirija a una página en concreto
+                        // .logoutSuccessUrl("/")
                         // Establece la ruta para procesar la petición de cierre de sesión
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .permitAll()
+                        //.permitAll()
                 );
 
         return http.build();
