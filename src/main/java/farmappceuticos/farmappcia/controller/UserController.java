@@ -232,7 +232,7 @@ public class UserController {
    //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
    public String showProducts(Model model){
       //
-      model.addAttribute("user",userService.findAll());
+      model.addAttribute("users",userService.findAll());
       //Devuelve el HTML
       return "adminUser/user-list";
    }
@@ -338,7 +338,7 @@ public class UserController {
       String userName = userDetails.getUsername();
       User user=userService.findByName(userName);
       userMedicine.setFechainicio(LocalDateTime.now());
-      userMedicine.setCadahoras(8);
+      userMedicine.setCadahoras(1);
          userMedicine.setNotificar(true);
 
          userMedicine.setUserToMedicine(user);
@@ -419,6 +419,39 @@ public class UserController {
       agendaService.save(agenda);
       return "redirect:/usuario/agenda";
 
+
+   }
+
+
+   //Admin Util
+
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
+   @GetMapping("/info/{id}")
+   //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
+   public String showuser(@PathVariable("id") Integer id, Model model){
+      Optional<User> user=userService.findById(id);
+      if (user.isPresent()) {
+
+            model.addAttribute("user",user.get());
+            return "adminUser/admin-user-info";
+
+      }
+      return "error";
+
+   }
+
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
+   @PostMapping("/role/{id}")
+   //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
+   public String rolechange(@PathVariable("id") Integer id, Model model){
+      Optional<User> user=userService.findById(id);
+      if (user.isPresent()) {
+
+         model.addAttribute("user",user.get());
+         return "adminUser/admin-user-info";
+
+      }
+      return "error";
 
    }
 }

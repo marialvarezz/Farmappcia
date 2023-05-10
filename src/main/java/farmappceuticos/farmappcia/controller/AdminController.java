@@ -75,7 +75,7 @@ public class AdminController {
         //
         model.addAttribute("medicine", medicineService.findAll());
         //Devuelve el HTML
-        return "medicine/medicine-list";
+        return "medicine/admin-medicine-list";
     }
 
     @GetMapping("/eventos/")

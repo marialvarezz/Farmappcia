@@ -8,10 +8,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Log4j2
@@ -30,17 +33,11 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         UserMedicine userMedicinesaved = userMedicineRepository.save(userMedicine);
 
          if (Boolean.TRUE.equals(userMedicinesaved.getNotificar())) {
-             LocalDateTime tiempo=userMedicine.getFechainicio();
 
-                 int numerohoras=0;
 
-                 if (Boolean.FALSE.equals(tiempo.equals(userMedicinesaved.getFechafinal()))){
-                         crearAviso(userMedicine,numerohoras);
-                     numerohoras+=userMedicinesaved.getCadahoras();
-                     System.out.println(tiempo);
-                     tiempo.plusHours(numerohoras);
-                     System.out.println(tiempo);
-                     System.out.println(numerohoras);
+
+
+                         crearAviso(userMedicine);
                  }
 
 
@@ -51,37 +48,32 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
             crearAvisoTutor(eventSaved);
         }*/
 
-        return userMedicinesaved;
-
-    }
 
 
-    public void crearAviso(UserMedicine userMedicine, int numerohoras) {
-        String expresionCron = "";
 
 
-            LocalDateTime fechaAviso =
-                    userMedicine.getFechainicio()
-                            .plusMinutes(1)
-                            .plusHours(numerohoras);
+
+    public void crearAviso(UserMedicine userMedicine) {
 
 
-            expresionCron = "0 "
-                            + fechaAviso.getMinute() + " "
-                            + fechaAviso.getHour() + " "
-                            + fechaAviso.getDayOfMonth() + " "
-                            + fechaAviso.getMonth() + " "
-                            + "?"
-            ;
-            log.info(expresionCron);
-            CronTrigger cronTrigger = new CronTrigger(expresionCron);
+
+        LocalDateTime fechaAviso =
+                userMedicine.getFechainicio().plusMinutes(1);
+
+        Duration duration=Duration.between(userMedicine.getFechainicio(),LocalDateTime.now());
+
+            Long i=Long.valueOf(userMedicine.getCadahoras());
+            PeriodicTrigger periodicTrigger=new PeriodicTrigger(i, TimeUnit.MINUTES);
+            periodicTrigger.setInitialDelay(duration);
+            log.info("aviso creado");
             threadPoolTaskScheduler.schedule(
                     new NotificacionAsincrona(
                             "tomate el " + userMedicine.getMedicineToMedicine().getName(),
                             userMedicine.getUserToMedicine().getEmail(),
                             "feelingcareapp@gmail.com"),
-                    cronTrigger
+                    periodicTrigger
             );
+
         }
 
 
