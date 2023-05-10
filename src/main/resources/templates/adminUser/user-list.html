@@ -15,7 +15,7 @@
 </head>
 <body>
 <div layout:fragment="cabecera">
-  <div class="container" style="margin-top:20px;margin-bottom:10px"> <h3>Lista de Usuarios</h3></div></div>
+  <div class="container" style="margin-top:20px;margin-bottom:10px"> <h3>Lista de Usuarios   <a href="/usuario/new" class="btn btn-primary">Crear Usuario</a></h3></div></div>
 <div layout:fragment="contenido" >
   <div class="container">
 
@@ -25,30 +25,35 @@
         <tr>
           <th>Id</th>
           <th>Nombre de Usuario</th>
-          <th>Email</th>
-          <th>Fecha de nacimiento</th>
-          <th>Role</th>
+          <th><div class="d-lg-block d-none">Email</div></th>
+          <th> <div class="d-lg-block d-none">Fecha de nacimiento</div></th>
+          <th ><div class="d-lg-block d-none">Role</div></th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
           <td th:text="${user.id}">1</td>
-          <td th:text="${user.username}">maria</td>
-          <td th:text="${user.email}">Email</td>
-          <td th:text="${user.birthDate}">19/04/2002</td>
+          <td><div th:text="${user.username}">maria</div>
+            <div class="d-block d-lg-none">
+              <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn btn-outline-primary">Ver Info</a></div></td>
+          <td><div th:text="${user.email}" class="d-lg-block d-none">Email</div></td>
+          <td><div th:text="${user.birthDate}" class="d-lg-block d-none">Email</div></td>
 
-          <td th:each="role : ${user.roles}">
-                <div  th:text="${role.name}">19/04/2002</div></td>
           <td>
-            <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn ">Ver Info</a>
-            <a th:href="@{/usuario/edit/{id}(id=${user.id})}" class="btn btn-primary">Editar</a>
-            <a th:href="@{/usuario/delete/{id}(id=${user.id})}" class="btn btn-primary">Eliminar</a>
+            <div th:each="role : ${user.roles}" class="d-lg-block d-none">
+                <div  th:text="${role.name}">19/04/2002</div></div></td>
+
+          <td>
+            <div class="d-lg-block d-none">
+            <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn btn-outline-primary" style="margin-bottom: 5px;">Ver Info</a></div>
+            <a th:href="@{/usuario/edit/{id}(id=${user.id})}" class="btn btn-outline-primary">Editar</a>
+            <a th:href="@{/usuario/delete/{id}(id=${user.id})}" class="btn btn-outline-primary">Eliminar</a>
           </td>
         </tr>
         </tbody>
       </table>
-      <a href="/usuario/new" class="btn btn-primary">Crear Usuario</a>
+
     </div>
   </div>
 </div>
