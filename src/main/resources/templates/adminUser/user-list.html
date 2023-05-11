@@ -1,16 +1,37 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout2}">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Product List</title>
+  <meta th:charset="#{principal.charset}">
+
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+
+  <title>Catalogo de Medicamentos</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+  <!-- Template Main CSS Files -->
+  <link th:href="@{/css/variables.css}" rel="stylesheet">
+  <link th:href="@{/css/main2.css}" rel="stylesheet">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+
 </head>
 <body>
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;"><h3> Lista de Medicamentos</h3></div></div>
+<div layout:fragment="contenido" class="container" style="padding-top:20px;">
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1>Lista de Usuarios</h1>
       <table class="table table-striped">
         <thead>
         <tr>
@@ -22,7 +43,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${user}">
+        <tr th:each="user : ${userPage.content}">
           <td th:text="${user.id}">1</td>
           <td th:text="${user.username}">maria</td>
           <td th:text="${user.email}">Email</td>
@@ -35,9 +56,23 @@
         </tr>
         </tbody>
       </table>
+
+      <div th:if="${userPage.totalPages > 0}" class ="pagination">
+        <ul class="pagination">
+          <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+            <a class="page-link" th:href="@{/usuario/userlist(size=${userPage.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:classappend="${pageNumber==userPage.number + 1} ? active"></a>
+          </li>
+        </ul>
+      </div>
+
+
+
       <a href="/usuario/new" class="btn btn-primary">Crear Usuario</a>
     </div>
   </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

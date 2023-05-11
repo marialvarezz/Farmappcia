@@ -1,17 +1,26 @@
 package farmappceuticos.farmappcia.services;
 
 import farmappceuticos.farmappcia.dto.UserDto;
+import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.model.Role;
 import farmappceuticos.farmappcia.model.User;
 import farmappceuticos.farmappcia.repositories.RoleRepository;
 import farmappceuticos.farmappcia.repositories.UserRepository;
+import farmappceuticos.farmappcia.utils.MedicineUtils;
+import farmappceuticos.farmappcia.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserService1 extends AbstractBusinessServiceSoloEnt <User,Integer, UserRepository> {
@@ -74,4 +83,26 @@ public class UserService1 extends AbstractBusinessServiceSoloEnt <User,Integer, 
     public User findByName(String username){
         return userRepository.findByUsername(username);
     }
+
+    final private List<User> userList = UserUtils.buildUsers();
+    public Page<User> findPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<User> list;
+
+        if (userList.size() < startItem){
+            list = Collections.emptyList();
+        }else {
+            int toIndex = Math.min(startItem  + pageSize, userList.size());
+            list = userList.subList(startItem, toIndex);
+        }
+        Page<User> userPage = new PageImpl<User>(list, PageRequest.of(currentPage,pageSize), userList.size());
+
+        return userPage;
+
+    }
+
+
+
 }

@@ -1,28 +1,54 @@
 package farmappceuticos.farmappcia.controller;
 import farmappceuticos.farmappcia.model.Medicine;
+import farmappceuticos.farmappcia.repositories.MedicineRepository;
 import farmappceuticos.farmappcia.services.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/medicamentos")//url
 public class MedicineController {
     @Autowired
     private MedicineService medicineService;
+    @Autowired
+    private MedicineRepository medicineRepository;
     //Para acceder a los métodos
 
     @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
-    public String showMedicines(Model model){
+    public String showMedicines(Model model,
+                                @RequestParam("page")Optional<Integer> page,
+                                @RequestParam("size") Optional<Integer> size){
         //
         model.addAttribute("medicine",medicineService.findAll());
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(1);
+
+        Page<Medicine> medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("medicinePage", medicinePage);
+        int totalPages = medicinePage.getTotalPages();
+        if (totalPages > 0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         //Devuelve el HTML
         return "medicine/medicine-list";
     }
+
+
     @GetMapping("/new")
     public String showNewMedicineForm(Model model) {
         model.addAttribute("medicine", new Medicine());
