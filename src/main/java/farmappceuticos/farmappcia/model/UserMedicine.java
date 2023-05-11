@@ -29,6 +29,7 @@ public class UserMedicine {
     private String descripcion;
 
     private Boolean notificar;
+    private Boolean notificarTutor;
     private LocalDateTime fechainicio;
     private LocalDateTime fechafinal;
     private int cadahoras;

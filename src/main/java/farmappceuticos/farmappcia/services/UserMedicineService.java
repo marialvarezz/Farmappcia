@@ -29,20 +29,25 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
 
     public UserMedicine crearUserMedicine(UserMedicine userMedicine) {
 
+        Duration res = Duration.between(userMedicine.getFechainicio(), userMedicine.getFechafinal());
+        Long segundos = res.getSeconds();
+        Long horas = segundos / 3600;
+        Long veces = horas / userMedicine.getCadahoras();
 
-        UserMedicine userMedicinesaved = userMedicineRepository.save(userMedicine);
+        Integer i = 0;
+        while (i < veces) {
+            System.out.println(userMedicine.getFechainicio());
+            if (Boolean.TRUE.equals(userMedicine.getNotificar())) {
+                crearAviso(userMedicine);
+            }
+            userMedicine.setFechainicio(userMedicine.getFechainicio().plusHours(userMedicine.getCadahoras()));
 
-         if (Boolean.TRUE.equals(userMedicinesaved.getNotificar())) {
-
-
-
-
-                         crearAviso(userMedicine);
-                 }
-
-
-            return userMedicinesaved;
+            i++;
         }
+        UserMedicine userMedicinesaved = userMedicineRepository.save(userMedicine);
+        return userMedicinesaved;
+    }
+
 /*
        if (Boolean.TRUE.equals(eventSaved.getNotificarTutor())) {
             crearAvisoTutor(eventSaved);
@@ -54,44 +59,11 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
 
 
     public void crearAviso(UserMedicine userMedicine) {
-
-
-
-        LocalDateTime fechaAviso =
-                userMedicine.getFechainicio().plusMinutes(1);
-
-        Duration duration=Duration.between(userMedicine.getFechainicio(),LocalDateTime.now());
-
-            Long i=Long.valueOf(userMedicine.getCadahoras());
-            PeriodicTrigger periodicTrigger=new PeriodicTrigger(i, TimeUnit.MINUTES);
-            periodicTrigger.setInitialDelay(duration);
-            log.info("aviso creado");
-            threadPoolTaskScheduler.schedule(
-                    new NotificacionAsincrona(
-                            "tomate el " + userMedicine.getMedicineToMedicine().getName(),
-                            userMedicine.getUserToMedicine().getEmail(),
-                            "feelingcareapp@gmail.com"),
-                    periodicTrigger
-            );
-
-        }
-
-
-
-
-
-
-
-
-/*
-    public void crearAvisoTutor(Event event) {
         String expresionCron = "";
 
         LocalDateTime fechaAviso =
-                event.getFechaHora()
-                        .minusMinutes(event.getNumeroMinutos())
-                        .minusHours(event.getNumeroHoras())
-                        .minusDays(event.getNumeroDias());
+                userMedicine.getFechainicio();
+
 
         expresionCron =
                 "0 "
@@ -105,14 +77,50 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         CronTrigger cronTrigger = new CronTrigger(expresionCron);
         threadPoolTaskScheduler.schedule(
                 new NotificacionAsincrona(
-                        "cita médica",
-                        event.getAgendaToEvents().getUserToAgenda().getTutorMail(),
+                        "Tomate el medicamento: " + userMedicine.getMedicineToMedicine().getName(),
+                        userMedicine.getUserToMedicine().getEmail(),
                         "feelingcareapp@gmail.com"),
                 cronTrigger
         );
 
 
-    }*/
+    }
+
+
+
+
+
+
+
+
+
+    public void crearAvisoTutor(UserMedicine userMedicine) {
+        String expresionCron = "";
+
+        LocalDateTime fechaAviso =
+                userMedicine.getFechainicio();
+
+
+        expresionCron =
+                "0 "
+                        + fechaAviso.getMinute() + " "
+                        + fechaAviso.getHour() + " "
+                        + fechaAviso.getDayOfMonth() + " "
+                        + fechaAviso.getMonth() + " "
+                        + "?"
+        ;
+        log.info(expresionCron);
+        CronTrigger cronTrigger = new CronTrigger(expresionCron);
+        threadPoolTaskScheduler.schedule(
+                new NotificacionAsincrona(
+                        userMedicine.getUserToMedicine().getEmail() + " tiene que tomarse el medicamento:" + userMedicine.getMedicineToMedicine().getName(),
+                        userMedicine.getUserToMedicine().getTutorMail(),
+                        "feelingcareapp@gmail.com"),
+                cronTrigger
+        );
+
+
+    }
 
 
     protected UserMedicineService(UserMedicineRepository userMedicineRepository) {

@@ -30,7 +30,7 @@
         <input type="hidden" th:field="*{id}">
         <div class="form-group">
           <label>Medicamento:</label>
-          <select multiple="false" style="background-color:transparent" name="medicamentos" class="form-select" id="medicamentos" th:field="*{medicineToMedicine}">
+          <select multiple="false" name="medicamentos" class="form-select" id="medicamentos" th:field="*{medicineToMedicine}">
             <option th:each="medicine : ${allMedicines}"
                     th:value="${medicine.id}"
                     th:text="${medicine.name}"
@@ -53,12 +53,38 @@
           <input class="form-control" type="text" id="descripcion" th:field="*{descripcion}">
           <br>
         </div>
+
+        <div class="form-group">
+          <label for="fechainicial">Fecha final del tratamiento:</label>
+          <input class="form-control" type="datetime-local" id="fechainicial" th:field="*{fechainicio}">
+          <br>
+        </div>
         <div class="form-group">
           <label for="fechafinal">Fecha final del tratamiento:</label>
           <input class="form-control" type="datetime-local" id="fechafinal" th:field="*{fechafinal}">
           <br>
         </div>
-
+        <div class="form-group">
+          <label for="cadahora">¿Cada cuántas horas?:</label>
+          <input class="form-control" type="number" id="cadahora" th:field="*{cadahoras}">
+          <br>
+        </div>
+        <div class="form-group">
+          <label for="notificar">Notificar:</label>
+          <select id="notificar" class="form-select" name="notificar" th:field="*{notificar}">
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+          </select>
+          <br>
+        </div>
+        <div th:unless="${userMedicine.userToMedicine.tutorMail == null}" class="form-group">
+          <label for="notitutor">Notificar al tutor:</label>
+          <select id="notitutor" class="form-select" name="notificar" th:field="*{notificarTutor}">
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+          </select>
+          <br>
+        </div>
 
         <div class="form-group">
           <button type="submit" class="btn btn-outline-success">Guardar</button>

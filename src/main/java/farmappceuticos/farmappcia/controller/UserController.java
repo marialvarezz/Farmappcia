@@ -65,7 +65,10 @@ public class UserController {
       model.addAttribute("user",user);
 
       Optional<User> tutor=userService.findByEmail(user.getTutorMail());
-      model.addAttribute("tutor",tutor.get());
+      if (user.getTutorMail()!=null){
+         model.addAttribute("tutor",tutor.get());
+      }
+
       List<User> tutorizados=userService.findByTutorMail(user.getEmail());
       model.addAttribute("tutorizados",tutorizados);
 
@@ -98,7 +101,10 @@ public class UserController {
       String usernameTutor=user.getTutorMail();
       Optional<User> tutor=userService.findByEmail(usernameTutor);
       model.addAttribute("user",user);
-      model.addAttribute("tutor",tutor.get());
+      if (user.getTutorMail()!=null){
+         model.addAttribute("tutor",tutor.get());
+      }
+
 
       //Para que se impriman los usuarios de los que eres tutor
       List<User>usersGiver=userService.findByTutorMail(user.getEmail());
@@ -348,9 +354,6 @@ public class UserController {
       }
       String userName = userDetails.getUsername();
       User user=userService.findByName(userName);
-      userMedicine.setFechainicio(LocalDateTime.now());
-      userMedicine.setCadahoras(1);
-         userMedicine.setNotificar(true);
 
          userMedicine.setUserToMedicine(user);
          userMedicineService.crearUserMedicine(userMedicine);

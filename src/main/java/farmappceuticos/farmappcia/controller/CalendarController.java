@@ -54,7 +54,7 @@ public class CalendarController {
         return doPostMes(String.valueOf(intmonth),String.valueOf(year),model);
     }
 
-    @PostMapping("/calendario/Calendarmes")
+    @PostMapping("/usuario/calendario")
     public ModelAndView doPostMes(@RequestParam String month ,@RequestParam String year,Model model) {
         ModelAndView mv = null;
         calendar.clear();

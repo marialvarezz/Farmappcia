@@ -28,9 +28,9 @@ public class SecurityConfig {
                 .requestMatchers("*css", "*js").permitAll()
                 //Permitimos todas las visitas a /public
                 .requestMatchers("/public").permitAll()
-                //Solo permitimos a usuarios registrados visitar "/private"
+
                 .requestMatchers("/usuario/**").authenticated() //Permitimos únicamente las visitas de usuarios registrados a  /private
-                .requestMatchers("/agenda/**","/evento/**","/historialmedico/**","/usumedicamentosinc/**").authenticated()
+                .requestMatchers("/agenda/**","/usuario","/evento/**","/historialmedico/**","/usumedicamentosinc/**").authenticated()
                 // Todas las request no filtradas hasta ahora, se rechazarán
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().hasRole("ADMIN")

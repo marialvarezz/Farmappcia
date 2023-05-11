@@ -29,7 +29,9 @@
 <div layout:fragment="cabecera">
   <div class="container" style="margin-top:20px;margin-bottom:10px;"><h3> Bienvenida, <span th:text="${user.name}">Prueba</span></h3></div></div>
 <div layout:fragment="contenido"><div class="container">
-  <h5 >Tu tutor es: <span th:text="${tutor.name}"></span></h5>
+  <h5 th:if="${user.tutorMail == null}">Aún no tienes un tutor asignado. <br>Conoce todas las ventajas aquí
+    <a class="btn btn-outline-success" th:href="@{/usuario/caregiver}">Ir al Care Giver</a></h5>
+  <h5 th:unless="${user.tutorMail == null}">Tu tutor es: <span th:text="${tutor.name}"></span></h5>
   <br>
    <div class="container-fluid" id="calendar">
      <div class="row">
