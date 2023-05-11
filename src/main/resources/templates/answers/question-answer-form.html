@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>Crear o Editar Invoice</h1>
-            <table th:action="@{/{questionnaireId}/questionnaire/answer(questionnaireId=${questionnaire.id})}" th:object="${questionnaire}" method="post">
+            <form th:action="@{/usuario/responder/{id}(id=${answers.questionnaire.id})}" th:object="${questionnaire}" method="post">
                 <thead th:text="questionnaire.nombre">aaaaaa
                 <tr>
                     <th type="hidden" th:field="*{id}"></th>
@@ -24,7 +24,7 @@
                     <td th:text="${question.pregunta}">aaaa</td>
                 </tr>
                 </tbody>
-            </table>
+            </form>
         </div>
     </div>
 </div>

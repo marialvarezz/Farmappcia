@@ -2,11 +2,9 @@ package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.Answers;
 import farmappceuticos.farmappcia.model.QuestionQuestionnaire;
-import farmappceuticos.farmappcia.model.Questionnaire;
 import farmappceuticos.farmappcia.model.Questions;
 import farmappceuticos.farmappcia.services.AnswersService;
 import farmappceuticos.farmappcia.services.QuestionQuestionnaireService;
-import farmappceuticos.farmappcia.services.QuestionnaireService;
 import farmappceuticos.farmappcia.services.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,6 +35,8 @@ public class QuestionQuestionnaireController {
     public String showProducts(Model model){
         //
         model.addAttribute("questionQuestionnaire",questionQuestionnaireService.findAll());
+
+
         //Devuelve el HTML
         return "questionQuestionnaire/questionQuestionnaire-list";
     }
@@ -87,13 +86,15 @@ public class QuestionQuestionnaireController {
         }
     }
 
-    //TODO falta el PostMapping
     //Cuidado solo es un ejmplo, no borramos ficicamente
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         questionQuestionnaireService.deleteById(id);
         return "redirect:/respuesta/";
     }
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 package farmappceuticos.farmappcia.controller;
 import farmappceuticos.farmappcia.model.Answers;
-import farmappceuticos.farmappcia.services.AnswersService;
 
+import farmappceuticos.farmappcia.services.AnswersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
