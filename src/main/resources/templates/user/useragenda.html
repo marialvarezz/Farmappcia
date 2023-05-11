@@ -48,7 +48,9 @@
     <div class="container" th:unless="${user.agendaToUser == null}">
         <table class="table">
             <thead>
-            <h5>Eventos   <a class="btn btn-outline-success" th:href="@{/agenda/eventos/new?}">Nueva Cita Médica</a></h5>
+            <h5>Eventos <a class="btn btn-outline-success" th:href="@{/agenda/eventos/new?}">Nueva Cita Médica</a></h5>
+            <a class="btn btn-outline-success" th:href="@{/usuario/calendario}">Ir al Calendario</a>
+
             <tr>
                 <th>Fecha y Hora</th>
                 <th>Descripción</th>
@@ -61,7 +63,7 @@
 
             <tbody>
             <tr  th:each="event:${user.agendaToUser.eventsToAgenda}">
-                <td th:text="${event.fechaHora}">aaaa</td>
+                <td th:text="${event.fechahora}">aaaa</td>
                 <td th:text="${event.descripcion}">aaaa</td>
                 <td th:text="${event.especializacion}">aaaa</td>
 

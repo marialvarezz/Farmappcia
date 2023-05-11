@@ -30,13 +30,15 @@ public class Event {
 
     @Column(name="fecha_hora")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime fechaHora;
+    private LocalDateTime fechahora;
 
     @Column(name="especializacion")
     private String especializacion;
 
     @Column(name="ubicacion")
     private String ubicacion;
+
+    private Integer diames;
 
     //Configuración notificaciones
     @Column(name="notificar")
@@ -61,7 +63,7 @@ public class Event {
 public Event(String nombre, String descripcion, LocalDateTime fechaHora, String especializacion, String ubicacion, Boolean notificar, Boolean notificarTutor){
     this.nombre = nombre;
     this.descripcion = descripcion;
-    this.fechaHora = fechaHora;
+    this.fechahora = fechaHora;
     this.especializacion = especializacion;
     this.ubicacion = ubicacion;
     this.notificar = notificar;

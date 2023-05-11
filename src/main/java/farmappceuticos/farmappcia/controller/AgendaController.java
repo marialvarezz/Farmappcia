@@ -103,6 +103,7 @@ public class AgendaController {
         String userName = userDetails.getUsername();
         User user = userService.findByName(userName);
         Agenda agenda = user.getAgendaToUser();
+        event.setDiames(event.getFechahora().getDayOfMonth());
 
 
             event.setAgendaToEvents(agenda);

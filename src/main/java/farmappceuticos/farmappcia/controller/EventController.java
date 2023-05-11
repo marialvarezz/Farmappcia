@@ -42,10 +42,11 @@ public class EventController {
         if (principal instanceof UserDetails) {
             userDetails = (UserDetails) principal;
         }
+
         String userName = userDetails.getUsername();
         User user = userService.findByName(userName);
         Agenda agenda=user.getAgendaToUser();
-
+        event.setDiames(event.getFechahora().getDayOfYear());
        eventService.crearEvento(event,agenda);
 
         return "redirect:/usuario/agenda";

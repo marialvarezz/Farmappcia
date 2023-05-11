@@ -56,7 +56,7 @@ public class EventService extends AbstractBusinessServiceSoloEnt <Event,Integer,
         String expresionCron = "";
 
         LocalDateTime fechaAviso =
-                event.getFechaHora()
+                event.getFechahora()
                         .minusMinutes(event.getNumeroMinutos())
                         .minusHours(event.getNumeroHoras())
                         .minusDays(event.getNumeroDias());
@@ -86,7 +86,7 @@ public class EventService extends AbstractBusinessServiceSoloEnt <Event,Integer,
         String expresionCron = "";
 
         LocalDateTime fechaAviso =
-                event.getFechaHora()
+                event.getFechahora()
                         .minusMinutes(event.getNumeroMinutos())
                         .minusHours(event.getNumeroHoras())
                         .minusDays(event.getNumeroDias());

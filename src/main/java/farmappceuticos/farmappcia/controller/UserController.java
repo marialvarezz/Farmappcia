@@ -45,6 +45,10 @@ public class UserController {
    @Autowired
    IllnessService illnessService;
 
+
+   @Autowired
+   EventService eventService;
+
    @Autowired
    MedicalHistoryService medicalHistoryService;
 
@@ -59,6 +63,13 @@ public class UserController {
       String userName = userDetails.getUsername();
       User user=userService.findByName(userName);
       model.addAttribute("user",user);
+
+      Optional<User> tutor=userService.findByEmail(user.getTutorMail());
+      model.addAttribute("tutor",tutor.get());
+      List<User> tutorizados=userService.findByTutorMail(user.getEmail());
+      model.addAttribute("tutorizados",tutorizados);
+
+
       return "user/userinicio";}
 
 
