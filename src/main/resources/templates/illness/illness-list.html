@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="illness : ${illness}">
+        <tr th:each="illness : ${illnessPage.content}">
             <td th:text="${illness.id}">1</td>
             <td th:text="${illness.nombre}">Nombre de la enfermedad</td>
             <td th:text="${illness.tipo}">Tipo de enfermedad</td>
@@ -33,7 +33,19 @@
         </tr>
         </tbody>
     </table>
+
     <a class="btn btn-outline-success" th:href="@{/enfermedades/new}">Añade una nueva enfermedad</a>
+
+    <div th:if="${illnessPage.totalPages > 0}" class ="pagination">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{/enfermedades/(size=${illnessPage.size}, page=${pageNumber})}"
+                   th:text=${pageNumber}
+                   th:classappend="${pageNumber==illnessPage.number + 1} ? active"></a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
