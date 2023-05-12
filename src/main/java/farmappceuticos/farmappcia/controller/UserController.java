@@ -338,6 +338,7 @@ public class UserController {
 
          UserMedicine userMedicine = new UserMedicine();
          List<Medicine> medicines = medicineService.findAll();
+
          model.addAttribute("allMedicines", medicines);
          userMedicine.setUserToMedicine(user);
          model.addAttribute("userMedicine",userMedicine);
@@ -354,7 +355,8 @@ public class UserController {
       }
       String userName = userDetails.getUsername();
       User user=userService.findByName(userName);
-
+      userMedicine.setHora(userMedicine.getFechainicio().getHour() + ":" + userMedicine.getFechainicio().getMinute());
+      userMedicine.setDiames(userMedicine.getFechainicio().getDayOfMonth());
          userMedicine.setUserToMedicine(user);
          userMedicineService.crearUserMedicine(userMedicine);
          return "redirect:/usuario/tusmedicamentos";

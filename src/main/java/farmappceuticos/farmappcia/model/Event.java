@@ -32,6 +32,8 @@ public class Event {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime fechahora;
 
+
+
     @Column(name="especializacion")
     private String especializacion;
 
@@ -40,6 +42,8 @@ public class Event {
 
     private Integer diames;
 
+    private String hora;
+    private String fecha;
     //Configuración notificaciones
     @Column(name="notificar")
     private Boolean notificar;
@@ -64,6 +68,7 @@ public Event(String nombre, String descripcion, LocalDateTime fechaHora, String 
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.fechahora = fechaHora;
+
     this.especializacion = especializacion;
     this.ubicacion = ubicacion;
     this.notificar = notificar;

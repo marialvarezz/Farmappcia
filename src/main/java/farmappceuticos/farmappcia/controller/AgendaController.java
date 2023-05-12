@@ -105,7 +105,7 @@ public class AgendaController {
         Agenda agenda = user.getAgendaToUser();
         event.setDiames(event.getFechahora().getDayOfMonth());
 
-
+        event.setHora(event.getFechahora().getHour()+":"+event.getFechahora().getMinute());
             event.setAgendaToEvents(agenda);
             eventService.crearEvento(event,agenda);
 

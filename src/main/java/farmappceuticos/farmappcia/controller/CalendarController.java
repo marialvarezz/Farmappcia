@@ -3,14 +3,13 @@ package farmappceuticos.farmappcia.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import farmappceuticos.farmappcia.model.Event;
 import farmappceuticos.farmappcia.model.User;
+import farmappceuticos.farmappcia.model.UserMedicine;
 import farmappceuticos.farmappcia.services.EventService;
+import farmappceuticos.farmappcia.services.UserMedicineService;
 import farmappceuticos.farmappcia.services.UserService1;
 import farmappceuticos.farmappcia.util.Date;
 import org.modelmapper.ModelMapper;
@@ -29,6 +28,10 @@ public class CalendarController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    UserMedicineService userMedicineService;
+
     @Autowired
             private UserService1 userService;
     HashMap<String, ArrayList<Date>> calendar = new HashMap<>();
@@ -36,6 +39,10 @@ public class CalendarController {
     HashMap<String, Date[][]> dateValues = new HashMap<>();
     List<Event> eventListPantalla = new ArrayList<>();
     List<Event> eventListDB = new ArrayList<>();
+
+    //Medicamentos
+    List<UserMedicine> userMedicineListPantalla = new ArrayList<>();
+    List<UserMedicine> userMedicineListDB = new ArrayList<>();
 
 
 
@@ -61,6 +68,8 @@ public class CalendarController {
         dateValues.clear();
         eventListDB.clear();
         eventListPantalla.clear();
+        userMedicineListDB.clear();
+        userMedicineListPantalla.clear();
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = null;
@@ -87,17 +96,27 @@ public class CalendarController {
         LocalDateTime dateTimemax = LocalDateTime.parse(strdaymax, formatter);
         //Buscamos en la lista
         eventListDB = eventService.getRepo().findEventByFechahoraBetween(dateTimemin,dateTimemax );
+        userMedicineListDB=userMedicineService.getRepo().findUserMedicineByFechainicioBetween(dateTimemin,dateTimemax);
         //Volcamos datos al "dto"
         // https://www.redcort.com/us-federal-bank-holidays/
         //setAllHolidays(yr); // isHoliday field of date set to true if its a holiday
         formatDatesEvent(Date.MONTH[mo]);
+        formatDatesUserMedicine(Date.MONTH[mo]);
         mv = new ModelAndView("calendario/calendarunmes");
+        for (Event e:eventListPantalla
+             ) {
+            System.out.println(e);
+        };
+        for (UserMedicine u:userMedicineListPantalla
+             ) {
+            System.out.println(u);
 
+        }
         mv.addAllObjects(dateValues);
         mv.addObject("events", eventListPantalla);
+        mv.addObject("userMedicines", userMedicineListPantalla);
         mv.addObject("year", year);
         mv.addObject("month", mo);
-
         return mv;
     }
 
@@ -114,6 +133,13 @@ public class CalendarController {
         dateValues.put(monthin, dateFormatterEvent(month));
     }
 
+    private void formatDatesUserMedicine(String monthin) {
+
+        System.out.println("formatDates Mes selecionado:" + monthin );
+
+        ArrayList<Date> month = calendar.get(monthin);
+        dateValues.put(monthin, dateFormatterUserMedicine(month));
+    }
 
 
     private Date[][] dateFormatterEvent(ArrayList<Date> month) {
@@ -130,12 +156,6 @@ public class CalendarController {
                             if (event.getDiames().equals( month.get(dayPointer).getDay())){
                                 eventListPantalla.add(event);
                             }
-                            //else {
-                            //	Event eventSoloDia = new Event();
-                            //	eventSoloDia.setDiames(month.get(dayPointer).getDay() );
-                            //	//eventSoloDia.setEspecializacion(String.valueOf(month.get(dayPointer).getDay()));
-                            //	eventListPantalla.add(eventSoloDia);
-                            //}
                         }
                         dayPointer++;
                         continue;
@@ -148,7 +168,63 @@ public class CalendarController {
         return days;
     }
 
+    private Date[][] dateFormatterUserMedicine(ArrayList<Date> month) {
+        int dayPointer = 0;
 
+        List<UserMedicine> userMedicineList=new ArrayList<>();
+
+        for (UserMedicine userMedicine : userMedicineListDB) {
+
+            int v=0;
+            while (userMedicine.getMomentos().size() > v) {
+                UserMedicine userMedicine1=new UserMedicine();
+                clonar(userMedicine1,userMedicine);
+                userMedicine1.setFechainicio(userMedicine.getMomentos().get(v));
+                userMedicine1.setDiames(userMedicine1.getFechainicio().getDayOfMonth());
+                userMedicine1.setHora(userMedicine1.getFechainicio().getHour() + ":" + userMedicine1.getFechainicio().getMinute());
+
+                userMedicineList.add(userMedicine1);
+                v++;
+
+            }
+        }
+
+
+        Date[][] days = new Date[6][7];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (dayPointer < month.size()) {
+                    if (month.get(dayPointer).getDow() == j) {
+                        System.out.println("dateFormatterUserMedicine dia mes:" + month.get(dayPointer) );
+                        days[i][j] = month.get(dayPointer);
+                        //Comnponemos los userMedicine para la pantalla
+
+                        for (UserMedicine userMedicine1 : userMedicineList){
+
+                            if (userMedicine1.getDiames().equals( month.get(dayPointer).getDay())){
+                                userMedicineListPantalla.add(userMedicine1);
+                            }
+                        }
+                        dayPointer++;
+                        continue;
+                    }
+                }
+                Date nullDate = null;
+                days[i][j] = nullDate;
+            }
+        }
+        return days;
+    }
+
+    public void clonar(UserMedicine clon,UserMedicine padre){
+        clon.setNotificar(padre.getNotificar());
+        clon.setActive(padre.getActive());
+        clon.setCadahoras(padre.getCadahoras());
+        clon.setUserToMedicine(padre.getUserToMedicine());
+        clon.setNotificarTutor(padre.getNotificarTutor());
+        clon.setFechafinal(padre.getFechafinal());
+        clon.setMedicineToMedicine(padre.getMedicineToMedicine());
+    }
 
 
 

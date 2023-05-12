@@ -46,7 +46,9 @@ public class EventController {
         String userName = userDetails.getUsername();
         User user = userService.findByName(userName);
         Agenda agenda=user.getAgendaToUser();
-        event.setDiames(event.getFechahora().getDayOfYear());
+        event.setDiames(event.getFechahora().getDayOfMonth());
+        event.setHora(event.getFechahora().getHour()+" "+event.getFechahora().getMinute());
+        System.out.println(event.getHora());
        eventService.crearEvento(event,agenda);
 
         return "redirect:/usuario/agenda";

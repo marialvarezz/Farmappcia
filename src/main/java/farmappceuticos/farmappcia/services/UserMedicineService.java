@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -33,25 +35,29 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         Long segundos = res.getSeconds();
         Long horas = segundos / 3600;
         Long veces = horas / userMedicine.getCadahoras();
-
+        List<LocalDateTime>meme=new ArrayList<>();
         Integer i = 0;
+        userMedicine.setMomento(userMedicine.getFechainicio());
         while (i < veces) {
-            System.out.println(userMedicine.getFechainicio());
+            System.out.println(userMedicine.getMomento());
             if (Boolean.TRUE.equals(userMedicine.getNotificar())) {
                 crearAviso(userMedicine);
+                if (Boolean.TRUE.equals(userMedicine.getNotificarTutor())) {
+                    crearAvisoTutor(userMedicine);
+                }
             }
-            userMedicine.setFechainicio(userMedicine.getFechainicio().plusHours(userMedicine.getCadahoras()));
-
+            meme.add(userMedicine.getMomento());
+            LocalDateTime mm=userMedicine.getMomento();
+            mm=mm.plusHours(userMedicine.getCadahoras());
+                userMedicine.setMomento(mm);
             i++;
         }
+        userMedicine.setMomentos(meme);
         UserMedicine userMedicinesaved = userMedicineRepository.save(userMedicine);
         return userMedicinesaved;
     }
 
-/*
-       if (Boolean.TRUE.equals(eventSaved.getNotificarTutor())) {
-            crearAvisoTutor(eventSaved);
-        }*/
+
 
 
 
@@ -62,7 +68,7 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         String expresionCron = "";
 
         LocalDateTime fechaAviso =
-                userMedicine.getFechainicio();
+                userMedicine.getMomento();
 
 
         expresionCron =
@@ -98,7 +104,7 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         String expresionCron = "";
 
         LocalDateTime fechaAviso =
-                userMedicine.getFechainicio();
+                userMedicine.getMomento();
 
 
         expresionCron =
