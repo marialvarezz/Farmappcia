@@ -1,7 +1,6 @@
 package farmappceuticos.farmappcia.utils;
 
 import farmappceuticos.farmappcia.model.Illness;
-import farmappceuticos.farmappcia.model.Medicine;
 
 import java.util.ArrayList;
 import java.util.List;

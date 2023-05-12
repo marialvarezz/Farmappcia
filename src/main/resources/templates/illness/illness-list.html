@@ -36,6 +36,8 @@
 
     <a class="btn btn-outline-success" th:href="@{/enfermedades/new}">Añade una nueva enfermedad</a>
 
+    <!--PAGINACIÓN-->
+
     <div th:if="${illnessPage.totalPages > 0}" class ="pagination">
         <ul class="pagination">
             <li class="page-item" th:each="pageNumber : ${pageNumbers}">
