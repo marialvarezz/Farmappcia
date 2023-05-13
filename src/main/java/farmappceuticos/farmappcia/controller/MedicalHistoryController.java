@@ -1,9 +1,15 @@
 package farmappceuticos.farmappcia.controller;
 import farmappceuticos.farmappcia.model.Illness;
 import farmappceuticos.farmappcia.model.MedicalHistory;
+import farmappceuticos.farmappcia.model.User;
+import farmappceuticos.farmappcia.model.UserMedicineInc;
 import farmappceuticos.farmappcia.services.IllnessService;
 import farmappceuticos.farmappcia.services.MedicalHistoryService;
+import farmappceuticos.farmappcia.services.UserService1;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +25,12 @@ public class MedicalHistoryController {
 
     @Autowired
     private IllnessService illnessService;
+
+    @Autowired
+    private UserService1 userService;
     //Para acceder a los métodos
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
     public String showMedicalHistory(Model model){
@@ -29,28 +39,36 @@ public class MedicalHistoryController {
         //Devuelve el HTML
         return "medicalHistory/medicalHistory-list";
     }
-    @GetMapping("/new")
-    public String showNewMedicalHistoryForm(Model model) {
-        model.addAttribute("medicalHistory", new MedicalHistory());
-        List<Illness> illnessList = illnessService.findAll();
-        model.addAttribute("allIllness", illnessList);
-        return "medicalHistory/medicalHistory-form";
-    }
+
     @PostMapping("/save")
     public String saveMedicalHistory(@ModelAttribute("medicalHistory") MedicalHistory medicalHistory){
-        Integer id=medicalHistory.getUser().getId();
+
         medicalHistoryService.save(medicalHistory);
         return "redirect:/usuario/historialmedico";
     }
     @GetMapping("/edit/{id}")
     public String showEditMedicalHistoryForm(@PathVariable("id") Integer id, Model model) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+        String userName = userDetails.getUsername();
+        User userAut = userService.findByName(userName);
+
         Optional<MedicalHistory> medicalHistory = medicalHistoryService.findById(id);
         if (medicalHistory.isPresent()){
-            model.addAttribute("medicalHistory", medicalHistory.get());
-            List<Illness> illnessList = illnessService.findAll();
-            model.addAttribute("allIllness", illnessList);
+            if (medicalHistory.get().getUser()==userAut){
+                model.addAttribute("medicalHistory", medicalHistory.get());
+                List<Illness> illnessList = illnessService.findAll();
+                model.addAttribute("allIllness", illnessList);
 
-            return "medicalHistory/medicalHistory-form";
+                return "medicalHistory/medicalHistory-form";
+            }else {
+                return "error-authoritation";
+            }
+
         }
         else {
             return "medicalHistory/medicalHistory-form-notfound";
@@ -61,9 +79,25 @@ public class MedicalHistoryController {
     //Cuidado solo es un ejemplo, no borramos fisicamente
     @GetMapping("/delete/{id}")
     public String deleteMedicalHistory(@PathVariable("id") Integer id) {
-        Integer y=medicalHistoryService.findById(id).get().getUser().getId();
-        medicalHistoryService.deleteById(id);
-        return "redirect:/usuario/historialmedico";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+        String userName = userDetails.getUsername();
+        User userAut = userService.findByName(userName);
+
+        Optional<MedicalHistory> medicalHistory = medicalHistoryService.findById(id);
+        if (medicalHistory.isPresent()){
+            User user=medicalHistory.get().getUser();
+            if (userAut==user){
+                medicalHistoryService.deleteById(id);
+                return "redirect:/usuario/historialmedico";
+            }
+            else {
+                return "error-authentication";
+            }}
+        return "error";
     }
 
 }

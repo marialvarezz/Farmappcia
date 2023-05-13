@@ -55,10 +55,11 @@
                 <ul class="dropdown-menu">
                   <li class="dropdown-item"><a th:href="@{/usuario/historialmedico}">Historial Médico</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/info/}">Datos del Usuario</a></li>
-                  <li class="dropdown-item"><a th:href="@{/usuario/configuracion}">FeelingCare Giver</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/caregiver}">FeelingCare Giver</a></li>
                   <li class="dropdown-item"><a th:href="@{/logout}">Log Out<!--Se cerraría sesión--></a></li>
                 </ul>
               </li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/usuario/calendario}">Calendario</a></li>
               <li class="nav-item"><a class="nav-link" th:href="@{/usuario/agenda}">Agenda</a></li>
               <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">Medicamentos
                 <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
@@ -72,7 +73,7 @@
                 <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item" ><a  th:href="@{/usuario/cuestionarios}">Cuestionarios</a></li>
-                  <li class="dropdown-item"><a href="#">Tus Respuestas</a></li>
+                  <li class="dropdown-item"><a th:href="@{/usuario/respuestas}">Tus Respuestas</a></li>
                   <li class="dropdown-item"><a href="#">Estadísticas</a></li>
                 </ul>
               </li>
@@ -82,9 +83,9 @@
         </div>
       </div>
     </nav>
-      </div>
 
-    </div>
+
+
 
   </header><!-- End Header -->
 

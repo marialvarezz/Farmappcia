@@ -5,16 +5,22 @@ package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.*;
+import jakarta.validation.OverridesAttribute;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,12 +41,20 @@ public class UserController {
    UserMedicineIncService userMedicineIncService;
    @Autowired
    MedicineService medicineService;
+
    @Autowired
-   UserMedicineService userMedicineService;
+   AgendaService agendaService;
 
 
-@Autowired
+
+   @Autowired
    IllnessService illnessService;
+
+   @Autowired
+   QuestionQuestionnaireService questionQuestionnaireService;
+
+   @Autowired
+   EventService eventService;
 
    @Autowired
    MedicalHistoryService medicalHistoryService;
@@ -56,10 +70,18 @@ public class UserController {
       String userName = userDetails.getUsername();
       User user=userService.findByName(userName);
       model.addAttribute("user",user);
+
+      Optional<User> tutor=userService.findByEmail(user.getTutorMail());
+      if (user.getTutorMail()!=null){
+         model.addAttribute("tutor",tutor.get());
+      }
+
+      List<User> tutorizados=userService.findByTutorMail(user.getEmail());
+      model.addAttribute("tutorizados",tutorizados);
+
+
       return "user/userinicio";}
 
-   @GetMapping("/datosusuario")
-   public String datosUsuario(){return "user/userdata";}
 
    @GetMapping("/historialmedico")
    public String historialMedico(Model model){
@@ -74,11 +96,104 @@ public class UserController {
       model.addAttribute("user",user);
       return "user/userhistorialmedico";}
 
-   @GetMapping("/configuracion")
-   public String settings(){return "user/usersettings";}
+   @GetMapping("/caregiver")
+   public String caregiver(Model model){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user = userService.findByName(userName);
+      String usernameTutor=user.getTutorMail();
+      Optional<User> tutor=userService.findByEmail(usernameTutor);
+      model.addAttribute("user",user);
+      if (user.getTutorMail()!=null){
+         model.addAttribute("tutor",tutor.get());
+      }
 
+
+      //Para que se impriman los usuarios de los que eres tutor
+      List<User>usersGiver=userService.findByTutorMail(user.getEmail());
+      model.addAttribute("usersGiver",usersGiver);
+
+      return "user/caregiver";}
+
+   @GetMapping("/caregiver/{id}")
+   public String infocaregiver(@PathVariable("id") Integer id, Model model){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User tutor = userService.findByName(userName);
+      String tutorEmail=tutor.getEmail();
+      Optional<User> user=userService.findById(id);
+      if (user.isPresent()) {
+         if (user.get().getTutorMail().equals(tutorEmail)){
+            model.addAttribute("user",user.get());
+            return "user/caregiver-info";
+         }else {
+            System.out.println(tutorEmail);
+            System.out.println(user.get().getTutorMail());
+            return "error-authentication";
+         }
+
+      }
+         return "error";
+
+      }
+
+   @GetMapping("/caregiver/new")
+   public String caregiverNew(Model model){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user = userService.findByName(userName);
+      model.addAttribute("user",user);
+
+      return "user/caregiver-form";}
+
+
+   @PostMapping ("/caregiver/new")
+   public String caregiverNew(@ModelAttribute("user") User user){
+      Optional<User> userOptional=userService.findByEmail(user.getTutorMail());
+      if (userOptional.isPresent()){
+         userService.save(user);
+         return "redirect:/usuario/caregiver";
+      }else {
+         System.out.println( user.getTutorMail() + "no ha sido encontrado");
+         return "error";
+      }
+
+
+      }
    @GetMapping("/agenda")
-   public String vistaAgenda() {return "user/useragenda";}
+   public String vistaAgenda(Model model) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+
+
+      if(user.getAgendaToUser()==null) {
+         Agenda agenda=new Agenda();
+         agenda.setUserToAgenda(user);
+         String nombre= "Agenda de " + user.getName();
+         agenda.setNombre(nombre);
+         model.addAttribute("agenda",agenda);
+      }
+
+      model.addAttribute("user",user);
+
+      return "user/useragenda";}
 
    @GetMapping("/tusmedicamentos")
    public String tusMedicamentos(Model model) {
@@ -151,17 +266,31 @@ public class UserController {
    @GetMapping("/cuestionarios")
    public String showQuestionnaire(Model model){
       model.addAttribute("questionnaires",questionnaireService.findAll());
+    User user=getUserAuten();
+      model.addAttribute("user",user);
       //Devuelve el HTML
       return "questionnaire/questionnaire-list";
    }
 
+
+   @GetMapping("/respuestas")
+   public String showAnswers(Model model){
+      model.addAttribute("questionnaires",questionnaireService.findAll());
+      User user=getUserAuten();
+      model.addAttribute("user",user);
+      //Devuelve el HTML
+      return "questionnaire/answers-list";
+   }
+
    //CRUD User
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
    @GetMapping("/userlist")
    //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
    public String showProducts(Model model,
                               @RequestParam("page")Optional<Integer> page,
                               @RequestParam("size") Optional<Integer> size){
-      //
+     
+
       model.addAttribute("user",userService.findAll());
 
 
@@ -178,17 +307,11 @@ public class UserController {
                  .collect(Collectors.toList());
          model.addAttribute("pageNumbers", pageNumbers);
       }
-
-
-
+      model.addAttribute("users",userService.findAll());
       //Devuelve el HTML
       return "adminUser/user-list";
    }
-   @GetMapping("/new")
-   public String showNewProductForm(Model model) {
-      model.addAttribute("user",new User());
-      return "adminUser/user-form";
-   }
+
    @PostMapping("/save")
    public String saveProduct(@ModelAttribute("user") User user) {
       userService.save(user);
@@ -273,6 +396,7 @@ public class UserController {
 
          UserMedicine userMedicine = new UserMedicine();
          List<Medicine> medicines = medicineService.findAll();
+
          model.addAttribute("allMedicines", medicines);
          userMedicine.setUserToMedicine(user);
          model.addAttribute("userMedicine",userMedicine);
@@ -289,10 +413,10 @@ public class UserController {
       }
       String userName = userDetails.getUsername();
       User user=userService.findByName(userName);
-
-
+      userMedicine.setHora(userMedicine.getFechainicio().getHour() + ":" + userMedicine.getFechainicio().getMinute());
+      userMedicine.setDiames(userMedicine.getFechainicio().getDayOfMonth());
          userMedicine.setUserToMedicine(user);
-         userMedicineService.save(userMedicine);
+         userMedicineService.crearUserMedicine(userMedicine);
          return "redirect:/usuario/tusmedicamentos";
       }
 
@@ -352,5 +476,67 @@ public class UserController {
       return "redirect:/usuario/historialmedico";
 
 
+   }
+
+   @PostMapping("/agenda/new")
+   public String nuevaAgendaSave(@ModelAttribute("agenda") Agenda agenda) {
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user = userService.findByName(userName);
+      String nombre="Agenda de " + user.getName();
+      agenda.setUserToAgenda(user);
+      agenda.setNombre(nombre);
+      agendaService.save(agenda);
+      return "redirect:/usuario/agenda";
+
+
+   }
+
+
+   //Admin Util
+
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
+   @GetMapping("/info/{id}")
+   //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
+   public String showuser(@PathVariable("id") Integer id, Model model){
+      Optional<User> user=userService.findById(id);
+      if (user.isPresent()) {
+
+            model.addAttribute("user",user.get());
+            return "adminUser/admin-user-info";
+
+      }
+      return "error";
+
+   }
+
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
+   @PostMapping("/role/{id}")
+   //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
+   public String rolechange(@PathVariable("id") Integer id, Model model){
+      Optional<User> user=userService.findById(id);
+      if (user.isPresent()) {
+
+         model.addAttribute("user",user.get());
+         return "adminUser/admin-user-info";
+
+      }
+      return "error";
+
+   }
+
+   private User getUserAuten(){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+      return user;
    }
 }

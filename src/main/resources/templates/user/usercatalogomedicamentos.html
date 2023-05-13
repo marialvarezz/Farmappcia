@@ -39,10 +39,10 @@
                 <th>Nombre</th>
                 <th>Descripción</th>
 
-                <th>Componentes</th>
-                <th>Consumo</th>
-                <th>Efectos Secundarios</th>
-                <th>Misc.</th>
+                <th><div class="d-lg-block d-none">Componentes</div></th>
+                <th><div class="d-lg-block d-none">Consumo</div></th>
+                <th><div class="d-lg-block d-none">Efectos Secundarios</div></th>
+                <th><div class="d-lg-block d-none">Misc.</div></th>
             </tr>
             </thead>
             <tbody>
@@ -50,11 +50,15 @@
                 <td th:text="${medicine.id}" sec:authorize="hasRole('ROLE_ADMIN')">1</td>
                 <td th:text="${medicine.name}">Nombre</td>
                 <td th:text="${medicine.description}">Descripción</td>
-
-                <td th:text="${medicine.components}">Componentes</td>
-                <td th:text="${medicine.administer}">Consumo</td>
-                <td th:text="${medicine.efects}">Efectos Secundarios</td>
-                <td th:text="${medicine.misc}">Misc.</td>
+                <td>
+                    <div th:text="${medicine.components}" class="d-lg-block d-none">Descripción</div></td>
+                <td>
+                    <div th:text="${medicine.administer}" class="d-lg-block d-none">Descripción</div>
+                </td>
+                <td>
+                    <div th:text="${medicine.efects}" class="d-lg-block d-none">Descripción</div></td>
+                <td >
+                    <div th:text="${medicine.misc}" class="d-lg-block d-none">Descripción</div></td>
 
 
             </tr>

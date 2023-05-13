@@ -69,17 +69,21 @@ public class User {
     @OneToMany(mappedBy = "userToMedicine")
     private Set<UserMedicine> userMedicines;
 
-    //Relaciones con User
-    @OneToMany(mappedBy = "tutorToUser")
-    private Set<User> userToTutor;
 
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "tutor_id")
-    User tutorToUser;
 
     @OneToMany(mappedBy = "userToMedicineInc")
     private Set<UserMedicineInc> userMedicineIncs;
 
+
+
+    //Relaciones con User
+
+    //TUTOR DEL USUARIO
+
+    private String tutorMail;
+
+
+    //USUARIOS DEL TUTOR
 
 
     //Constructors

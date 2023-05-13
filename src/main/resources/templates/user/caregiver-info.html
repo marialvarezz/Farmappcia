@@ -1,0 +1,143 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layoutuser}">
+
+<head>
+  <meta th:charset="#{principal.charset}">
+  <title>FeelingCare Giver</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+  <!-- Template Main CSS Files -->
+  <link th:href="@{/css/variables.css}" rel="stylesheet">
+  <link th:href="@{/css/main2.css}" rel="stylesheet">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+<div layout:fragment="cabecera">
+  <div class="container" style="margin-top:20px;margin-bottom:10px;">
+    <h3>Información de: <span th:text="${user.name}"></span></h3></div></div>
+<div layout:fragment="contenido">
+  <div class="container">
+    <p>Nombre: <span th:text="${user.name}"></span></p>
+    <p>Usuario: <span th:text="${user.username}"></span></p>
+    <p>Email: <span th:text="${user.email}"></span></p>
+    <p>Año de nacimiento: <span th:text="${user.birthDate}"></span></p>
+
+    <div class="container" style="margin-top:20px;">
+      <h5>Citas médicas</h5>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Fecha y hora</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Especialización</th>
+          <th>Ubicación</th>
+          <th>Notificaciones</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="evento : ${user.agendaToUser.eventsToAgenda}">
+          <td th:text="${evento.fechahora}">Invoice Code</td>
+          <td th:text="${evento.nombre}">1</td>
+          <td th:text="${evento.descripcion}">Invoice date</td>
+          <td th:text="${evento.especializacion}">aaaa</td>
+          <td th:text="${evento.ubicacion}">aaaa</td>
+          <td>
+                <span th:if="${evento.notificar == true}">
+                    <span th:if="${evento.notificarTutor == true}">Activado para todos</span>
+                     <span th:unless="${evento.notificarTutor == true}">Activado para ti</span>
+                </span>
+            <span th:unless="${evento.notificar == true}">
+                    <span th:if="${evento.notificarTutor == true}">Activado para el FeelingCare Giver</span>
+                     <span th:unless="${evento.notificarTutor == true}">Sin activar</span>
+                </span>
+          </td>
+
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container"  style="margin-top:20px;">
+      <h5>Medicamentos </h5>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Medicamento</th>
+          <th>Motivo</th>
+          <th>Activo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="medicine : ${user.userMedicines}">
+          <td th:text="${medicine.medicineToMedicine.name}">1</td>
+          <td th:text="${medicine.descripcion}">Invoice date</td>
+          <td th:text="${medicine.active}">Invoice Code</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="container"  style="margin-top:20px;">
+      <h5>Medicamentos Incompatibles</h5>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Medicamento</th>
+          <th>Razón</th>
+          <th>Activo</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="userMedicineIncs : ${user.userMedicineIncs}">
+          <td th:text="${userMedicineIncs.medicine}">1</td>
+          <td th:text="${userMedicineIncs.reason}">Invoice date</td>
+          <td th:text="${userMedicineIncs.active}">Invoice Code</td>
+        </tbody>
+      </table>
+    </div>
+
+      <div class="container"  style="margin-top:20px;">
+        <h5>Historial Médico</h5>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Enfermedad</th>
+            <th>Diagnostico</th>
+            <th>Fecha de la incidencia</th>
+            <th>ingreso</th>
+            <th>Ubicación Hospital</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="medicalHistory : ${user.medicalHistories}">
+            <td th:text="${medicalHistory.illnessToMedicalHistory.nombre}">1</td>
+            <td th:text="${medicalHistory.diagnostico}">Invoice date</td>
+            <td th:text="${medicalHistory.fechaIncidencia}">Invoice Code</td>
+            <td th:text="${medicalHistory.ingreso}">Invoice Code</td>
+            <td th:text="${medicalHistory.ubiHospital}">Invoice Code</td>
+
+          </tbody>
+        </table>
+      </div>
+
+
+  </div>
+</div>
+
+
+</body>
+
+</html>

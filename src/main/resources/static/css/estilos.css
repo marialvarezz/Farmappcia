@@ -35,3 +35,11 @@ background-color:#76BE83;
     max-width: 100px;
         margin-bottom: 10px;
 }
+
+.cuadrados{
+border: 1px;
+    min-width: 136px;
+    border-style: solid;
+    text-align: center;
+    height: 100px;
+    }

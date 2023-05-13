@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layoutuser}">
+
+<head>
+  <meta th:charset="#{principal.charset}">
+  <title>FeelingCare Giver</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+  <!-- Template Main CSS Files -->
+  <link th:href="@{/css/variables.css}" rel="stylesheet">
+  <link th:href="@{/css/main2.css}" rel="stylesheet">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+<div layout:fragment="cabecera">
+  <div class="container" style="margin-top:20px;margin-bottom:10px;">
+    <h3>Care Giver de: <span th:text="${user.name}"></span></h3></div></div>
+<div layout:fragment="contenido">
+  <div class="container">
+    <div th:if="${user.tutorMail == null}">
+      <div class="row d-flex align-items-center">
+        <div class="col-lg-6"><img src="/img/robotin.png" class="imng-fluid" alt="robotin"></div>
+
+      <div class="col-lg-6">
+        <h3 style="font-family:century gothic black;">Bienvenido al FeelingCare Giver</h3>
+        <h5>Con este servicio tendrás la posibilidad de asignar un CareGiver para que reciba tus notificaciones
+        y tenga acceso a tu información.
+        <br> ¡No lo dudes y pruébalo!</h5>
+        <a class="btn btn-outline-success" th:href="@{/usuario/caregiver/new}">Indicanos tu CareGiver</a>
+      </div>
+    </div>
+    </div>
+  <div th:unless="${user.tutorMail == null}">
+    <h3>Tu tutor es: <span style="font-family:century gothic black;" th:text="${tutor.name}"></span></h3>
+  </div>
+
+    <div th:unless="${usersGiver == null}">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Email</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${usersGiver}">
+          <td th:text="${user.name}">1</td>
+          <td th:text="${user.username}">1</td>
+          <td th:text="${user.email}">1</td>
+
+            <td>
+            <a class="btn btn-outline-primary" th:href="@{/usuario/caregiver/{id}(id=${user.id})}">Ver información</a>
+            </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div></div>
+
+
+</body>
+
+</html>
