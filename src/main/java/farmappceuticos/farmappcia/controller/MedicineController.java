@@ -32,7 +32,7 @@ public class MedicineController {
         model.addAttribute("medicine",medicineService.findAll());
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(1);
+        int pageSize = size.orElse(15);
 
         Page<Medicine> medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
 
