@@ -1,6 +1,7 @@
 package farmappceuticos.farmappcia.services;
 
 
+import farmappceuticos.farmappcia.dto.Email;
 import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.repositories.MedicineRepository;
 import farmappceuticos.farmappcia.repositories.UserMedicineRepository;
@@ -81,11 +82,14 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
         ;
         log.info(expresionCron);
         CronTrigger cronTrigger = new CronTrigger(expresionCron);
+        String subject="Hora de toma el medicamento: " + userMedicine.getMedicineToMedicine().getName();
+        String contenido="Te toca tomar el medicamento: " + userMedicine.getMedicineToMedicine().getName() + " a las " + userMedicine.getHora();
+        String destinatario=userMedicine.getUserToMedicine().getEmail();
+        String rtente="notificaciones@agestturnos.es";
+        Email email=new Email(subject,contenido,destinatario,rtente);
         threadPoolTaskScheduler.schedule(
                 new NotificacionAsincrona(
-                        "Tomate el medicamento: " + userMedicine.getMedicineToMedicine().getName(),
-                        userMedicine.getUserToMedicine().getEmail(),
-                        "feelingcareapp@gmail.com"),
+                        email),
                 cronTrigger
         );
 
@@ -115,13 +119,16 @@ public class UserMedicineService extends AbstractBusinessServiceSoloEnt <UserMed
                         + fechaAviso.getMonth() + " "
                         + "?"
         ;
+        String subject="Hora de toma el medicamento: " + userMedicine.getMedicineToMedicine().getName();
+        String contenido="A "+userMedicine.getUserToMedicine().getName()+ " le toca tomar el medicamento: " + userMedicine.getMedicineToMedicine().getName();
+        String destinatario=userMedicine.getUserToMedicine().getTutorMail();
+        String rtente="notificaciones@agestturnos.es";
+        Email email=new Email(subject,contenido,destinatario,rtente);
         log.info(expresionCron);
         CronTrigger cronTrigger = new CronTrigger(expresionCron);
         threadPoolTaskScheduler.schedule(
-                new NotificacionAsincrona(
-                        userMedicine.getUserToMedicine().getEmail() + " tiene que tomarse el medicamento:" + userMedicine.getMedicineToMedicine().getName(),
-                        userMedicine.getUserToMedicine().getTutorMail(),
-                        "feelingcareapp@gmail.com"),
+                new NotificacionAsincrona(email
+                ),
                 cronTrigger
         );
 
