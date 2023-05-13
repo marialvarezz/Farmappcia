@@ -3,7 +3,7 @@
       xmlns:sd="http://www.w3.org/1999/xhtml"
 
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      layout:decorate="~{layoutuser}">
+      layout:decorate="~{layoutadmin}">
 <head>
   <meta charset="UTF-8">
   <title>Lista de questionarios</title>
@@ -16,7 +16,7 @@
   <link th:href="@{/css/estilos.css}" rel="stylesheet">
 </head>
 <body>
-<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;"><h3>Lista de cuestionarios  <a sec:authorize="hasRole('ROLE_ADMIN')"  class="btn btn-outline-primary" th:href="@{/admin/cuestionarios/}">Gestionar los Cuestionarios</a></h3></div></div>
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;"><h3>Lista de cuestionarios <a href="/cuestionario/new" class="btn btn-primary">Crear cuestionario</a></h3></div></div>
 <div layout:fragment="contenido">
 <div class="container">
 
@@ -25,34 +25,36 @@
       <table class="table table-striped">
         <thead>
         <tr>
-
+          <th>Id</th>
           <th>Nombre</th>
           <th>Descripción</th>
+          <th>Fecha de lanzamiento</th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="questionnaire : ${questionnaires}">
-
+          <td th:text="${questionnaire.id}">1</td>
           <td th:text="${questionnaire.nombre}">maria</td>
           <td th:text="${questionnaire.descripcion}">Email</td>
-
+          <td th:text="${questionnaire.fechaHora}">19/04/2002</td>
           <td>
             <div>
             <form th:action="@{/usuario/cuestionario/activar/{id}(id=${questionnaire.id})}" th:object="${answers}" method="post">
               <button type="submit" class="btn btn-outline-success">Activar</button>
-              <a th:href="@{/cuestionariopregunta/}" class="btn btn-outline-success">Responder</a>
             </form>
           </div>
-
-
-
+            <a th:href="@{/cuestionariopregunta/}" class="btn btn-primary">Responder</a>
+            <a th:href="@{/cuestionario/edit/{id}(id=${questionnaire.id})}" class="btn btn-primary">Editar</a>
+            <a th:href="@{/cuestionario/delete/{id}(id=${questionnaire.id})}" class="btn btn-primary">Eliminar</a>
           </td>
         </tr>
         </tbody>
       </table>
 
 
+      <a th:href="@{/respuesta/}" style="margin:10px" class="btn btn-primary">Ir a respuestas</a>
+      <a th:href="@{/preguntas/}" style="margin:10px" class="btn btn-primary">Ir a preguntas</a>
     </div>
 
 </div>

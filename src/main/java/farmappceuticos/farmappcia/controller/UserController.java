@@ -45,6 +45,8 @@ public class UserController {
    @Autowired
    IllnessService illnessService;
 
+   @Autowired
+   QuestionQuestionnaireService questionQuestionnaireService;
 
    @Autowired
    EventService eventService;
@@ -239,8 +241,20 @@ public class UserController {
    @GetMapping("/cuestionarios")
    public String showQuestionnaire(Model model){
       model.addAttribute("questionnaires",questionnaireService.findAll());
+    User user=getUserAuten();
+      model.addAttribute("user",user);
       //Devuelve el HTML
       return "questionnaire/questionnaire-list";
+   }
+
+
+   @GetMapping("/respuestas")
+   public String showAnswers(Model model){
+      model.addAttribute("questionnaires",questionnaireService.findAll());
+      User user=getUserAuten();
+      model.addAttribute("user",user);
+      //Devuelve el HTML
+      return "questionnaire/answers-list";
    }
 
    //CRUD User
@@ -469,5 +483,16 @@ public class UserController {
       }
       return "error";
 
+   }
+
+   private User getUserAuten(){
+      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      UserDetails userDetails = null;
+      if (principal instanceof UserDetails) {
+         userDetails = (UserDetails) principal;
+      }
+      String userName = userDetails.getUsername();
+      User user=userService.findByName(userName);
+      return user;
    }
 }

@@ -36,10 +36,9 @@ public class AnswerQuestinnaireController {
     public String activarCuestionario(@PathVariable("id")Integer id,Model model){
         Optional<Questionnaire>questions=questionnaireService.findById(id);
         List<QuestionQuestionnaire> questionnaires=questionQuestionnaireService.findByQuestionnaireToAnswers(questions.get());
+
         for (QuestionQuestionnaire questionnaire:questionnaires
              ) {
-
-
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             UserDetails userDetails = null;
             if (principal instanceof UserDetails) {
@@ -49,18 +48,36 @@ public class AnswerQuestinnaireController {
             String userName = userDetails.getUsername();
             User user = userService.findByName(userName);
 
+            if(questionnaire.getAnswers()==null){
+                Answers answers=new Answers();
+                answers.setQuestionnaire(questionnaire);
+                questionnaire.setAnswers(answers);
+                answers.setUser(user);
+                answersService.save(answers);
+                model.addAttribute("answers",answers);
+                return "redirect:/usuario/responder" + id;
+            } else if (questionnaire.getAnswers().getUser()!=user) {
+                Answers answers=new Answers();
+                QuestionQuestionnaire ques=new QuestionQuestionnaire();
+                ques.setAnswers(answers);
+                ques.setQuestionnaireToAnswers(questionnaire.getQuestionnaireToAnswers());
+                ques.setQuestionsToQuestionnaire(questionnaire.getQuestionsToQuestionnaire());
+                answers.setQuestionnaire(ques);
+                answers.setUser(user);
+                answersService.save(answers);
+                model.addAttribute("answers",answers);
+                return "redirect:/usuario/responder/" + id;
+            }else {
+                return "redirect:/usuario/responder/" + id;
+            }
 
-            Answers answers=new Answers();
-            answers.setQuestionnaire(questionnaire);
-            questionnaire.setAnswers(answers);
-            answers.setUser(user);
-            answersService.save(answers);
 
-            model.addAttribute("answers",answers);
+
+
         }
 
-        return "redirect:/usuario/cuestionarios";
 
+        return "redirect:/usuario/responder" + id;
     }
 
     @GetMapping("/usuario/responder/{id}")
