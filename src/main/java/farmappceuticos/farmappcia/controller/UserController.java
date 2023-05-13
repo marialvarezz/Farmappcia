@@ -96,7 +96,7 @@ public class UserController {
 
 
       int currentPage = page.orElse(1);
-      int pageSize = size.orElse(2);
+      int pageSize = size.orElse(15);
 
       Page<MedicalHistory> medicalHistories = medicalHistoryService.findByUser(user,PageRequest.of(currentPage - 1, pageSize));
       model.addAttribute("medicalHistoryPage", medicalHistories);
