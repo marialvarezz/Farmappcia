@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-group">
-          <label for="fechainicial">Fecha final del tratamiento:</label>
+          <label for="fechainicial">Fecha de inicio del tratamiento:</label>
           <input class="form-control" type="datetime-local" id="fechainicial" th:field="*{fechainicio}">
           <br>
         </div>
@@ -88,7 +88,7 @@
 
         <div class="form-group">
           <button type="submit" class="btn btn-outline-success">Guardar</button>
-          <a th:href="@{/medicamentos/}" class="btn btn-outline-secondary">Cancelar</a>
+          <a th:href="@{/usuario/tusmedicamentos}" class="btn btn-outline-secondary">Cancelar</a>
         </div>
       </form>
 
