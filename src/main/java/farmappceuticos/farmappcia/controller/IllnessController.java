@@ -1,12 +1,18 @@
 package farmappceuticos.farmappcia.controller;
 import farmappceuticos.farmappcia.model.Illness;
+import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.services.IllnessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/enfermedades")//url
@@ -17,12 +23,32 @@ public class IllnessController {
 
     @GetMapping({"/",""})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
-    public String showIllness(Model model){
+    public String showIllness(Model model,
+                              @RequestParam("page")Optional<Integer> page,
+                              @RequestParam("size") Optional<Integer> size){
         //
         model.addAttribute("illness",illnessService.findAll());
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+
+        Page<Illness> illnessPage = illnessService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("illnessPage", illnessPage);
+        int totalPages = illnessPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         //Devuelve el HTML
         return "illness/illness-list";
     }
+
+
+
     @GetMapping("/new")
     public String showNewIllnessForm(Model model) {
         model.addAttribute("illness", new Illness());
