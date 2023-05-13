@@ -59,3 +59,44 @@ INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, optio
 INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Fuma?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());
 INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Toma alcohol?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());
 INSERT INTO questions (pregunta, tipo, option1, option2, option3, option4, option5, fecha_insert, fecha_update) VALUES ('¿Tiene alergias?', '2', 'Sí', 'No', '', '', '', NOW(), NOW());
+
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Cuántas horas duermes en promedio por noche?', 'Menos de 5 horas', 'Entre 5 y 7 horas', 'Entre 7 y 9 horas', 'Más de 9 horas', 'Varía', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Realizas actividad física regularmente?', 'Sí', 'No', '', '', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Cuántas veces a la semana consumes alimentos procesados?', 'Nunca', '1-2 veces', '3-4 veces', '5 o más veces', 'No estoy seguro/a', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Tomas suplementos vitamínicos?', 'Sí', 'No', '', '', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Cuántas veces al día te cepillas los dientes?', 'Después de cada comida', 'Mañana y noche', 'Solo en la mañana', 'Solo en la noche', 'No lo hago regularmente', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Consumes alcohol?', 'Sí', 'No', '', '', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Cuántas veces a la semana realizas actividad cardiovascular?', 'Nunca', '1-2 veces', '3-4 veces', '5 o más veces', 'No estoy seguro/a', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Cuántas porciones de alimentos ricos en fibra consumes al día?', 'Menos de 1 porción', '1-2 porciones', '3-4 porciones', 'Más de 4 porciones', 'No estoy seguro/a', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Realizas estiramientos regularmente?', 'Sí', 'No', '', '', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO questions (pregunta, option1, option2, option3, option4, option5, fecha_insert, fecha_update)
+VALUES
+  ('¿Cuánto tiempo dedicas a actividades de relajación o hobbies?', 'Menos de 1 hora al día', '1-2 horas al día', '2-3 horas al día', 'Más de 3 horas al día', 'Varía', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

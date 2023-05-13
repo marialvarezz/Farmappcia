@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService1 extends AbstractBusinessServiceSoloEnt <User,Integer, UserRepository> {
@@ -62,6 +64,9 @@ public class UserService1 extends AbstractBusinessServiceSoloEnt <User,Integer, 
         return roleRepository.save(role);
     }
 
+    public Optional<User>findByEmail(String email){ return userRepository.findByEmail(email);}
+
+    public List<User> findByTutorMail(String tutorMail){ return userRepository.findByTutorMail(tutorMail);}
 
 
 

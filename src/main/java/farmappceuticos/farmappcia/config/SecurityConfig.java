@@ -4,11 +4,13 @@ import farmappceuticos.farmappcia.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig {
 
@@ -26,8 +28,9 @@ public class SecurityConfig {
                 .requestMatchers("*css", "*js").permitAll()
                 //Permitimos todas las visitas a /public
                 .requestMatchers("/public").permitAll()
-                //Solo permitimos a usuarios registrados visitar "/private"
+
                 .requestMatchers("/usuario/**").authenticated() //Permitimos únicamente las visitas de usuarios registrados a  /private
+                .requestMatchers("/agenda/**","/usuario","/evento/**","/historialmedico/**","/usumedicamentosinc/**").authenticated()
                 // Todas las request no filtradas hasta ahora, se rechazarán
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().hasRole("ADMIN")

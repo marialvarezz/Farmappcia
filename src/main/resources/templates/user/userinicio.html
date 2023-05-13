@@ -27,15 +27,86 @@
 
 <body>
 <div layout:fragment="cabecera">
-  <div class="container" style="margin-top:20px;"><h3> Bienvenida, <span th:text="${user.name}">Prueba</span></h3></div></div>
+  <div class="container" style="margin-top:20px;margin-bottom:10px;"><h3> Bienvenida, <span th:text="${user.name}">Prueba</span></h3></div></div>
 <div layout:fragment="contenido"><div class="container">
+  <h5 th:if="${user.tutorMail == null}">Aún no tienes un tutor asignado. <br>Conoce todas las ventajas aquí
+    <a class="btn btn-outline-success" th:href="@{/usuario/caregiver}">Ir al Care Giver</a></h5>
+  <h5 th:unless="${user.tutorMail == null}">Tu tutor es: <span th:text="${tutor.name}"></span></h5>
+  <br>
    <div class="container-fluid" id="calendar">
      <div class="row">
-       <div class="col-lg-7 bg-success">Calendario</div>
-       <div class="col-lg-5 bg-secondary">Lista de eventos</div>
+       <div class="col-lg-6"><h5>Tu Pastillero <a class="btn btn-outline-success" th:href="@{/usuario/tusmedicamentos}">Ir al Tus Medicamentos</a></h5>
+         <table class="table">
+           <thead>
+           <tr>
+             <th>Medicamento</th>
+             <th>Periodo de tiempo</th>
+
+           </tr>
+           </thead>
+           <tbody>
+           <tr  th:each="usmedicine:${user.userMedicines}">
+             <td th:text="${usmedicine.medicineToMedicine.name}">aaaa</td>
+             <td>Cada <span  th:text="${usmedicine.cadahoras}"></span> horas</td>
+           </tr>
+
+           </tbody>
+         </table>
+         <br>
+         <br>
+         <h5>Tu Agenda  <a class="btn btn-outline-success" th:href="@{/usuario/agenda}">Ir a agenda</a>
+           <a class="btn btn-outline-success" th:href="@{/usuario/calendario}">Ir al Calendario</a></h5>
+         <div class="container"  th:if="${user.agendaToUser == null}">
+
+           <div><h3>Aún no tienes tu agenda activada</h3></div>
+           <div><h5>Para gestionar tus eventos activa tu agenda</h5></div>
+           <a class="btn btn-outline-success" th:href="@{/usuario/agenda}">Ir a agenda</a>
+         </div>
+         <div class="container" th:unless="${user.agendaToUser == null}">
+           <table class="table">
+             <thead>
+             <tr>
+               <th>Fecha y Hora</th>
+               <th>Especialización</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr  th:each="event:${user.agendaToUser.eventsToAgenda}">
+               <td th:text="${event.fechahora}">aaaa</td>
+               <td th:text="${event.especializacion}">aaaa</td>
+             </tr>
+             </tbody>
+           </table>
+         </div>
+         <br>
+         <br>
+       </div>
+
+       <div class="col-lg-6 d-flex justify-content-center">
+         <img src="/img/robotin3.png" alt="robotin" class="img-fluid">
+           </div>
+         </div>
+       </div>
+  <div class="container-fluid">
+    <h5>Los Usuarios tutorizados por ti</h5>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Nombre</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr  th:each="user:${tutorizados}">
+        <td th:text="${user.name}">aaaa</td>
+        <td><a class="btn btn-outline-primary" th:href="@{/usuario/caregiver/{id}(id=${user.id})}">Ver información</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
      </div>
    </div>
-</div>
+
 <div class="container-fluid" id="medicamentos">
 
 </div>

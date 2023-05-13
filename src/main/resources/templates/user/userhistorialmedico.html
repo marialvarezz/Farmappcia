@@ -26,19 +26,19 @@
 
 <body>
 <div layout:fragment="cabecera"><div class="container" style="padding-top:20px">
-  <h3>Medicamentos de <span th:text="${user.name}"></span>
+  <h3>Historial Médico de <span th:text="${user.name}"></span>
     <a class="btn btn-outline-success" th:href="@{/usuario/historialmedico/new}">Añadir nuevo parte</a>
   </h3></div></div>
 <div layout:fragment="contenido">
   <div class="container">
-    <h3>Historial Médico</h3>
+
     <table class="table">
       <thead>
       <tr>
         <th>Enfermedad</th>
-        <th>Diagnostico</th>
+        <th>Síntomas</th>
         <th>Fecha de la incidencia</th>
-        <th>ingreso</th>
+        <th>Ingreso</th>
         <th>Ubicación Hospital</th>
       </tr>
       </thead>

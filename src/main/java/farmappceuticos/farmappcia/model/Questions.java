@@ -23,8 +23,6 @@ public class Questions {
     private Integer id;
     @Column(name="pregunta")
     private String pregunta;
-    @Column(name="tipo",length = 1)
-    private String tipo;
     @Column(name="option1")
     private String option1;
     @Column(name="option2")
