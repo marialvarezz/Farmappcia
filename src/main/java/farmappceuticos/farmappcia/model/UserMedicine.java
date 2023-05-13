@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -27,6 +28,23 @@ public class UserMedicine {
 
     @Column(name="descripción")
     private String descripcion;
+
+    private Integer diames;
+    private Boolean notificar;
+    private Boolean notificarTutor;
+    private LocalDateTime fechainicio;
+    private LocalDateTime fechafinal;
+    private int cadahoras;
+
+
+
+    //Calendario
+            private List<LocalDateTime>momentos;
+            private LocalDateTime momento;
+
+            //Para mostrar la hora en el calendario
+            private String hora;
+
 
 
 
