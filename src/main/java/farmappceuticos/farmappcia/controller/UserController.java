@@ -10,8 +10,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,7 +48,8 @@ public class UserController {
    @Autowired
    AgendaService agendaService;
 
-
+   @Autowired
+   UserMedicineService userMedicineService;
 
    @Autowired
    IllnessService illnessService;
@@ -55,6 +59,7 @@ public class UserController {
 
    @Autowired
    EventService eventService;
+
 
    @Autowired
    MedicalHistoryService medicalHistoryService;
@@ -84,15 +89,24 @@ public class UserController {
 
 
    @GetMapping("/historialmedico")
-   public String historialMedico(Model model){
-      Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      UserDetails userDetails = null;
-      if (principal instanceof UserDetails) {
-         userDetails = (UserDetails) principal;
-      }
-      String userName = userDetails.getUsername();
-      User user=userService.findByName(userName);
+   public String historialMedico(Model model,
+                                 @RequestParam("page")Optional<Integer> page,
+                                 @RequestParam("size") Optional<Integer> size){
+      User user=getUserAuten();
 
+
+      int currentPage = page.orElse(1);
+      int pageSize = size.orElse(2);
+
+      Page<MedicalHistory> medicalHistories = medicalHistoryService.findByUser(user,PageRequest.of(currentPage - 1, pageSize));
+      model.addAttribute("medicalHistoryPage", medicalHistories);
+      int totalPages = medicalHistories.getTotalPages();
+      if (totalPages > 0){
+         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                 .boxed()
+                 .collect(Collectors.toList());
+         model.addAttribute("pageNumbers", pageNumbers);
+      }
       model.addAttribute("user",user);
       return "user/userhistorialmedico";}
 

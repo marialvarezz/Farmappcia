@@ -43,7 +43,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="medicalHistory : ${user.medicalHistories}">
+      <tr th:each="medicalHistory : ${medicalHistoryPage.content}">
         <td th:text="${medicalHistory.illnessToMedicalHistory.nombre}">1</td>
         <td th:text="${medicalHistory.diagnostico}">Invoice date</td>
         <td th:text="${medicalHistory.fechaIncidencia}">Invoice Code</td>
@@ -57,6 +57,16 @@
 
       </tbody>
     </table>
+
+    <div th:if="${medicalHistoryPage.totalPages > 0}" class ="pagination">
+      <ul class="pagination">
+        <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+          <a class="page-link" th:href="@{/usuario/historialmedico(size=${medicalHistoryPage.size}, page=${pageNumber})}"
+             th:text=${pageNumber}
+             th:classappend="${pageNumber==medicalHistoryPage.number + 1} ? active"></a>
+        </li>
+      </ul>
+    </div>
   </div> </div>
 
 

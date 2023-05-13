@@ -35,7 +35,6 @@ public class MedicineController {
         int pageSize = size.orElse(15);
 
         Page<Medicine> medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
-
         model.addAttribute("medicinePage", medicinePage);
         int totalPages = medicinePage.getTotalPages();
         if (totalPages > 0){

@@ -2,6 +2,7 @@ package farmappceuticos.farmappcia.services;
 
 import farmappceuticos.farmappcia.model.MedicalHistory;
 import farmappceuticos.farmappcia.model.Medicine;
+import farmappceuticos.farmappcia.model.User;
 import farmappceuticos.farmappcia.repositories.MedicalHistoryRepository;
 import farmappceuticos.farmappcia.utils.MedicalHistoryUtils;
 import farmappceuticos.farmappcia.utils.MedicineUtils;
@@ -20,6 +21,7 @@ public class MedicalHistoryService extends AbstractBusinessServiceSoloEnt <Medic
     @Autowired
     private MedicalHistoryRepository questionsRepository;
 
+    public Page<MedicalHistory>findByUser(User user, Pageable pageable){return questionsRepository.findByUser(user,pageable);}
     protected MedicalHistoryService(MedicalHistoryRepository medicalHistoryRepository) {
         super(medicalHistoryRepository);
     }
