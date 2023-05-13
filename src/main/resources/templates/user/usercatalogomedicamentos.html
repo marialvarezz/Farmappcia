@@ -46,7 +46,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="medicine : ${allMedicines}">
+            <tr th:each="medicine : ${medicinePageUser.content}">
                 <td th:text="${medicine.id}" sec:authorize="hasRole('ROLE_ADMIN')">1</td>
                 <td th:text="${medicine.name}">Nombre</td>
                 <td th:text="${medicine.description}">Descripción</td>
@@ -64,6 +64,17 @@
             </tr>
             </tbody>
         </table>
+
+        <div th:if="${medicinePageUser.totalPages > 0}" class ="pagination">
+            <ul class="pagination">
+                <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                    <a class="page-link" th:href="@{/usuario/medicamentos(size=${medicinePageUser.size}, page=${pageNumber})}"
+                       th:text=${pageNumber}
+                       th:classappend="${pageNumber==medicinePageUser.number + 1} ? active"></a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </div>
 

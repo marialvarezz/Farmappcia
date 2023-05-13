@@ -8,7 +8,12 @@ import farmappceuticos.farmappcia.services.*;
 import jakarta.validation.OverridesAttribute;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @Log4j2
@@ -39,8 +46,6 @@ public class UserController {
    AgendaService agendaService;
 
 
-   @Autowired
-   UserMedicineService userMedicineService;
 
    @Autowired
    IllnessService illnessService;
@@ -204,10 +209,30 @@ public class UserController {
       return "user/usertusmedicamentos";}
 
    @GetMapping("/medicamentos")
-   public String catalogoMedicamentos(Model model) {
+   public String catalogoMedicamentos(Model model, @RequestParam("page")Optional<Integer> page,
+                                      @RequestParam("size") Optional<Integer> size
+                                      ) {
       List<Medicine> medicines=medicineService.findAll();
-      model.addAttribute("allMedicines",medicines);
-      return "user/usercatalogomedicamentos";}
+      model.addAttribute("medicine",medicines);
+      int currentPage = page.orElse(1);
+      int pageSize = size.orElse(15);
+
+      Page<Medicine> medicinePageUser = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+      model.addAttribute("medicinePageUser", medicinePageUser);
+      int totalPages = medicinePageUser.getTotalPages();
+      if (totalPages > 0){
+         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                 .boxed()
+                 .collect(Collectors.toList());
+         model.addAttribute("pageNumbers", pageNumbers);
+      }
+      //Devuelve el HTML
+      return "user/usercatalogomedicamentos";
+   }
+
+
+
 
    @GetMapping("/incompatibilidades")
    public String incompatibilidadesMedicamentos(Model model) {
@@ -261,8 +286,27 @@ public class UserController {
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    @GetMapping("/userlist")
    //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
-   public String showProducts(Model model){
-      //
+   public String showProducts(Model model,
+                              @RequestParam("page")Optional<Integer> page,
+                              @RequestParam("size") Optional<Integer> size){
+     
+
+      model.addAttribute("user",userService.findAll());
+
+
+      int currentPage = page.orElse(1);
+      int pageSize = size.orElse(10);
+
+      Page<User> userPage = userService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+      model.addAttribute("userPage", userPage);
+      int totalPages = userPage.getTotalPages();
+      if (totalPages > 0){
+         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                 .boxed()
+                 .collect(Collectors.toList());
+         model.addAttribute("pageNumbers", pageNumbers);
+      }
       model.addAttribute("users",userService.findAll());
       //Devuelve el HTML
       return "adminUser/user-list";
