@@ -30,7 +30,51 @@
 <div layout:fragment="contenido" class="container" style="padding-top:20px;">
 
         <div class="container-fluid" style="padding-bottom:20px;">
-            <table class="table table-striped">
+            <div class="row">
+                <div class="col-lg-6">
+            <form id="tabla1" th:object="${searchFormData}" th:action="@{/medicamentos/}" th:method="post">
+                <div style="margin-bottom:10px">
+                <label for="nombre" class="form-label">Introduce el nombre del medicamento:</label>
+                <input class="form-control" placeholder="Ibuprofeno..." th:field="*{searchText}"  type="text" name="nombre" id="nombre">
+                </div>
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+                </div>
+            </div>
+            <table id="Sin filtrado" th:if="${filtroLista}==''" class="table table-striped">
+                <thead>
+
+                <tr>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">ID</th>
+                    <th>Nombre</th>
+                    <th><div>Descripción</div></th>
+
+                    <th><div class="d-lg-block d-none">Componentes</div></th>
+                    <th><div class="d-lg-block d-none">Consumo</div></th>
+                    <th><div class="d-lg-block d-none">Efectos Secundarios</div></th>
+                    <th><div class="d-lg-block d-none">Misc.</div></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="medicine : ${medicinePage.content}">
+                    <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${medicine.id}">1</td>
+                    <td th:text="${medicine.name}">Nombre</td>
+                    <td>
+                        <div th:text="${medicine.description}">Descripción</div></td>
+                    <td>
+                        <div th:text="${medicine.components}" class="d-lg-block d-none">Descripción</div></td>
+                    <td>
+                        <div th:text="${medicine.administer}" class="d-lg-block d-none">Descripción</div>
+                    </td>
+                    <td>
+                        <div th:text="${medicine.efects}" class="d-lg-block d-none">Descripción</div></td>
+                    <td>
+                        <div th:text="${medicine.misc}" class="d-lg-block d-none">Descripción</div></td>
+
+                </tr>
+                </tbody>
+            </table>
+            <table id="Con filtrado" th:if="${filtroLista}!=''" class="table table-striped">
                 <thead>
 
                 <tr>
@@ -67,6 +111,7 @@
                 </tbody>
             </table>
 
+
             <div th:if="${medicinePage.totalPages > 0}" class ="pagination">
             <ul class="pagination">
                 <li class="page-item" th:each="pageNumber : ${pageNumbers}">
@@ -80,8 +125,9 @@
         </div>
 
     </div>
-</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
