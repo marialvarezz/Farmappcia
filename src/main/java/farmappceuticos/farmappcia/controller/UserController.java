@@ -96,7 +96,7 @@ public class UserController {
 
 
       int currentPage = page.orElse(1);
-      int pageSize = size.orElse(15);
+      int pageSize = size.orElse(10);
 
       Page<MedicalHistory> medicalHistories = medicalHistoryService.findByUser(user,PageRequest.of(currentPage - 1, pageSize));
       model.addAttribute("medicalHistoryPage", medicalHistories);
@@ -309,7 +309,7 @@ public class UserController {
 
 
       int currentPage = page.orElse(1);
-      int pageSize = size.orElse(10);
+      int pageSize = size.orElse(5);
 
       Page<User> userPage = userService.findAll(PageRequest.of(currentPage - 1, pageSize));
 
