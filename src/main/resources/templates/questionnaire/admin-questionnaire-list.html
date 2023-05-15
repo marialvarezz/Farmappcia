@@ -39,11 +39,6 @@
           <td th:text="${questionnaire.descripcion}">Email</td>
           <td th:text="${questionnaire.fechaHora}">19/04/2002</td>
           <td>
-            <div>
-            <form th:action="@{/usuario/cuestionario/activar/{id}(id=${questionnaire.id})}" th:object="${answers}" method="post">
-              <button type="submit" class="btn btn-outline-success">Activar</button>
-            </form>
-          </div>
             <a th:href="@{/cuestionariopregunta/}" class="btn btn-primary">Responder</a>
             <a th:href="@{/cuestionario/edit/{id}(id=${questionnaire.id})}" class="btn btn-primary">Editar</a>
             <a th:href="@{/cuestionario/delete/{id}(id=${questionnaire.id})}" class="btn btn-primary">Eliminar</a>

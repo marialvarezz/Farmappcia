@@ -3,17 +3,17 @@ package farmappceuticos.farmappcia.controller;
 
 
 
+import com.itextpdf.text.DocumentException;
+import farmappceuticos.farmappcia.dto.UserDto;
 import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.*;
-import jakarta.validation.OverridesAttribute;
+import farmappceuticos.farmappcia.util.SearchFromData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +60,8 @@ public class UserController {
    EventService eventService;
 
 
+
+
    @Autowired
    MedicalHistoryService medicalHistoryService;
 
@@ -96,7 +97,7 @@ public class UserController {
 
 
       int currentPage = page.orElse(1);
-      int pageSize = size.orElse(15);
+      int pageSize = size.orElse(10);
 
       Page<MedicalHistory> medicalHistories = medicalHistoryService.findByUser(user,PageRequest.of(currentPage - 1, pageSize));
       model.addAttribute("medicalHistoryPage", medicalHistories);
@@ -149,8 +150,6 @@ public class UserController {
             model.addAttribute("user",user.get());
             return "user/caregiver-info";
          }else {
-            System.out.println(tutorEmail);
-            System.out.println(user.get().getTutorMail());
             return "error-authentication";
          }
 
@@ -226,15 +225,18 @@ public class UserController {
    public String catalogoMedicamentos(Model model, @RequestParam("page")Optional<Integer> page,
                                       @RequestParam("size") Optional<Integer> size
                                       ) {
-      List<Medicine> medicines=medicineService.findAll();
-      model.addAttribute("medicine",medicines);
+      model.addAttribute("medicine",medicineService.findAll());
+      SearchFromData searchFormData=new SearchFromData();
       int currentPage = page.orElse(1);
       int pageSize = size.orElse(15);
 
-      Page<Medicine> medicinePageUser = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+      Page<Medicine> medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
 
-      model.addAttribute("medicinePageUser", medicinePageUser);
-      int totalPages = medicinePageUser.getTotalPages();
+      String filtroLista = "";
+      model.addAttribute("filtroLista", filtroLista);
+      model.addAttribute("searchFormData", searchFormData);
+      model.addAttribute("medicinePage", medicinePage);
+      int totalPages = medicinePage.getTotalPages();
       if (totalPages > 0){
          List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                  .boxed()
@@ -242,6 +244,32 @@ public class UserController {
          model.addAttribute("pageNumbers", pageNumbers);
       }
       //Devuelve el HTML
+      return "user/usercatalogomedicamentos";
+   }
+
+   @PostMapping("/medicamentos/")
+   public String medicines(Model model,@ModelAttribute("searchFormData") SearchFromData searchFromData,
+                           @RequestParam("page")Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> size){
+
+      model.addAttribute("medicine",medicineService.findAll());
+      int currentPage = page.orElse(1);
+      int pageSize = size.orElse(15);
+      Page<Medicine>medicinePage;
+      if (searchFromData.getSearchText()==""){
+         medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+      }else {
+         medicinePage=medicineService.findByName(searchFromData.getSearchText(),PageRequest.of(currentPage - 1, pageSize));
+      }
+      model.addAttribute("filtroLista", searchFromData.getSearchText());
+      model.addAttribute("medicinePage", medicinePage);
+      int totalPages = medicinePage.getTotalPages();
+      if (totalPages > 0){
+         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                 .boxed()
+                 .collect(Collectors.toList());
+         model.addAttribute("pageNumbers", pageNumbers);
+      }
       return "user/usercatalogomedicamentos";
    }
 
@@ -309,7 +337,7 @@ public class UserController {
 
 
       int currentPage = page.orElse(1);
-      int pageSize = size.orElse(10);
+      int pageSize = size.orElse(5);
 
       Page<User> userPage = userService.findAll(PageRequest.of(currentPage - 1, pageSize));
 
@@ -328,7 +356,7 @@ public class UserController {
 
    @PostMapping("/save")
    public String saveProduct(@ModelAttribute("user") User user) {
-      userService.save(user);
+      userService.guardarUs(user);
       return "redirect:/usuario/userlist";
    }
    @GetMapping("/edit/{id}")
@@ -492,6 +520,8 @@ public class UserController {
 
    }
 
+
+
    @PostMapping("/agenda/new")
    public String nuevaAgendaSave(@ModelAttribute("agenda") Agenda agenda) {
       Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -553,4 +583,6 @@ public class UserController {
       User user=userService.findByName(userName);
       return user;
    }
+
+
 }

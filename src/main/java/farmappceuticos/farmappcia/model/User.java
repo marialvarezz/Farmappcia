@@ -45,7 +45,7 @@ public class User {
     //Relaciones
 
     //Relación 1:1 con calendario
-    @OneToOne(mappedBy = "userToAgenda")
+    @OneToOne(mappedBy = "userToAgenda", cascade= CascadeType.ALL)
     private Agenda agendaToUser;
 
     //Relación con UserRole

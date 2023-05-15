@@ -40,8 +40,4 @@ public class Questionnaire {
     )
     private List<Questions> questions;
 
-
-
-
-
 }

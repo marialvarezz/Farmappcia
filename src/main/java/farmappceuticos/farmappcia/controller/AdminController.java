@@ -1,21 +1,32 @@
 package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.Event;
+import farmappceuticos.farmappcia.model.Illness;
 import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.model.User;
 import farmappceuticos.farmappcia.services.EventService;
 import farmappceuticos.farmappcia.services.MedicineService;
 import farmappceuticos.farmappcia.services.UserService1;
+import farmappceuticos.farmappcia.util.SearchFromData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @Log4j2
@@ -30,19 +41,35 @@ public class AdminController {
     EventService eventService;
 
     @GetMapping({"/", ""})
-    public String inicioAdmin(Model model) {
+    public String inicioAdmin(Model model){
         List<User>userList=userService.findAll();
         model.addAttribute("numUsu",userList.size());
-
 
         return "adminUser/admininicio";
     }
 
     @GetMapping("/userlist")
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
-    public String showProducts(Model model) {
+    public String showProducts(Model model,
+                               @RequestParam("page")Optional<Integer> page,
+                               @RequestParam("size") Optional<Integer> size){
+
         //
         model.addAttribute("user", userService.findAll());
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<User> userPage = userService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("userPAge", userPage);
+        int totalPages = userPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         //Devuelve el HTML
         return "adminUser/user-list";
     }
@@ -71,10 +98,55 @@ public class AdminController {
 
     @GetMapping({"/medicamentos/"})
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
-    public String showMedicines(Model model) {
-        //
-        model.addAttribute("medicine", medicineService.findAll());
+    public String showMedicines(Model model,
+                                @RequestParam("page")Optional<Integer> page,
+                                @RequestParam("size") Optional<Integer> size) {
+        model.addAttribute("medicine",medicineService.findAll());
+        SearchFromData searchFormData=new SearchFromData();
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(15);
+
+        Page<Medicine> medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        String filtroLista = "";
+        model.addAttribute("filtroLista", filtroLista);
+        model.addAttribute("searchFormData", searchFormData);
+        model.addAttribute("medicinePage", medicinePage);
+        int totalPages = medicinePage.getTotalPages();
+        if (totalPages > 0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         //Devuelve el HTML
+        return "medicine/admin-medicine-list";
+    }
+
+    @PostMapping("/medicamentos/")
+    public String showMedi(Model model,
+                           @ModelAttribute("searchFormData") SearchFromData searchFromData,
+                           @RequestParam("page")Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> size){
+        model.addAttribute("medicine",medicineService.findAll());
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(15);
+        Page<Medicine>medicinePage;
+        if (searchFromData.getSearchText()==""){
+            medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+        }else {
+            medicinePage=medicineService.findByName(searchFromData.getSearchText(),PageRequest.of(currentPage - 1, pageSize));
+        }
+        model.addAttribute("filtroLista", searchFromData.getSearchText());
+        model.addAttribute("medicinePage", medicinePage);
+        int totalPages = medicinePage.getTotalPages();
+        if (totalPages > 0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         return "medicine/admin-medicine-list";
     }
 

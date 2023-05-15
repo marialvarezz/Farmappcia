@@ -33,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="questions : ${questions}">
+        <tr th:each="questions : ${questionsPage.content}">
           <td th:text="${questions.id}">1</td>
           <td th:text="${questions.pregunta}">maria</td>
           <td th:text="${questions.option1}">19/04/2002</td>
@@ -51,6 +51,18 @@
 
       <a th:href="@{/cuestionario/}" style="margin:10px" class="btn btn-primary">Ir a cuestionarios</a>
       <a th:href="@{/respuesta/}" style="margin:10px" class="btn btn-primary">Ir a respuestas</a>
+
+      <!--PAGINACIÓN-->
+
+      <div th:if="${questionsPage.totalPages > 0}" class ="pagination">
+        <ul class="pagination">
+          <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+            <a class="page-link" th:href="@{/preguntas/(size=${questionsPage.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:classappend="${pageNumber==questionsPage.number + 1} ? active"></a>
+          </li>
+        </ul>
+      </div>
 
     </div>
   </div>
