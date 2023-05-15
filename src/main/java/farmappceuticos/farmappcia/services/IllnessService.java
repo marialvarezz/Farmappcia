@@ -45,4 +45,5 @@ public class IllnessService extends AbstractBusinessServiceSoloEnt <Illness,Inte
         return illnessPage;
 
     }
+
 }

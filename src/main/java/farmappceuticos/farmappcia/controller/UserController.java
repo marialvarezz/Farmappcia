@@ -5,6 +5,7 @@ package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.*;
 import farmappceuticos.farmappcia.services.*;
+import farmappceuticos.farmappcia.util.SearchFromData;
 import jakarta.validation.OverridesAttribute;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -226,15 +227,18 @@ public class UserController {
    public String catalogoMedicamentos(Model model, @RequestParam("page")Optional<Integer> page,
                                       @RequestParam("size") Optional<Integer> size
                                       ) {
-      List<Medicine> medicines=medicineService.findAll();
-      model.addAttribute("medicine",medicines);
+      model.addAttribute("medicine",medicineService.findAll());
+      SearchFromData searchFormData=new SearchFromData();
       int currentPage = page.orElse(1);
       int pageSize = size.orElse(15);
 
-      Page<Medicine> medicinePageUser = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+      Page<Medicine> medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
 
-      model.addAttribute("medicinePageUser", medicinePageUser);
-      int totalPages = medicinePageUser.getTotalPages();
+      String filtroLista = "";
+      model.addAttribute("filtroLista", filtroLista);
+      model.addAttribute("searchFormData", searchFormData);
+      model.addAttribute("medicinePage", medicinePage);
+      int totalPages = medicinePage.getTotalPages();
       if (totalPages > 0){
          List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                  .boxed()
@@ -242,6 +246,32 @@ public class UserController {
          model.addAttribute("pageNumbers", pageNumbers);
       }
       //Devuelve el HTML
+      return "user/usercatalogomedicamentos";
+   }
+
+   @PostMapping("/medicamentos/")
+   public String medicines(Model model,@ModelAttribute("searchFormData") SearchFromData searchFromData,
+                           @RequestParam("page")Optional<Integer> page,
+                           @RequestParam("size") Optional<Integer> size){
+
+      model.addAttribute("medicine",medicineService.findAll());
+      int currentPage = page.orElse(1);
+      int pageSize = size.orElse(15);
+      Page<Medicine>medicinePage;
+      if (searchFromData.getSearchText()==""){
+         medicinePage = medicineService.findAll(PageRequest.of(currentPage - 1, pageSize));
+      }else {
+         medicinePage=medicineService.findByName(searchFromData.getSearchText(),PageRequest.of(currentPage - 1, pageSize));
+      }
+      model.addAttribute("filtroLista", searchFromData.getSearchText());
+      model.addAttribute("medicinePage", medicinePage);
+      int totalPages = medicinePage.getTotalPages();
+      if (totalPages > 0){
+         List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                 .boxed()
+                 .collect(Collectors.toList());
+         model.addAttribute("pageNumbers", pageNumbers);
+      }
       return "user/usercatalogomedicamentos";
    }
 
