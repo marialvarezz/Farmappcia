@@ -57,8 +57,8 @@ public class AnswerQuestinnaireController {
                 answers.setUser(user);
                 answersService.save(answers);
                 model.addAttribute("answers",answers);
-            }else if (questionnaire.getAnswers().getRespuesta()==null){
-
+            }else if (questionnaire.getAnswers().getUser()==user){
+               return  "redirect:/usuario/responder/" + id;
             }
             else {
                 return "error";
