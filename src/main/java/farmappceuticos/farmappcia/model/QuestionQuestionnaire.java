@@ -22,16 +22,16 @@ public class QuestionQuestionnaire {
     //Relaciones
 
     //Cruce con answers
-    @OneToOne(mappedBy = "questionnaire")
+    @OneToOne(mappedBy = "questionnaire",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Answers answers;
 
     //Cruce con questions
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "questionsId")
     Questions questionsToQuestionnaire;
 
     //Cruce con questionary
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "questionnaireId")
     Questionnaire questionnaireToAnswers ;
 
