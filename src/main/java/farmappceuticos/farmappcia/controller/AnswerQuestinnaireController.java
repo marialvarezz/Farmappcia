@@ -37,16 +37,8 @@ public class AnswerQuestinnaireController {
         Optional<Questionnaire>questions=questionnaireService.findById(id);
         List<QuestionQuestionnaire> questionnaires=questionQuestionnaireService.findByQuestionnaireToAnswers(questions.get());
 
-        for (QuestionQuestionnaire questionnaire:questionnaires
-             ) {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            UserDetails userDetails = null;
-            if (principal instanceof UserDetails) {
-                userDetails = (UserDetails) principal;
-            }
-
-            String userName = userDetails.getUsername();
-            User user = userService.findByName(userName);
+        for (QuestionQuestionnaire questionnaire:questionnaires) {
+           User user=getAut();
 
             if(questionnaire.getAnswers()==null){
                 Answers answers=new Answers();
@@ -55,7 +47,6 @@ public class AnswerQuestinnaireController {
                 answers.setUser(user);
                 answersService.save(answers);
                 model.addAttribute("answers",answers);
-                return "redirect:/usuario/responder" + id;
             } else if (questionnaire.getAnswers().getUser()!=user) {
                 Answers answers=new Answers();
                 QuestionQuestionnaire ques=new QuestionQuestionnaire();
@@ -66,18 +57,15 @@ public class AnswerQuestinnaireController {
                 answers.setUser(user);
                 answersService.save(answers);
                 model.addAttribute("answers",answers);
-                return "redirect:/usuario/responder/" + id;
-            }else {
-                return "redirect:/usuario/responder/" + id;
+            }else if (questionnaire.getAnswers().getRespuesta()==null){
+
             }
-
-
-
-
+            else {
+                return "error";
+            }
         }
 
-
-        return "redirect:/usuario/responder" + id;
+        return "redirect:/usuario/responder/" + id;
     }
 
     @GetMapping("/usuario/responder/{id}")
@@ -111,5 +99,16 @@ public class AnswerQuestinnaireController {
             answersService.save(formulario.getAnswers());
             return "redirect:/usuario/";
 
+    }
+
+    public User getAut(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+        String userName = userDetails.getUsername();
+        User user = userService.findByName(userName);
+        return user;
     }
 }
