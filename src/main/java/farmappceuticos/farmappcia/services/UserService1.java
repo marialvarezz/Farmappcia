@@ -53,8 +53,7 @@ public class UserService1 extends AbstractBusinessServiceSoloEnt <User,Integer, 
         return userDto;
     }
 
-    public User guardarUsuarioDTO (UserDto userDto)
-    {
+    public User guardarUsuarioDTO (UserDto userDto) {
         User user = new User();
         user.setName(userDto.getFirstName() + " " +userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -69,6 +68,19 @@ public class UserService1 extends AbstractBusinessServiceSoloEnt <User,Integer, 
         user.setRoles(Arrays.asList(role));
         return userRepository.save(user);
     }
+
+    public User guardarUs(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role rol = roleRepository.findByName(defaultUserRole);
+
+        if(rol == null){
+            rol = addRoleIfNotExists();
+        }
+        user.setRoles(List.of(rol));
+        return userRepository.save(user);
+    }
+
+
 
     private Role addRoleIfNotExists(){
         Role role = new Role();

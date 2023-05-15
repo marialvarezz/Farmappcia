@@ -7,10 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/cuestionario")//url
@@ -23,6 +22,9 @@ public class QuestionnaireController {
 
     @Autowired
     private QuestionsService questionsService;
+
+    @Autowired
+    private UserService1 userService;
     @Autowired
     private QuestionQuestionnaireService questionQuestionnaireService;
     //Para acceder a los métodos
@@ -33,7 +35,7 @@ public class QuestionnaireController {
         //
         model.addAttribute("questionnaires",questionnaireService.findAll());
         //Devuelve el HTML
-        return "questionnaire/questionnaire-list";
+        return "questionnaire/admin-questionnaire-list";
     }
     @GetMapping("/new")
     public String showNewProductForm(Model model) {
@@ -70,6 +72,13 @@ public class QuestionnaireController {
         questionnaireService.deleteById(id);
         return "redirect:/cuestionario/";
     }
+
+  
+
+
+
+
+
 
 //Cuestionarios
 @GetMapping("/{id}/questionnaire/answer")

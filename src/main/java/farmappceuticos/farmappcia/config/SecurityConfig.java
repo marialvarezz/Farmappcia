@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/webjars/**","/vendor/**", "/js/**","/css/**","/img/**","/fonts/**","/favicon.ico").permitAll()
                 .requestMatchers("*css", "*js").permitAll()
                 //Permitimos todas las visitas a /public
-                .requestMatchers("/public").permitAll()
+                .requestMatchers("/aboutus").permitAll()
 
                 .requestMatchers("/usuario/**").authenticated() //Permitimos únicamente las visitas de usuarios registrados a  /private
                 .requestMatchers("/agenda/**","/usuario","/evento/**","/historialmedico/**","/usumedicamentosinc/**").authenticated()
@@ -78,4 +78,6 @@ public class SecurityConfig {
 
         return authProvider;
     }
+
+//aa
 }
