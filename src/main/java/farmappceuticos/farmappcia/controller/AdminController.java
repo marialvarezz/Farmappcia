@@ -1,6 +1,7 @@
 package farmappceuticos.farmappcia.controller;
 
 import farmappceuticos.farmappcia.model.Event;
+import farmappceuticos.farmappcia.model.Illness;
 import farmappceuticos.farmappcia.model.Medicine;
 import farmappceuticos.farmappcia.model.User;
 import farmappceuticos.farmappcia.services.EventService;
@@ -13,7 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -33,19 +41,35 @@ public class AdminController {
     EventService eventService;
 
     @GetMapping({"/", ""})
-    public String inicioAdmin(Model model) {
+    public String inicioAdmin(Model model){
         List<User>userList=userService.findAll();
         model.addAttribute("numUsu",userList.size());
-
 
         return "adminUser/admininicio";
     }
 
     @GetMapping("/userlist")
     //Model es el objeto que utiliza Spring para pasar al html los datos de la BD
-    public String showProducts(Model model) {
+    public String showProducts(Model model,
+                               @RequestParam("page")Optional<Integer> page,
+                               @RequestParam("size") Optional<Integer> size){
+
         //
         model.addAttribute("user", userService.findAll());
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<User> userPage = userService.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        model.addAttribute("userPAge", userPage);
+        int totalPages = userPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         //Devuelve el HTML
         return "adminUser/user-list";
     }
