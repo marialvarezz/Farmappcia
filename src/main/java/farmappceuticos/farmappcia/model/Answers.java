@@ -38,7 +38,7 @@ public class Answers {
     @OneToMany(mappedBy = "answersToResults" , fetch = FetchType.EAGER)
     private Set<Results> resultsToAnswers;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "questionnaireId", referencedColumnName = "id",unique = true)
     private QuestionQuestionnaire questionnaire;
 

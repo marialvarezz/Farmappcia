@@ -39,7 +39,7 @@
           <td th:text="${questionnaire.descripcion}">Email</td>
           <td th:text="${questionnaire.fechaHora}">19/04/2002</td>
           <td>
-            <a th:href="@{/cuestionariopregunta/}" class="btn btn-primary">Responder</a>
+
             <a th:href="@{/cuestionario/edit/{id}(id=${questionnaire.id})}" class="btn btn-primary">Editar</a>
             <a th:href="@{/cuestionario/delete/{id}(id=${questionnaire.id})}" class="btn btn-primary">Eliminar</a>
           </td>
@@ -48,7 +48,7 @@
       </table>
 
 
-      <a th:href="@{/respuesta/}" style="margin:10px" class="btn btn-primary">Ir a respuestas</a>
+
       <a th:href="@{/preguntas/}" style="margin:10px" class="btn btn-primary">Ir a preguntas</a>
     </div>
 

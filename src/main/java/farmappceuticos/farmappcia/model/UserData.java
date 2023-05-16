@@ -18,15 +18,6 @@ public class UserData {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="nombre")
-    private String nombre;
-
-    @Column(name="apellido1")
-    private String apellido1;
-
-    @Column(name="apellido2")
-    private String apellido2;
-
     @Column(name="direccion")
     private String direccion;
 
