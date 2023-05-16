@@ -43,3 +43,17 @@ border: 1px;
     text-align: center;
     height: 100px;
     }
+
+#errormess{
+margin-left: -500px;
+
+}
+
+#returnerr{
+margin-left: -450px;
+margin-top: -550px;
+width: 300px;
+heightn: 300px;
+
+
+}

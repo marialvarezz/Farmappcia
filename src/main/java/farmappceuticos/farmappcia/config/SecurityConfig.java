@@ -20,7 +20,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests( authorize -> authorize
 
                 //Permitimos todas las visitas a la pagina principal
-                .requestMatchers("","/","/medicamentos/").permitAll()
+                .requestMatchers("","/","/medicamentos/","/404","/403","/500","/error").permitAll()
                 //Permitimos todas las visitas a la pagina principal
                 .requestMatchers("/registro","/registrarusuario").permitAll()
                 //Permitimos la entrada a los css, js e imágenes
