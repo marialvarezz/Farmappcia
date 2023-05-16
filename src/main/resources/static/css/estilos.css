@@ -44,6 +44,21 @@ border: 1px;
     height: 100px;
     }
 
+
+#errormess{
+margin-left: -500px;
+
+}
+
+#returnerr{
+margin-left: -450px;
+margin-top: -550px;
+width: 300px;
+heightn: 300px;
+
+
+}
+
 .container {
       text-align: center;
       padding: 30px;
@@ -70,3 +85,4 @@ border: 1px;
       margin-left: 20px;
       text-align: start;
     }
+
