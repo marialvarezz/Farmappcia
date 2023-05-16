@@ -1,17 +1,15 @@
 package farmappceuticos.farmappcia.controller;
 
-import farmappceuticos.farmappcia.model.Event;
-import farmappceuticos.farmappcia.model.Illness;
-import farmappceuticos.farmappcia.model.Medicine;
-import farmappceuticos.farmappcia.model.User;
-import farmappceuticos.farmappcia.services.EventService;
-import farmappceuticos.farmappcia.services.MedicineService;
-import farmappceuticos.farmappcia.services.UserService1;
+import clojure.lang.IFn;
+import farmappceuticos.farmappcia.model.*;
+import farmappceuticos.farmappcia.services.*;
 import farmappceuticos.farmappcia.util.SearchFromData;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -34,17 +32,38 @@ import java.util.stream.IntStream;
 public class AdminController {
 
     @Autowired
-    UserService1 userService;
+    private UserService1 userService;
     @Autowired
-    MedicineService medicineService;
+    private MedicineService medicineService;
     @Autowired
-    EventService eventService;
+    private EventService eventService;
+    @Autowired
+    private IncMedicineService incMedicineService;
+    @Autowired
+    private IllnessService illnessService;
+    @Autowired
+    private QuestionnaireService questionnaireService;
+    @Autowired
+    private QuestionsService questionsService;
+
 
     @GetMapping({"/", ""})
     public String inicioAdmin(Model model){
+
+        User user=getUserAuten();
+        model.addAttribute("user",user);
         List<User>userList=userService.findAll();
         model.addAttribute("numUsu",userList.size());
-
+        List<Medicine> medicines=medicineService.findAll();
+        model.addAttribute("numMedicine",medicines.size());
+        List<IncMedicine>incMedicineList=incMedicineService.findAll();
+        model.addAttribute("numIncMedicine",incMedicineList.size());
+        List<Illness>illnesses=illnessService.findAll();
+        model.addAttribute("numIllness",illnesses.size());
+        List<Questionnaire> questionnaires=questionnaireService.findAll();
+        model.addAttribute("numQuestionnaire",questionnaires.size());
+        List<Questions>questions=questionsService.findAll();
+        model.addAttribute("numQuestion",questions.size());
         return "adminUser/admininicio";
     }
 
@@ -158,6 +177,15 @@ public class AdminController {
         //Devuelve el HTML
         return "event/event-list";
     }
-
+    private User getUserAuten(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+        String userName = userDetails.getUsername();
+        User user=userService.findByName(userName);
+        return user;
+    }
 
 }

@@ -5,7 +5,7 @@
 
 <head>
   <meta th:charset="#{principal.charset}">
-  <title>FeelingCare Giver</title>
+  <title>Información de usuario</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -31,11 +31,11 @@
     <p>Usuario: <span th:text="${user.username}"></span></p>
     <p>Email: <span th:text="${user.email}"></span></p>
     <p>Año de nacimiento: <span th:text="${user.birthDate}"></span></p>
-    <p>Tutor: <span th:text="${user.tutorMail}"></span></p>
+    <p>Tutor: <span th:unless="${user.tutorMail==null}" th:text="${user.tutorMail}"></span><span th:if="${user.tutorMail==null}" >El usuario aún no tiene tutor</span></p>
 
 
     <div class="container" style="margin-top:20px;">
-      <h5>Citas médicas</h5>
+      <h5 style="font-family:century gothic black">Citas médicas</h5>
       <table class="table">
         <thead>
         <tr>
@@ -49,6 +49,7 @@
         </tr>
         </thead>
         <tbody>
+        <div th:unless="${user.agendaToUser==null}">
         <tr th:each="evento : ${user.agendaToUser.eventsToAgenda}">
           <td th:text="${evento.fechahora}">Invoice Code</td>
           <td th:text="${evento.nombre}">1</td>
@@ -67,13 +68,19 @@
           </td>
 
 
-        </tr>
+        </tr></div>
+        <div th:if="${user.agendaToUser==null}">
+          <tr>
+            El usuario aún no tiene la agenda activada.
+
+
+          </tr></div>
         </tbody>
       </table>
     </div>
 
     <div class="container"  style="margin-top:20px;">
-      <h5>Medicamentos </h5>
+      <h5 style="font-family:century gothic black">Medicamentos </h5>
       <table class="table">
         <thead>
         <tr>
@@ -94,7 +101,7 @@
 
 
     <div class="container"  style="margin-top:20px;">
-      <h5>Medicamentos Incompatibles</h5>
+      <h5 style="font-family:century gothic black">Medicamentos Incompatibles</h5>
       <table class="table">
         <thead>
         <tr>
@@ -114,7 +121,7 @@
     </div>
 
       <div class="container"  style="margin-top:20px;">
-        <h5>Historial Médico</h5>
+        <h5 style="font-family:century gothic black">Historial Médico</h5>
         <table class="table">
           <thead>
           <tr>

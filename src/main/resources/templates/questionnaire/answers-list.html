@@ -27,39 +27,54 @@
             <div layout:fragment="contenido">
                 <div class="container">
                     <div th:each="questionnaire : ${questionnaires}">
-                        <div><h3 th:text="${questionnaire.nombre}">Email</h3></div>
-                        <div th:unless="${user.answersToUser==null}">
-                            <div th:each="answer : ${user.answersToUser}">
-                                <div th:each="questionnaire2 : ${answer.questionnaire}">
-                                    <div th:if="${questionnaire2.questionnaireToAnswers==questionnaire}">
-                                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                                            <div class="accordion-item">
-                                                <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                                        aria-controls="flush-collapseOne">
-                                                    <div class="accordion-header" id="flush-headingOne"
-                                                         th:text="${questionnaire2.questionsToQuestionnaire.pregunta}">
-                                                        Email
-                                                    </div>
-                                                </button>
-                                                <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                                     aria-labelledby="flush-headingOne"
-                                                     data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body"
-                                                         th:text="${questionnaire2.answers.respuesta}">Email
-                                                    </div>
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h5 class="accordion-header" th:id="'heading-' + ${questionnaire.id}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="true"
+                                            th:data-bs-target="'#collapse-' + ${questionnaire.id}"
+                                            th:aria-controls="'collapse-' + ${questionnaire.id}">
+                                        <div>
+                                            <h5 th:text="${questionnaire.nombre}">ww</h5>
+                                        </div>
+                                    </button>
+                                </h5>
+                                <div th:id="'collapse-' + ${questionnaire.id}" class="accordion-collapse collapse"
+                                     th:aria-labelledby="'heading-' + ${questionnaire.id}" data-bs-parent="#accordionFlushExample">
+                                    <div>
+                                        <br>
+                                    <form th:action="@{/usuario/cuestionario/activar/{id}(id=${questionnaire.id})}" th:object="${answers}" method="post">
+                                        <button type="submit" class="btn btn-outline-success">Responder al cuestionario</button>
+
+                                    </form>
+                                    </div>
+                                    <div th:unless="${user.answersToUser == null}">
+                                        <div th:each="answer : ${user.answersToUser}">
+                                            <div th:unless="${answer.respuesta == null || answer.respuesta==''}">
+                                                 <div th:each="questionnaire2 : ${answer.questionnaire}"
+                                                     th:if="${questionnaire2.questionnaireToAnswers == questionnaire}">
+                                                    <div style="font-family:century gothic black;" th:text="${questionnaire2.questionsToQuestionnaire.pregunta}">aa</div>
+                                                    <div th:text="${questionnaire2.answers.respuesta}">hola</div>
+                                                     <br>
+                                                </div>
+                                            </div>
+                                            <div th:if="${answer.respuesta == null || answer.respuesta==''}">
+                                                <div th:each="questionnaire2 : ${answer.questionnaire}"
+                                                     th:if="${questionnaire2.questionnaireToAnswers == questionnaire}">
+                                                <div style="font-family:century gothic black;" th:text="${questionnaire2.questionsToQuestionnaire.pregunta}">aa</div>
+                                                <p>Aún no hay respuesta registrada</p>
+                                                <br>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div th:if="${user.answersToUser == null}">
+                                        Upsss, aún no has respondido este cuestionario
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div th:if="${user.answersToUser==null}">
-                        <div>Upsss, aún no has respondido este cuestionario</div>
-                    </div>
+
                     <br>
                 </div>
             </div>

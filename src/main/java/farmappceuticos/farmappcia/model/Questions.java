@@ -43,7 +43,7 @@ public class Questions {
 
     //Relaciones
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "answers_questionnaire",
             joinColumns = @JoinColumn(name = "questionsId"),

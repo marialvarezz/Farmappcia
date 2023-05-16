@@ -77,12 +77,14 @@ public class UserController {
       User user=userService.findByName(userName);
       model.addAttribute("user",user);
 
+
       Optional<User> tutor=userService.findByEmail(user.getTutorMail());
       if (user.getTutorMail()!=null){
          model.addAttribute("tutor",tutor.get());
       }
 
       List<User> tutorizados=userService.findByTutorMail(user.getEmail());
+      System.out.println(tutorizados.isEmpty());
       model.addAttribute("tutorizados",tutorizados);
 
 

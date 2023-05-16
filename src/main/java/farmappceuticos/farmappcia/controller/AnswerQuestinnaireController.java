@@ -94,7 +94,7 @@ public class AnswerQuestinnaireController {
         for (Answers ans:answersList
              ) {
             ans.setFechaHora(LocalDateTime.now());
-
+            answersService.save(ans);
         }
             answersService.save(formulario.getAnswers());
             return "redirect:/usuario/";

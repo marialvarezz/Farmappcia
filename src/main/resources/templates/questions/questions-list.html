@@ -43,14 +43,14 @@
           <td th:text="${questions.option5}">19/04/2002</td>
           <td>
             <a th:href="@{/preguntas/edit/{id}(id=${questions.id})}" class="btn btn-primary">Editar</a>
-            <a th:href="@{/preguntas/delete/{id}(id=${questions.id})}" class="btn btn-primary">Eliminar</a>
+            <a th:href="@{/preguntas/delete/{id}(id=${questions.id})}" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
         </tbody>
       </table>
 
       <a th:href="@{/cuestionario/}" style="margin:10px" class="btn btn-primary">Ir a cuestionarios</a>
-      <a th:href="@{/respuesta/}" style="margin:10px" class="btn btn-primary">Ir a respuestas</a>
+
 
       <!--PAGINACIÓN-->
 

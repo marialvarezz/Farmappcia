@@ -27,9 +27,6 @@ public class UserData {
     @Column(name="telefono")
     private String telefono;
 
-    @Column(name="email")
-    private String email;
-
     @Column(name="grupoSangre")
     private String grupoSangre;
 

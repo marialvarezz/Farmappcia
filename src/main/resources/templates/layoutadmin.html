@@ -29,7 +29,7 @@
 
 
       <div class="container-fluid p-0">
-        <a th:href="@{/usuario}" class="navbar-brand">
+        <a th:href="@{/admin/}" class="navbar-brand">
           <div class="row"></div>
           <img class="img-fluid" style="max-width:150px" src="/img/logo.png" alt="FeelingCare Logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,10 +41,10 @@
           <ul class="navbar-nav">
             <li  class="nav-item"><a  class="nav-link" th:href="@{/usuario/userlist}">Gestor de usuarios</a></li>
 
-            <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">Gestor de medicamento
+            <li class="nav-item dropdown"><a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">Gestor de salud
               <img src="/img/down-arrow_blue.png" class="img-fluid" style="max-width:15px;margin:5px" alt="dropdown arrow"></a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item"><a th:href="@{/medicamentos/new}">Añadir medicamento</a></li>
+                <li class="dropdown-item"><a th:href="@{/enfermedades/}">Gestor de enfermedades</a></li>
                 <li class="dropdown-item"><a th:href="@{/admin/medicamentos/}">Gestión del catálogo</a></li>
                 <li class="dropdown-item"><a th:href="@{/medicamentosinc/}">Gestionar incompatibilidades</a></li>
               </ul> </li>

@@ -74,7 +74,7 @@
                 <ul class="dropdown-menu">
                   <li class="dropdown-item" ><a  th:href="@{/usuario/cuestionarios}">Cuestionarios</a></li>
                   <li class="dropdown-item"><a th:href="@{/usuario/respuestas}">Tus Respuestas</a></li>
-                  <li class="dropdown-item"><a href="#">Estadísticas</a></li>
+
                 </ul>
               </li>
               <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a  class="nav-link" th:href="@{/admin/}">Admin</a></li>
