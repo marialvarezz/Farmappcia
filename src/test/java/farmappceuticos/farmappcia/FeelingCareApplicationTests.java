@@ -9,5 +9,4 @@ class FeelingCareApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

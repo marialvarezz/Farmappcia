@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ public class User {
     @Column(name="password")
     private String password;
     @Column(name="birthDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     @Column(name="registrationDateTime")
     private LocalDateTime registrationDateTime;
@@ -56,22 +58,22 @@ public class User {
             inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade= CascadeType.ALL)
     private Set<MedicalHistory> medicalHistories;
 
-    @OneToOne(mappedBy = "userToUserData")
+    @OneToOne(mappedBy = "userToUserData",cascade= CascadeType.ALL)
     private UserData userDataToUser;
 
     //Relación 1:n con respuestas
-    @OneToMany(mappedBy = "user" )
+    @OneToMany(mappedBy = "user" ,cascade= CascadeType.ALL)
     private Set<Answers> answersToUser;
 
-    @OneToMany(mappedBy = "userToMedicine")
+    @OneToMany(mappedBy = "userToMedicine",cascade= CascadeType.ALL)
     private Set<UserMedicine> userMedicines;
 
 
 
-    @OneToMany(mappedBy = "userToMedicineInc")
+    @OneToMany(mappedBy = "userToMedicineInc",cascade= CascadeType.ALL)
     private Set<UserMedicineInc> userMedicineIncs;
 
 

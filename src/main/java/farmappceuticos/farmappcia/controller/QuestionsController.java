@@ -32,7 +32,7 @@ public class QuestionsController {
         model.addAttribute("questions",questionsService.findAll());
 
         int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        int pageSize = size.orElse(10);
 
         Page<Questions> questionsPage = questionsService.findAll(PageRequest.of(currentPage - 1, pageSize));
 
