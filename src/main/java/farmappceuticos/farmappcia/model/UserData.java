@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,18 +35,20 @@ public class UserData {
     @Column(name="alergias")
     private String alergias;
 
+
+
     @Column(name="altura")
     private String altura;
 
-    @Column(name="fechaInsert")
-    private String fechaInsert;
+    private String peso;
 
-    @Column(name="fechaUpdate")
-    private String fechaUpdate;
+    @Column(name="fechaInsert")
+    private LocalDateTime fechaInsert;
+
 
     //Relaciones
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User userToUserData;
 

@@ -40,13 +40,13 @@
                                 </h5>
                                 <div th:id="'collapse-' + ${questionnaire.id}" class="accordion-collapse collapse"
                                      th:aria-labelledby="'heading-' + ${questionnaire.id}" data-bs-parent="#accordionFlushExample">
-                                    <div>
+                                    <div class="container">
                                         <br>
                                     <form th:action="@{/usuario/cuestionario/activar/{id}(id=${questionnaire.id})}" th:object="${answers}" method="post">
                                         <button type="submit" class="btn btn-outline-success">Responder al cuestionario</button>
 
                                     </form>
-                                    </div>
+
                                     <div th:unless="${user.answersToUser == null}">
                                         <div th:each="answer : ${user.answersToUser}">
                                             <div th:unless="${answer.respuesta == null || answer.respuesta==''}">
@@ -54,7 +54,7 @@
                                                      th:if="${questionnaire2.questionnaireToAnswers == questionnaire}">
                                                     <div style="font-family:century gothic black;" th:text="${questionnaire2.questionsToQuestionnaire.pregunta}">aa</div>
                                                     <div th:text="${questionnaire2.answers.respuesta}">hola</div>
-                                                     <br>
+
                                                 </div>
                                             </div>
                                             <div th:if="${answer.respuesta == null || answer.respuesta==''}">
@@ -62,10 +62,11 @@
                                                      th:if="${questionnaire2.questionnaireToAnswers == questionnaire}">
                                                 <div style="font-family:century gothic black;" th:text="${questionnaire2.questionsToQuestionnaire.pregunta}">aa</div>
                                                 <p>Aún no hay respuesta registrada</p>
-                                                <br>
+
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                     <div th:if="${user.answersToUser == null}">
                                         Upsss, aún no has respondido este cuestionario

@@ -40,7 +40,7 @@
         <a class="btn btn-outline-success" th:href="@{/usuario/caregiver/new}">Indicanos tu CareGiver</a>
         </div>
         <div th:unless="${user.tutorMail == null}">
-          <a class="btn btn-outline-success" th:href="@{/usuario/caregiver/new}">Cambiar el CareGiver</a>
+          <a class="btn btn-outline-success" onclick="return confirm('¿Está seguro que quiere cambiar el caregiver?')"  th:href="@{/usuario/caregiver/new}">Cambiar el CareGiver</a>
         </div>
       </div>
     </div>
@@ -50,6 +50,7 @@
   </div>
 
     <div class="container" style="margin-top:20px;">
+      <div th:unless="${usersGiver.isEmpty()}">
       <h5>Usuarios tutorizados</h5>
       <table class="table">
         <thead>
@@ -72,7 +73,12 @@
         </tr>
 
         </tbody>
-      </table>
+      </table></div>
+    <div th:if="${usersGiver.isEmpty()}">
+      <h5>Usuarios tutorizados</h5>
+      <p>Aún no tienes a ningún usuario tutorizado. Si quieres tutorizar a un usuario debes ir a nuestro apartado <a th:href="@{/usuario/caregiver}" style="color:blue">caregiver</a>
+        y rellenar el formulario desde el perfil tutorizado</p>
+    </div>
     </div>
   </div>
 

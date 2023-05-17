@@ -33,7 +33,7 @@
                         </td>
 
                         <div th:unless="${answer.questionnaire.questionsToQuestionnaire.option1.length()==0}" class="form-check">
-                            <input lass="form-check-input"  type="radio" id="opcion1"  th:value="${answer.questionnaire.questionsToQuestionnaire.option1}" th:field="*{answers[__${answerIndex.index}__].respuesta}"/>
+                            <input  lass="form-check-input"  type="radio" id="opcion1"  th:value="${answer.questionnaire.questionsToQuestionnaire.option1}" th:field="*{answers[__${answerIndex.index}__].respuesta}"/>
                             <label class="form-check-label" for="opcion1" th:text="${answer.questionnaire.questionsToQuestionnaire.option1}">op1</label>
                         </div>
                         <div th:unless="${answer.questionnaire.questionsToQuestionnaire.option2.length()==0}" class="form-check">
