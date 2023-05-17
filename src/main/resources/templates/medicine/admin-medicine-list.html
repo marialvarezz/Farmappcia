@@ -26,7 +26,7 @@
 
 </head>
 <body>
-<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;"><h3> Lista de Medicamentos <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-success" th:href="@{/medicamentos/new}">Agregar Nuevo Medicamento</a></h3></div></div>
+<div layout:fragment="cabecera"><div class="container" style="padding-top:20px;"><h3> Lista de Medicamentos <a sec:authorize="hasRole('ROLE_ADMIN')"  class="btn btn-primary" th:href="@{/medicamentos/new}">Agregar Nuevo Medicamento</a></h3></div></div>
 <div layout:fragment="contenido" class="container" style="padding-top:20px;">
 
     <div class="row">
@@ -36,7 +36,7 @@
                     <label for="nombre" class="form-label">Introduce el nombre del medicamento:</label>
                     <input class="form-control" placeholder="Ibuprofeno..." th:field="*{searchText}"  type="text" name="nombre" id="nombre">
                 </div>
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
+                <button class="btn btn-primary" type="submit">Buscar</button>
             </form>
         </div>
     </div>
@@ -70,8 +70,8 @@
             <td>
                 <div th:text="${medicine.misc}" class="d-lg-block d-none">Descripción</div></td>
             <td>
-                <a class="btn btn-outline-primary" th:href="@{/medicamentos/edit/{id}(id=${medicine.id})}">Editar</a>
-                <a onclick="return confirm('¿Está seguro que quiere borrar el medicamento?')" class="btn btn-outline-danger" th:href="@{/medicamentos/delete/{id}(id=${medicine.id})}">Borrar</a>
+                <a class="btn btn-primary" th:href="@{/medicamentos/edit/{id}(id=${medicine.id})}">Editar</a>
+                <a onclick="return confirm('¿Está seguro que quiere borrar el medicamento?')" class="btn btn-danger" th:href="@{/medicamentos/delete/{id}(id=${medicine.id})}">Borrar</a>
             </td>
         </tr>
         </tbody>

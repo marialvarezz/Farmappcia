@@ -103,15 +103,7 @@ public class CalendarController {
         formatDatesEvent(Date.MONTH[mo]);
         formatDatesUserMedicine(Date.MONTH[mo]);
         mv = new ModelAndView("calendario/calendarunmes");
-        for (Event e:eventListPantalla
-             ) {
-            System.out.println(e);
-        };
-        for (UserMedicine u:userMedicineListPantalla
-             ) {
-            System.out.println(u);
 
-        }
         mv.addAllObjects(dateValues);
         mv.addObject("events", eventListPantalla);
         mv.addObject("userMedicines", userMedicineListPantalla);
@@ -119,6 +111,8 @@ public class CalendarController {
         mv.addObject("month", mo);
         return mv;
     }
+
+
 
 
 

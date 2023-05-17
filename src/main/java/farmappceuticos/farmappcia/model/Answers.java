@@ -31,14 +31,14 @@ public class Answers {
 
     //Relaciones
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "usuarioId")
     User user;
 
-    @OneToMany(mappedBy = "answersToResults" , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "answersToResults" )
     private Set<Results> resultsToAnswers;
 
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "questionnaireId", referencedColumnName = "id",unique = true)
     private QuestionQuestionnaire questionnaire;
 

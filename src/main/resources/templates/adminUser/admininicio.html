@@ -22,8 +22,129 @@
 </head>
 
 <body>
-<div layout:fragment="cabecera"><h3>Admin</h3></div>
-<div layout:fragment="contenido"><p>Inicio</p></div>
+<div layout:fragment="cabecera"><div class="container" style="margin-top:20px"><h3>Bienvenido <span th:text="${user.name}"></span>, ¿Qué deseas hacer?</h3></div></div>
+<div layout:fragment="contenido">
+    <div class="container">
+        <div class="row d-flex align-content-center" style="margin-bottom:20px;margin-top:20px">
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center" style="margin-top:20px;">
+                <div class="card d-flex algin-content-center" style="width: auto;
+                                              background-color: black;
+                                                color: white;
+                                                    min-height: 18rem;">
+
+                <div class="card-body d-flex align-content-center">
+                    <div class="container-fluid" style="text-align: center;">
+                    <h3 class="card-title" style="font-family:century gothic black"><img src="/img/usuario.png" style="max-height: 25px;" alt="user" class="img-fluid"> Usuarios</h3>
+
+                    <p class="card-text">Desde aquí puedes ver, editar y eliminar los datos de cualquier usuario.</p>
+                        <p>Actualmente, <span th:text="${numUsu}">25</span> usuarios están registrados en nuestra app</p>
+
+                    <a th:href="@{/usuario/userlist}" class="btn btn-success">Gestionar Usuarios</a>
+                </div>
+                </div>
+            </div></div>
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center" style="margin-top:20px;">
+
+                    <div class="card d-flex algin-content-center" style="width: auto;
+                                              background-color: black;
+                                                color: white;
+                                                    min-height: 18rem;">
+
+                        <div class="card-body  d-flex justify-content-center">
+                            <div class="container-fluid" style="text-align: center;">
+                                <h3 class="card-title" style="font-family:century gothic black"><img src="/img/medicamentosblanco.png" style="max-height: 25px;" alt="medicamentos" class="img-fluid"> Medicamentos</h3>
+
+                                <p class="card-text">Desde aquí puedes consultar la lista de medicamentos,
+                                    añadir uno nuevo o editar o eliminar uno de los existentes.</p>
+                                <p>Actualmente hay <span th:text="${numMedicine}">25</span> medicamentos registrados.</p>
+                                <a th:href="@{/admin/medicamentos/}" class="btn btn-success">Gestionar Medicamentos</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center" style="margin-top:20px;">
+                <div class="card d-flex algin-content-center" style="width: auto;
+                                              background-color: black;
+                                                color: white;
+                                                    min-height: 18rem;">
+
+                    <div class="card-body  d-flex justify-content-center" >
+                        <div class="container-fluid" style="text-align: center;">
+                            <h3 class="card-title" style="font-family:century gothic black">
+                                <img src="/img/advertencia.png" style="max-height: 25px;" alt="advertencia" class="img-fluid">
+                                 Incompatibilidades</h3>
+
+                            <p class="card-text">Puedes añadir una nueva incompatibilidad
+                                y/o ver, editar o eliminar cualquiera de las ya existentes.</p>
+                            <p>Actualmente hay <span th:text="${numIncMedicine}">25</span> incompatibilidades registradas.</p>
+                            <a th:href="@{/medicamentosinc/}"  class="btn btn-success">Gestionar Incompatibilidades</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center" style="margin-top:20px;">
+                <div class="card d-flex algin-content-center" style="width: auto;
+                                              background-color: black;
+                                                color: white;
+                                                    min-height: 18rem;">
+
+                    <div class="card-body  d-flex justify-content-center">
+                        <div class="container-fluid" style="text-align: center;">
+                            <h3 class="card-title" style="font-family:century gothic black">
+                                <img src="/img/enfermedades.png" style="max-height: 25px;" alt="enfermedades" class="img-fluid"> Enfermedades</h3>
+
+                            <p class="card-text">Puedes gestionar las enfermedades de la base de datos, además de añadir nuevas.</p>
+                            <p>Actualmente hay <span th:text="${numIllness}">25</span> enfermedades registradas.</p>
+                            <a th:href="@{/enfermedades/}" class="btn btn-success">Gestionar Enfermedades</a>
+                             </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center" style="margin-top:20px;">
+                <div class="card d-flex algin-content-center" style="width: auto;
+                                              background-color: black;
+                                                color: white;
+                                                    min-height: 18rem;">
+
+                <div class="card-body  d-flex justify-content-center">
+                    <div class="container-fluid" style="text-align: center;">
+                        <h3 class="card-title" style="font-family:century gothic black">
+                            <img src="/img/cuestionarioblanco.png" style="max-height: 25px;" alt="medicamentos" class="img-fluid">
+                            Cuestionarios</h3>
+
+                        <p class="card-text">Desde aquí puedes añadir, editar o borras las preguntas que después podrás añadir a
+                        uno o varios cuestionario</p>
+                        <p>Actualmente hay <span th:text="${numQuestionnaire}">25</span> cuestionarios listos para el usuario.</p>
+                         <a th:href="@{/cuestionario/}" class="btn btn-success">Gestionar Cuestionario</a>
+                    </div>
+
+                </div>
+             </div>
+            </div>
+            <div class="col-lg-4 col-md-6 d-flex justify-content-center" style="margin-top:20px;">
+                <div class="card d-flex algin-content-center" style="width: auto;
+                                              background-color: black;
+                                                color: white;
+                                                    min-height: 18rem;">
+
+                    <div class="card-body  d-flex justify-content-center">
+                        <div class="container-fluid" style="text-align: center;">
+                            <h3 class="card-title" style="font-family:century gothic black">
+                                <img src="/img/informacion.png" style="max-height: 25px;" alt="medicamentos" class="img-fluid">
+                                 Cuestionarios</h3>
+
+                            <p class="card-text">Desde aquí puedes crear, editar o borrar un questionario. Además, también se puede añadir,
+                                editar o borrar las preguntas del mismo cuestionario</p>
+                            <p>Actualmente hay <span th:text="${numQuestion}">25</span> preguntas listas para ser respondidas.</p>
+                           <a th:href="@{/preguntas/}" class="btn btn-success">Gestionar Preguntas</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+</div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"

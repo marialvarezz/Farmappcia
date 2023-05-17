@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<div layout:fragment="cabecera"> <div class="container" style="padding-top:20px;"> <h3>Información del usuario</h3></div></div>
+<div layout:fragment="cabecera"> <div class="container" style="padding-top:20px;"> <h3>Información del usuario <a th:href="@{/usuario/edit/}" class="btn btn-outline-success">Editar</a></h3></div></div>
 <div layout:fragment="contenido">
 <div class="container" style="padding-top:10px;">
   <div class="row">
@@ -29,6 +29,23 @@
       <p>Email: <span th:text="${user.email}"></span></p>
       <p>Año de nacimiento: <span th:text="${user.birthDate}"></span></p>
 
+      <br><br>
+      <h5>Datos del Usuario </h5>
+      <div th:unless="${user.userDataToUser==null}">
+      Datos Personales <a class="btn btn-outline-success" th:href="@{/usuario/datosusuario/edit}">Editar</a><br>
+      <p>Dirección: <span th:text="${user.userDataToUser.direccion}"></span></p>
+      <p>Ciudad: <span th:text="${user.userDataToUser.ciudad}"></span></p>
+      <p>Teléfono: <span th:text="${user.userDataToUser.telefono}"></span></p>
+        <br>
+        Datos médicos<br>
+      <p>Altura: <span th:text="${user.userDataToUser.altura}"></span></p>
+        <p>Peso: <span th:text="${user.userDataToUser.peso}"></span></p>
+        <p>Grupo Sanguíneo: <span th:text="${user.userDataToUser.grupoSangre}"></span></p>
+        <p>Alergías: <span th:text="${user.userDataToUser.alergias}"></span></p>
+    </div>
+      <div th:if="${user.userDataToUser==null}">
+        Aún no hay datos registrados <a class="btn btn-outline-success" th:href="@{/usuario/datosusuario/new}">Añade nuevos datos</a>
+      </div>
 
 
 

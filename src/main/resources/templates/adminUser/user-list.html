@@ -44,7 +44,7 @@
           <td th:text="${user.id}">1</td>
           <td><div th:text="${user.username}">maria</div>
             <div class="d-block d-lg-none">
-              <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn btn-outline-primary">Ver Info</a></div></td>
+              <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn btn-primary">Ver Info</a></div></td>
           <td><div th:text="${user.email}" class="d-lg-block d-none">Email</div></td>
           <td><div th:text="${user.birthDate}" class="d-lg-block d-none">Email</div></td>
 
@@ -54,9 +54,9 @@
 
           <td>
             <div class="d-lg-block d-none">
-            <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn btn-outline-primary" style="margin-bottom: 5px;">Ver Info</a></div>
-            <a th:href="@{/usuario/edit/{id}(id=${user.id})}" class="btn btn-outline-primary">Editar</a>
-            <a th:href="@{/usuario/delete/{id}(id=${user.id})}" class="btn btn-outline-primary">Eliminar</a>
+            <a th:href="@{/usuario/info/{id}(id=${user.id})}" class="btn btn-primary" style="margin-bottom: 5px;">Ver Info</a></div>
+            <a th:href="@{/usuario/edit/{id}(id=${user.id})}" class="btn btn-primary">Editar</a>
+            <a th:href="@{/usuario/delete/{id}(id=${user.id})}"  class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
         </tbody>

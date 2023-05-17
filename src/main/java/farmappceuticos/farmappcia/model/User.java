@@ -47,7 +47,7 @@ public class User {
     //Relaciones
 
     //Relación 1:1 con calendario
-    @OneToOne(mappedBy = "userToAgenda", cascade= CascadeType.ALL)
+    @OneToOne(mappedBy = "userToAgenda")
     private Agenda agendaToUser;
 
     //Relación con UserRole
@@ -58,17 +58,17 @@ public class User {
             inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private Set<MedicalHistory> medicalHistories;
 
-    @OneToOne(mappedBy = "userToUserData",cascade= CascadeType.ALL)
+    @OneToOne(mappedBy = "userToUserData")
     private UserData userDataToUser;
 
     //Relación 1:n con respuestas
-    @OneToMany(mappedBy = "user" ,cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "user" )
     private Set<Answers> answersToUser;
 
-    @OneToMany(mappedBy = "userToMedicine",cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "userToMedicine")
     private Set<UserMedicine> userMedicines;
 
 

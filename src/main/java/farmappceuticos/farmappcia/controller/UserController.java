@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,6 +60,8 @@ public class UserController {
    @Autowired
    EventService eventService;
 
+   @Autowired
+   UserDataService userDataService;
 
 
 
@@ -77,12 +80,14 @@ public class UserController {
       User user=userService.findByName(userName);
       model.addAttribute("user",user);
 
+
       Optional<User> tutor=userService.findByEmail(user.getTutorMail());
       if (user.getTutorMail()!=null){
          model.addAttribute("tutor",tutor.get());
       }
 
       List<User> tutorizados=userService.findByTutorMail(user.getEmail());
+      System.out.println(tutorizados.isEmpty());
       model.addAttribute("tutorizados",tutorizados);
 
 
@@ -292,16 +297,7 @@ public class UserController {
       model.addAttribute("user",user);
       return "user/userincompatibilidadesmedicamentos";}
 
-   @GetMapping("/aboutus")
-   public String aboutUser() {return "user/userabout";}
-   @GetMapping("/contacto")
-   public String contactusUser() {return "user/usercontacto";}
-   @GetMapping("/noticias")
-   public String noticiasUser() {return "user/usernoticias";}
-   @GetMapping("/hospitalescercanos")
-   public String hospitalesUser() {return "user/userhospitales";}
-   @GetMapping("/consejos")
-   public String consejosUser() {return "user/userconsejosf";}
+
 
 
    //Cuestionarios
@@ -359,11 +355,47 @@ public class UserController {
       userService.guardarUs(user);
       return "redirect:/usuario/userlist";
    }
+
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
    @GetMapping("/edit/{id}")
    public String showEditProductForm(@PathVariable("id") Integer id, Model model) {
       model.addAttribute("user", userService.findById(id));
       return "adminUser/user-form";
    }
+
+
+   @GetMapping("/edit/")
+   public String showEditProductForm( Model model) {
+      User user=getUserAuten();
+      model.addAttribute("user", user);
+      return "adminUser/user-form";
+   }
+
+   @GetMapping("/datosusuario/new")
+   public String dataUser( Model model) {
+      User user=getUserAuten();
+      UserData userData=new UserData();
+      userData.setUserToUserData(user);
+      model.addAttribute("datos",userData);
+      return "dataUser/dataUser-form";
+   }
+
+   @GetMapping("/datosusuario/edit")
+   public String dataEditUser( Model model) {
+      User user=getUserAuten();
+
+      model.addAttribute("datos",user.getUserDataToUser());
+      return "dataUser/dataUser-form";
+   }
+   @PostMapping("/datosusuario/new")
+   public String dataUserSave(@ModelAttribute("datos") UserData userData, Model model) {
+      User user=getUserAuten();
+      userData.setUserToUserData(user);
+      userData.setFechaInsert(LocalDateTime.now());
+      userDataService.save(userData);
+      return "redirect:/usuario/info/";
+   }
+
    @GetMapping("/delete/{id}")
    public String deleteProduct(@PathVariable("id") Integer id) {
       userService.deleteById(id);

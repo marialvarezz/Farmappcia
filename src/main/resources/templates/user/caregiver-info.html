@@ -25,6 +25,10 @@
     <h3>Información de: <span th:text="${user.name}"></span></h3></div></div>
 <div layout:fragment="contenido">
   <div class="container">
+    <div style="margin-top:10px;margin-bottom:10px;">
+    <form th:action="@{/usuario/pdf/{id}(id=${user.id})}" method="get">
+      <button class="btn btn-success" type="submit" value="Generar PDF">Generar PDF</button>
+    </form></div>
     <p>Nombre: <span th:text="${user.name}"></span></p>
     <p>Usuario: <span th:text="${user.username}"></span></p>
     <p>Email: <span th:text="${user.email}"></span></p>

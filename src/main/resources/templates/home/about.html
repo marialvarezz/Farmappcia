@@ -21,13 +21,94 @@
   <link th:href="@{/css/variables.css}" rel="stylesheet">
   <link th:href="@{/css/main2.css}" rel="stylesheet">
   <link th:href="@{/css/estilos.css}" rel="stylesheet">
+  <style>
+  .container {
+
+      padding: 30px;
+    }
+
+.container .tittle {
+      margin-bottom: 20px;
+    }
+
+.container.team-member {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+.container .team-member img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+.container .team-member .info {
+      margin-left: 20px;
+      text-align: start;
+    }
+</style>
 </head>
-
 <body>
-<div layout:fragment="cabecera"><div class="container" style="margin-top:20px;margin-bottom:10px;"><h3>About Us</h3></div></div>
-<div layout:fragment="contenido"><div class="container"><p>Esto va a ser el inicio</p></div></div>
+<div layout:fragment="cabecera"><div class="container p-0" style="margin-top:20px;"><h3>Conoce al equipo de
+
+  <img src="/img/logo.png" style="max-width:500px" alt="logo" class="img-fluid"></h3></div></div>
+<div layout:fragment="contenido"><div class="container">
 
 
+<div class="row" style="margin:20px;">
+  <div class="col-lg-3">
+      <div class="team-member" id="Harald">
+        <img src="/img/about/Harald.jpg" alt="Harald"></div></div>
+  <div class="col-lg-9" >
+        <div class="info">
+          <h2 class="tittle">Harald Jensen Morales</h2>
+          <p> Programador con experiencia y formación previa en Diseño 2D y Animación de Personajes, lo que me permite incorporar a los trabajos que desarrollo mayor polivalencia, creatividad y estética, optimizando tanto el back-end como el front-end.<br>
+          Intento aprender y profundizar en los temas, buscando la evolución y la mejora continua.
+          Resolutivo, prudente y analítico, tengo un elevado sentido de la responsabilidad y del deber con lo que me comprometo a hacer.
+          Disfruto trabajando duro con mis compañeros para alcanzar un objetivo común.</p>
+        </div>
+      </div>
+</div>
+  <div class="row" style="margin:20px;">
+<div class="col-lg-3" >
+      <div class="team-member" id="Felix">
+        <img src="/img/about/Felix.jpg" alt="Félix"></div></div>
+  <div class="col-lg-9">
+        <div class="info">
+          <h2 class="tittle">Félix Carrasco Andrés</h2>
+          <p>Llego al entorno de la programación incorporando aptitudes como la orientación al detalle y a resultados, la capacidad para trabajar de forma eficiente en equipo y la voluntad de resolver cuantos retos y dificultades se me plantean. Soy analítico y detallista. Disciplinado y riguroso, intento fraccionar los proyectos por secuencias para finalizar las etapas. Resolutivo, trato de reparar lo que no funciona y aportar soluciones. Con mentalidad de crecimiento, disfruto aprendiendo y profundizando en los temas, tratando de mejorar continuamente. En el trabajo en equipo soy empático y conciliador, y pretendo que todo el mundo se sienta parte del grupo y participe. Entusiasta, disfruto trabajando duro con los compañeros en pro de un objetivo común.</p>
+        </div>
+      </div>
+  </div>
+  <div class="row" style="margin:20px;">
+    <div class="col-lg-3">
+      <div class="team-member" id="Cristina">
+        <img src="/img/about/Cristina.jpg" alt="Cristina"></div></div>
+  <div class="col-lg-9">
+        <div class="info">
+          <h2 class="tittle">Cristina Martín Carrillo</h2>
+          <p> Alumna de la EOI cursando el Máster de Programación Java.
+            Graduada en Educación Primaria con mención en Lenguas Extranjeras por la Universidad de Extremadura en 2015.
+            Soy una persona muy trabajadora, comprometida, organizada y detallista.
+            Tengo una amplia experiencia en educación, telecomunicaciones y ventas. Gracias a mi experiencia, he desarrollado valores como la empatía a través de la cooperación y el trabajo en equipo. Además tengo experiencia en la realización de tareas con tiempos y objetivos marcados a conseguir. Me caracterizo por trabajar con educación y respeto hacia mi trabajo y el de los demás.
+            Mi nueva meta es ampliar mis conocimientos de programación abriendo con ello nuevas fronteras.</p>
+        </div>
+      </div>
+  </div>
+<div class="row" style="margin:20px;">
+      <div class="col-lg-3">
+      <div class="team-member" id="María">
+        <img src="/img/about/Maria.jpeg" alt="María"></div></div>
+      <div class="col-lg-9">
+        <div class="info">
+          <h2 class="tittle">María Álvarez Menéndez</h2>
+          <p>Desde pequeña siempre se me ha visto junto a un balón, un lápiz, unas tijeras y un ordenador, diseñando lo que tenía en la cabeza. Busco mejorar continuamente para poder aportar valor y estar entre los mejores. Intento generar soluciones eficientes, pero también intuitivas y atractivas. Disciplinada y Comprometida, Empática, cuando trabajo en equipo creo consenso, tratando que todos los miembros tengan sentimiento de pertenencia y contribuyan a la consecución del objetivo común.</p>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
 </body>
-
 </html>

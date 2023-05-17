@@ -81,46 +81,8 @@ public class QuestionnaireController {
 
 
 //Cuestionarios
-@GetMapping("/{id}/questionnaire/answer")
-public String showAnswerQuestionnaireForm(@PathVariable("id") Integer id, Model model) {
-    Optional<Questionnaire> questionnaire = questionnaireService.findById(id);
-    if (questionnaire.isPresent()){
-        Questionnaire questionnaire1=questionnaire.get();
-        List<Questions>questions=questionnaire1.getQuestions();
-        model.addAttribute("questionnaire", questionnaire1);
-        for (Questions question:questions
-             ) {
-            QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
-            Answers answers=new Answers();
-            model.addAttribute("questionnaireQuestion",questionQuestionnaire);
-            model.addAttribute("answers",answers);
-            questionQuestionnaire.setQuestionnaireToAnswers(questionnaire1);
-            questionQuestionnaire.setQuestionsToQuestionnaire(question);
-            questionQuestionnaire.setAnswers(answers);
 
-        }
-        return "questionnaire/questionnaire-info";
-    }
-    else {
-        return "questionnaire/questionnaire-form-notfound";
-    }
-}
-    @PostMapping("/{id}/questionnaire/answer")
-    public String showAnswerQuestionnaireFormPost(@ModelAttribute("questionnaire") Questionnaire questionnaire,@ModelAttribute("answers") Answers answers) {
-        QuestionQuestionnaire questionQuestionnaire=new QuestionQuestionnaire();
-        questionQuestionnaire.setQuestionnaireToAnswers(questionnaire);
-        for (Questions question:questionnaire.getQuestions()
-             ) {
-            questionQuestionnaire.setQuestionsToQuestionnaire(question);
-            questionQuestionnaire.setAnswers(answers);
-            answers.setFechaHora(LocalDateTime.now());
-            answers.setQuestionnaire(questionQuestionnaire);
-            answersService.save(answers);
-            questionQuestionnaireService.save(questionQuestionnaire);
 
-        }
-        return "redirect:/respuesta/";
-    }
 
     @GetMapping("/cuestionario/{id}")
     public String verUsuario(@PathVariable("id") Integer id, Model model) {
