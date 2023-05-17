@@ -26,15 +26,17 @@
 
 </head>
 <body>
-<div layout:fragment="cabecera"> <div class="container" style="padding-top:20px;"><h1>Algo ha salido mal.</h1>
-<div layout:fragment="contenido" class="container" style="padding-top:20px;"><h2>Disculpa las molestias, estamos trabajando en ello.</h2>
-
-  <div class="container-fluid" style="padding-bottom:20px;">
-    <img id="errormess" src="/img/robotin4.png" alt="robotin" class="img-fluid">
-    <a id="returnerr" type="button" th:href="@{/}" class="btn" style="border-color:red;color:red;margin-bottom:10px;">Ir a la pantalla de inicio</a>
-
-
+<div layout:fragment="cabecera"> <div class="container" style="padding-top:20px;">
+<div layout:fragment="contenido" class="container" style="padding-top:20px;">
+  <div class="row">
+    <div class="col-lg-6"><img id="errormess" src="/img/robotin4.png" alt="robotin" class="img-fluid"></div>
+    <div class="col-lg-6"><h3>Algo ha salido mal.</h3> <h5>Disculpa las molestias, estamos trabajando en ello.</h5> <a id="returnerr" type="button" th:href="@{/}" class="btn" style="border-color:red;color:red;margin-bottom:10px;">Ir a la pantalla de inicio</a></div>
   </div>
+
+
+
+
+
   
 </div>
 </div>

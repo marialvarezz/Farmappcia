@@ -48,24 +48,26 @@ public class AnswerQuestinnaireController {
                 answersService.save(answers);
                 model.addAttribute("answers",answers);
             } else if (questionnaire.getAnswers().getUser()!=user) {
-                Answers answers=new Answers();
-                QuestionQuestionnaire ques=new QuestionQuestionnaire();
-                questionQuestionnaireService.save(ques);
-                ques.setAnswers(answers);
-                ques.setQuestionnaireToAnswers(questionnaire.getQuestionnaireToAnswers());
-                ques.setQuestionsToQuestionnaire(questionnaire.getQuestionsToQuestionnaire());
-                answers.setQuestionnaire(ques);
-                answers.setUser(user);
+                    Answers answers=new Answers();
+                    QuestionQuestionnaire ques=new QuestionQuestionnaire();
+                    questionQuestionnaireService.save(ques);
 
-                answersService.save(answers);
-                model.addAttribute("answers",answers);
-            }else if (questionnaire.getAnswers().getUser()==user){
-               return  "redirect:/usuario/responder/" + id;
-            }
-            else {
-                return "error";
-            }
-        }
+                    ques.setAnswers(answers);
+                    ques.setQuestionnaireToAnswers(questionnaire.getQuestionnaireToAnswers());
+                    ques.setQuestionsToQuestionnaire(questionnaire.getQuestionsToQuestionnaire());
+                    answers.setQuestionnaire(ques);
+                    answers.setUser(user);
+
+                    answersService.save(answers);
+                    model.addAttribute("answers",answers);
+                }else if (questionnaire.getAnswers().getUser()==user){
+                    return  "redirect:/usuario/responder/" + id;
+                }
+                else {
+                    return "error";
+                }}
+
+
 
         return "redirect:/usuario/responder/" + id;
     }
