@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,8 +24,8 @@ public class QuestionQuestionnaire {
     //Relaciones
 
     //Cruce con answers
-    @OneToOne(mappedBy = "questionnaire")
-    private Answers answers;
+    @OneToMany(mappedBy = "questionnaire")
+    private List<Answers> answers;
 
     //Cruce con questions
     @ManyToOne

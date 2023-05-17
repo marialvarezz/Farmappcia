@@ -266,6 +266,7 @@ public class UserController {
       }else {
          medicinePage=medicineService.findByName(searchFromData.getSearchText(),PageRequest.of(currentPage - 1, pageSize));
       }
+      String filtroLista = "";
       model.addAttribute("filtroLista", searchFromData.getSearchText());
       model.addAttribute("medicinePage", medicinePage);
       int totalPages = medicinePage.getTotalPages();
@@ -306,6 +307,7 @@ public class UserController {
       model.addAttribute("questionnaires",questionnaireService.findAll());
     User user=getUserAuten();
       model.addAttribute("user",user);
+
       //Devuelve el HTML
       return "questionnaire/questionnaire-list";
    }
@@ -353,7 +355,7 @@ public class UserController {
    @PostMapping("/save")
    public String saveProduct(@ModelAttribute("user") User user) {
       userService.guardarUs(user);
-      return "redirect:/usuario/userlist";
+      return "redirect:/usuario/info/";
    }
 
    @PreAuthorize("hasRole('ROLE_ADMIN')")

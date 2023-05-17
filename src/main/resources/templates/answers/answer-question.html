@@ -26,13 +26,14 @@
             <form th:action="@{/usuario/responder/}" th:object="${formulario}" th:method="post">
                 <table>
                     <tr th:each="answer,answerIndex  : ${formulario.answers}">
-                        <div><h5><label th:text="${answer.questionnaire.questionsToQuestionnaire.pregunta}">Pregunta</label></h5></div>
+
+
+                    <div><h5><label th:text="${answer.questionnaire.questionsToQuestionnaire.pregunta}">Pregunta</label></h5></div>
                         <td><input type="hidden" th:field="*{answers[__${answerIndex.index}__].id}" />
                         <input type="hidden" th:field="*{answers[__${answerIndex.index}__].questionnaire}" />
                             <input type="hidden" th:field="*{answers[__${answerIndex.index}__].user}" />
                         </td>
-
-                        <div th:unless="${answer.questionnaire.questionsToQuestionnaire.option1.length()==0}" class="form-check">
+                  <div th:unless="${answer.questionnaire.questionsToQuestionnaire.option1.length()==0}" class="form-check">
                             <input  lass="form-check-input"  type="radio" id="opcion1"  th:value="${answer.questionnaire.questionsToQuestionnaire.option1}" th:field="*{answers[__${answerIndex.index}__].respuesta}"/>
                             <label class="form-check-label" for="opcion1" th:text="${answer.questionnaire.questionsToQuestionnaire.option1}">op1</label>
                         </div>

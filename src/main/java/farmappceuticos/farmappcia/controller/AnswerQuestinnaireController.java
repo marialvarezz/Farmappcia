@@ -32,6 +32,23 @@ public class AnswerQuestinnaireController {
     @Autowired
     UserService1 userService;
 
+    @PostMapping("/usuario/cuestionario/eliminar/{id}")
+    public String eliminarrespCuestionario(@PathVariable("id")Integer id,Model model){
+        Optional<Questionnaire>questions=questionnaireService.findById(id);
+        List<QuestionQuestionnaire> questionnaires=questionQuestionnaireService.findByQuestionnaireToAnswers(questions.get());
+        User user=getAut();
+        for (QuestionQuestionnaire questionnaire:questionnaires) {
+            for (Answers ans:questionnaire.getAnswers()) {
+                if (ans.getUser()==user){
+                    answersService.deleteById(ans.getId());
+                }else {
+                    return "redirect:/usuario/cuestionario/";
+                }
+            }
+        }
+return "redirect:/usuario/cuestionarios/";
+    }
+
     @PostMapping("/usuario/cuestionario/activar/{id}")
     public String activarCuestionario(@PathVariable("id")Integer id,Model model){
         Optional<Questionnaire>questions=questionnaireService.findById(id);
@@ -40,32 +57,42 @@ public class AnswerQuestinnaireController {
         for (QuestionQuestionnaire questionnaire:questionnaires) {
            User user=getAut();
 
-            if(questionnaire.getAnswers()==null){
+            if(questionnaire.getAnswers()==null || questionnaire.getAnswers().isEmpty()){
                 Answers answers=new Answers();
                 answers.setQuestionnaire(questionnaire);
-                questionnaire.setAnswers(answers);
+                List<Answers>answersList=new ArrayList<>();
+                answersList.add(answers);
+                questionnaire.setAnswers(answersList);
                 answers.setUser(user);
+                questionQuestionnaireService.save(questionnaire);
                 answersService.save(answers);
                 model.addAttribute("answers",answers);
-            } else if (questionnaire.getAnswers().getUser()!=user) {
+            } else {
+
+
                     Answers answers=new Answers();
-                    QuestionQuestionnaire ques=new QuestionQuestionnaire();
-                    questionQuestionnaireService.save(ques);
+                answers.setUser(user);
+                for (Answers ans:questionnaire.getAnswers()) {
+                  if (ans.getUser()==answers.getUser()){
+                      answersService.deleteById(ans.getId());
+                  }
+                }
 
-                    ques.setAnswers(answers);
-                    ques.setQuestionnaireToAnswers(questionnaire.getQuestionnaireToAnswers());
-                    ques.setQuestionsToQuestionnaire(questionnaire.getQuestionsToQuestionnaire());
-                    answers.setQuestionnaire(ques);
-                    answers.setUser(user);
+                        List<Answers>answersList=questionnaire.getAnswers();
 
+                    questionnaire.setQuestionnaireToAnswers(questionnaire.getQuestionnaireToAnswers());
+                    questionnaire.setQuestionsToQuestionnaire(questionnaire.getQuestionsToQuestionnaire());
+                    answers.setQuestionnaire(questionnaire);
+                questionQuestionnaireService.save(questionnaire);
+                    answersList.add(answers);
+                    questionnaire.setAnswers(answersList);
+                    questionQuestionnaireService.save(questionnaire);
                     answersService.save(answers);
                     model.addAttribute("answers",answers);
-                }else if (questionnaire.getAnswers().getUser()==user){
-                    return  "redirect:/usuario/responder/" + id;
                 }
-                else {
-                    return "error";
-                }}
+
+
+            }
 
 
 
@@ -75,14 +102,22 @@ public class AnswerQuestinnaireController {
     @GetMapping("/usuario/responder/{id}")
     public String responderPorId(@PathVariable("id")Integer id,Model model){
         Optional<Questionnaire>questionnaire=questionnaireService.findById(id);
+        User user=getAut();
         if (questionnaire.isPresent()) {
             model.addAttribute("questionario",questionnaire.get());
             List<Answers> answersList = new ArrayList<>();
             List<QuestionQuestionnaire> questionnaires = questionQuestionnaireService.findByQuestionnaireToAnswers(questionnaire.get());
             for (QuestionQuestionnaire questionquestionnaire:questionnaires
                  ) {
-            Answers answer=questionquestionnaire.getAnswers();
-                answersList.add(answer);
+                for (Answers answer:questionquestionnaire.getAnswers()
+                     ) {
+                    if (answer.getUser()==getAut()){
+                        answersList.add(answer);
+                    }
+
+                }
+
+
 
             }
             Formulario formulario=new Formulario(answersList);

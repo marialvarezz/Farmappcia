@@ -34,7 +34,7 @@
     <div class="container-fluid" style="padding-bottom:20px;">
         <div class="row">
             <div class="col-lg-6">
-                <form id="tabla1" th:object="${searchFormData}" th:action="@{/usuario/medicamentos}" th:method="post">
+                <form id="tabla1" th:object="${searchFormData}" th:action="@{/usuario/medicamentos/}" th:method="post">
                     <div style="margin-bottom:10px">
                         <label for="nombre" class="form-label">Introduce el nombre del medicamento:</label>
                         <input class="form-control" placeholder="Ibuprofeno..." th:field="*{searchText}"  type="text" name="nombre" id="nombre">
