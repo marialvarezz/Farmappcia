@@ -42,10 +42,9 @@
                                      th:aria-labelledby="'heading-' + ${questionnaire.id}" data-bs-parent="#accordionFlushExample">
                                     <div class="container">
                                         <br>
-                                    <form th:action="@{/usuario/cuestionario/activar/{id}(id=${questionnaire.id})}" th:object="${answers}" method="post">
-                                        <button type="submit" class="btn btn-outline-success">Responder al cuestionario</button>
 
-                                    </form>
+                                        <a th:href="@{/usuario/responder/{id}(id=${questionnaire.id})}" class="btn btn-outline-success">Volver Responder al cuestionario</a>
+
 
                                     <div th:unless="${user.answersToUser == null}">
                                         <div th:each="answer : ${user.answersToUser}">
@@ -53,8 +52,11 @@
                                                  <div th:each="questionnaire2 : ${answer.questionnaire}"
                                                      th:if="${questionnaire2.questionnaireToAnswers == questionnaire}">
                                                     <div style="font-family:century gothic black;" th:text="${questionnaire2.questionsToQuestionnaire.pregunta}">aa</div>
-                                                    <div th:text="${questionnaire2.answers.respuesta}">hola</div>
-
+                                                     <div th:each="ans:${questionnaire2.answers}">
+                                                         <div th:if="${ans.user == user}">
+                                                    <div th:text="${ans.respuesta}">hola</div>
+                                                         </div>
+                                                     </div>
                                                 </div>
                                             </div>
                                             <div th:if="${answer.respuesta == null || answer.respuesta==''}">

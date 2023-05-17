@@ -40,9 +40,13 @@
           <td>
             <div>
             <form th:action="@{/usuario/cuestionario/activar/{id}(id=${questionnaire.id})}" th:object="${answers}" method="post">
-              <button type="submit" class="btn btn-outline-success">Responder</button>
+              <button onclick="return confirm(Si ya ha respondido, tiene que las respuestas)" type="submit" class="btn btn-outline-success">Responder</button>
 
             </form>
+
+                <a  th:href="@{/usuario/responder/{id}(id=${questionnaire.id})}" class="btn btn-outline-success">Editar Respuestas</a>
+
+
           </div>
 
 

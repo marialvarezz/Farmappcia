@@ -38,8 +38,8 @@ public class Answers {
     @OneToMany(mappedBy = "answersToResults" )
     private Set<Results> resultsToAnswers;
 
-    @OneToOne
-    @JoinColumn(name = "questionnaireId", referencedColumnName = "id",unique = true)
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "questionnaireId")
     private QuestionQuestionnaire questionnaire;
 
 

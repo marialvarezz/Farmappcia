@@ -49,6 +49,8 @@
         </tr>
         </thead>
         <tbody>
+        <div th:unless="${user.agendaToUser==null}">
+        <div th:unless="${user.agendaToUser.eventsToAgenda.isEmpty()}">
         <tr th:each="evento : ${user.agendaToUser.eventsToAgenda}">
           <td th:text="${evento.fechahora}">Invoice Code</td>
           <td th:text="${evento.nombre}">1</td>
@@ -66,8 +68,9 @@
                 </span>
           </td>
 
-
+    </div>
         </tr>
+        </div>
         </tbody>
       </table>
     </div>
