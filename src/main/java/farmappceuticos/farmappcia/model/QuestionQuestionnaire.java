@@ -22,7 +22,7 @@ public class QuestionQuestionnaire {
     //Relaciones
 
     //Cruce con answers
-    @OneToOne(mappedBy = "questionnaire",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "questionnaire")
     private Answers answers;
 
     //Cruce con questions
