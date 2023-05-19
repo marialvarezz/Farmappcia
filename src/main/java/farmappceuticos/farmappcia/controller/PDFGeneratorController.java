@@ -245,7 +245,7 @@ public class PDFGeneratorController {
         data.add("\nEmail del tutor: " + user.getTutorMail());
        if(user.getUserDataToUser()!=null){
 
-           data.add("\n\nDatos personales");
+           data.add("\n\nDatos médicos");
            data.add("\nTeléfono: " + user.getUserDataToUser().getTelefono());
            data.add("\nDirección: " + user.getUserDataToUser().getDireccion());
            data.add("\nCiudad: " + user.getUserDataToUser().getCiudad());
